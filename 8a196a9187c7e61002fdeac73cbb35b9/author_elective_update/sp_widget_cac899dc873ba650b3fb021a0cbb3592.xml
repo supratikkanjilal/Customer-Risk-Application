@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($interval, $scope) {
+  var c = this;
+
+  c.loading = true;
+  c.error = null;
+  c.value = null;
+
+  // Map value to visual state
+  c.stateClass = function () {
+    var v = Number(c.value);
+    if (isNaN(v)) return 'kpi--neutral';
+
+    var warn = Number((c.options && c.options.warn_threshold) || NaN);
+    var danger = Number((c.options && c.options.danger_threshold) || NaN);
+
+    if (Number.isFinite(danger) && v >= danger) return 'kpi--danger';
+    if (Number.isFinite(warn) && v >= warn) return 'kpi--warn';
+    return 'kpi--ok';
+  };
+
+  function fetch() {
+    c.loading = true;
+    c.server.update()
+      .then(function (response) {
+        var d = response && response.data ? response.data : {};
+        c.value = d.value;
+        c.error = d.error || null;
+      })
+      .catch(function (e) {
+        c.error = (e && e.message) ? e.message : 'Failed to load KPI value';
+      })
+      .finally(function () {
+        c.loading = false;
+      });
+  }
+
+  // Initial load
+  fetch();
+
+  // Optional auto-refresh
+  var timer;
+  var refreshSec = Number(c.options && c.options.refresh_seconds);
+  if (Number.isFinite(refreshSec) && refreshSec > 0) {
+    timer = $interval(fetch, refreshSec * 1000);
+  }
+
+  // Proper cleanup
+  $scope.$on('$destroy', function () {
+    if (timer) $interval.cancel(timer);
+  });
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.kpi-card {
+  border-radius: 10px;
+  padding: 16px 18px;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  border-left: 6px solid transparent;
+  display: inline-block;
+  min-width: 220px;
+}
+
+.kpi-card__body { display: flex; flex-direction: column; gap: 8px; }
+.kpi-card__header { display: flex; align-items: center; gap: 8px; }
+.kpi-card__icon { font-size: 18px; color: #6b7280; }
+.kpi-card__title { font-weight: 600; color: #111827; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kpi-card__refresh { color: #9ca3af; }
+
+.kpi-card__content { display: flex; align-items: center; min-height: 68px; }
+.kpi-card__loading, .kpi-card__error, .kpi-card__value-wrap { width: 100%; text-align: center; }
+
+.kpi-card__value {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+}
+.kpi-card__unit { font-size: 12px; color: #6b7280; margin-top: 4px; text-transform: uppercase; letter-spacing: .08em; }
+
+/* States */
+.kpi--ok        { border-left-color: #10b981; } /* green */
+.kpi--warn      { border-left-color: #f59e0b; } /* amber */
+.kpi--danger    { border-left-color: #ef4444; } /* red */
+.kpi--neutral   { border-left-color: #9ca3af; }</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>single_score_widget</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Single Score widget</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  data.value = null;
+  data.error = null;
+
+  // Resolve configuration
+  var table = (options.table || '').toString().trim();
+  var field = (options.field || '').toString().trim();
+  var sysIdOpt = (options.sys_id || '').toString().trim();
+
+  // Prefer explicit sys_id option; otherwise read from URL if enabled
+  var sysId = sysIdOpt;
+  if (!sysId && options.read_sys_id_from_url === true) {
+    sysId = $sp.getParameter('sys_id') || $sp.getParameter('sl_sys_id') || '';
+  }
+
+  // Validate required inputs
+  if (!table || !field) {
+    data.error = 'Widget not configured: table/field are required.';
+    return;
+  }
+  if (!sysId) {
+    data.error = 'No record specified (sys_id). Set it in options or pass ?sys_id=... in the URL.';
+    return;
+  }
+
+  try {
+    var gr = new GlideRecord(table);
+    if (!gr.isValid()) {
+      data.error = 'Invalid table: ' + table;
+      return;
+    }
+    if (!gr.get(sysId)) {
+      data.error = 'Record not found for sys_id: ' + sysId;
+      return;
+    }
+    if (!gr.isValidField(field)) {
+      data.error = 'Invalid field: ' + field + ' on table: ' + table;
+      return;
+    }
+
+    // Read the field (assuming it stores a numeric count of days)
+    var raw = gr.getValue(field);
+    var num = parseFloat(raw);
+    if (isNaN(num)) {
+      // If the field is string/decimal, try to coerce; otherwise show as error
+      data.error = 'Field value is not numeric: ' + raw;
+      return;
+    }
+    data.value = Math.round(num); // integer days for display
+  } catch (e) {
+    data.error = 'Unexpected error: ' + e.message;
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 07:51:50</sys_created_on>
+        <sys_id>cac899dc873ba650b3fb021a0cbb3592</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Single Score widget</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sp_widget_cac899dc873ba650b3fb021a0cbb3592</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 07:58:33</sys_updated_on>
+        <template><![CDATA[<div class="kpi-card" ng-class="c.stateClass()"
+     aria-live="polite" aria-busy="{{c.loading}}">
+  <div class="kpi-card__body">
+    <div class="kpi-card__header">
+      <i ng-if="c.options.show_icon" class="fa fa-calendar-check-o kpi-card__icon"
+         aria-hidden="true"></i>
+      <div class="kpi-card__title" title="{{c.options.title || 'KPI'}}">
+        {{ ::(c.options.title || 'KPI') }}
+      </div>
+      <div class="kpi-card__refresh" ng-if="c.options.refresh_seconds > 0">
+        <i class="fa fa-refresh" title="Auto-refresh every {{c.options.refresh_seconds}}s"
+           aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="kpi-card__content">
+      <div ng-if="c.loading" class="kpi-card__loading">
+        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+        <span class="sr-only">Loading</span>
+      </div>
+
+      <div ng-if="!c.loading && c.error" class="kpi-card__error">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        <span>{{ c.error }}</span>
+      </div>
+
+      <div ng-if="!c.loading && !c.error" class="kpi-card__value-wrap">
+        <div class="kpi-card__value">{{ c.value | number:0 }}</div>
+        <div class="kpi-card__unit" ng-if="c.options.unit">{{ ::c.options.unit }}</div>
+      </div>
+    </div>
+  </div>
+]]></template>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sp_widget_cac899dc873ba650b3fb021a0cbb3592</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function ($interval, $scope) {
+  var c = this;
+
+  c.loading = true;
+  c.error = null;
+  c.value = null;
+
+  // Map value to visual state
+  c.stateClass = function () {
+    var v = Number(c.value);
+    if (isNaN(v)) return 'kpi--neutral';
+
+    var warn = Number((c.options &amp;&amp; c.options.warn_threshold) || NaN);
+    var danger = Number((c.options &amp;&amp; c.options.danger_threshold) || NaN);
+
+    if (Number.isFinite(danger) &amp;&amp; v &gt;= danger) return 'kpi--danger';
+    if (Number.isFinite(warn) &amp;&amp; v &gt;= warn) return 'kpi--warn';
+    return 'kpi--ok';
+  };
+
+  function fetch() {
+    c.loading = true;
+    c.server.update()
+      .then(function (response) {
+        var d = response &amp;&amp; response.data ? response.data : {};
+        c.value = d.value;
+        c.error = d.error || null;
+      })
+      .catch(function (e) {
+        c.error = (e &amp;&amp; e.message) ? e.message : 'Failed to load KPI value';
+      })
+      .finally(function () {
+        c.loading = false;
+      });
+  }
+
+  // Initial load
+  fetch();
+
+  // Optional auto-refresh
+  var timer;
+  var refreshSec = Number(c.options &amp;&amp; c.options.refresh_seconds);
+  if (Number.isFinite(refreshSec) &amp;&amp; refreshSec &gt; 0) {
+    timer = $interval(fetch, refreshSec * 1000);
+  }
+
+  // Proper cleanup
+  $scope.$on('$destroy', function () {
+    if (timer) $interval.cancel(timer);
+  });
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.kpi-card {
+  border-radius: 10px;
+  padding: 16px 18px;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  border-left: 6px solid transparent;
+  display: inline-block;
+  min-width: 220px;
+}
+
+.kpi-card__body { display: flex; flex-direction: column; gap: 8px; }
+.kpi-card__header { display: flex; align-items: center; gap: 8px; }
+.kpi-card__icon { font-size: 18px; color: #6b7280; }
+.kpi-card__title { font-weight: 600; color: #111827; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kpi-card__refresh { color: #9ca3af; }
+
+.kpi-card__content { display: flex; align-items: center; min-height: 68px; }
+.kpi-card__loading, .kpi-card__error, .kpi-card__value-wrap { width: 100%; text-align: center; }
+
+.kpi-card__value {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+}
+.kpi-card__unit { font-size: 12px; color: #6b7280; margin-top: 4px; text-transform: uppercase; letter-spacing: .08em; }
+
+/* States */
+.kpi--ok        { border-left-color: #10b981; } /* green */
+.kpi--warn      { border-left-color: #f59e0b; } /* amber */
+.kpi--danger    { border-left-color: #ef4444; } /* red */
+.kpi--neutral   { border-left-color: #9ca3af; }&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;single_score_widget&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;Single Score widget&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+  data.value = null;
+  data.error = null;
+
+  // Resolve configuration
+  var table = (options.table || '').toString().trim();
+  var field = (options.field || '').toString().trim();
+  var sysIdOpt = (options.sys_id || '').toString().trim();
+
+  // Prefer explicit sys_id option; otherwise read from URL if enabled
+  var sysId = sysIdOpt;
+  if (!sysId &amp;&amp; options.read_sys_id_from_url === true) {
+    sysId = $sp.getParameter('sys_id') || $sp.getParameter('sl_sys_id') || '';
+  }
+
+  // Validate required inputs
+  if (!table || !field) {
+    data.error = 'Widget not configured: table/field are required.';
+    return;
+  }
+  if (!sysId) {
+    data.error = 'No record specified (sys_id). Set it in options or pass ?sys_id=... in the URL.';
+    return;
+  }
+
+  try {
+    var gr = new GlideRecord(table);
+    if (!gr.isValid()) {
+      data.error = 'Invalid table: ' + table;
+      return;
+    }
+    if (!gr.get(sysId)) {
+      data.error = 'Record not found for sys_id: ' + sysId;
+      return;
+    }
+    if (!gr.isValidField(field)) {
+      data.error = 'Invalid field: ' + field + ' on table: ' + table;
+      return;
+    }
+
+    // Read the field (assuming it stores a numeric count of days)
+    var raw = gr.getValue(field);
+    var num = parseFloat(raw);
+    if (isNaN(num)) {
+      // If the field is string/decimal, try to coerce; otherwise show as error
+      data.error = 'Field value is not numeric: ' + raw;
+      return;
+    }
+    data.value = Math.round(num); // integer days for display
+  } catch (e) {
+    data.error = 'Unexpected error: ' + e.message;
+  }
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;brijesh.banerjee&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-09-01 07:51:50&lt;/sys_created_on&gt;&lt;sys_id&gt;cac899dc873ba650b3fb021a0cbb3592&lt;/sys_id&gt;&lt;sys_mod_count&gt;3&lt;/sys_mod_count&gt;&lt;sys_name&gt;Single Score widget&lt;/sys_name&gt;&lt;sys_package display_value="Spoke" source="x_cpszo_spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_cac899dc873ba650b3fb021a0cbb3592&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;brijesh.banerjee&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-09-01 07:58:33&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="kpi-card" ng-class="c.stateClass()"
+     aria-live="polite" aria-busy="{{c.loading}}"&gt;
+  &lt;div class="kpi-card__body"&gt;
+    &lt;div class="kpi-card__header"&gt;
+      &lt;i ng-if="c.options.show_icon" class="fa fa-calendar-check-o kpi-card__icon"
+         aria-hidden="true"&gt;&lt;/i&gt;
+      &lt;div class="kpi-card__title" title="{{c.options.title || 'KPI'}}"&gt;
+        {{ ::(c.options.title || 'KPI') }}
+      &lt;/div&gt;
+      &lt;div class="kpi-card__refresh" ng-if="c.options.refresh_seconds &gt; 0"&gt;
+        &lt;i class="fa fa-refresh" title="Auto-refresh every {{c.options.refresh_seconds}}s"
+           aria-hidden="true"&gt;&lt;/i&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="kpi-card__content"&gt;
+      &lt;div ng-if="c.loading" class="kpi-card__loading"&gt;
+        &lt;i class="fa fa-spinner fa-spin" aria-hidden="true"&gt;&lt;/i&gt;
+        &lt;span class="sr-only"&gt;Loading&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;div ng-if="!c.loading &amp;&amp; c.error" class="kpi-card__error"&gt;
+        &lt;i class="fa fa-exclamation-triangle" aria-hidden="true"&gt;&lt;/i&gt;
+        &lt;span&gt;{{ c.error }}&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;div ng-if="!c.loading &amp;&amp; !c.error" class="kpi-card__value-wrap"&gt;
+        &lt;div class="kpi-card__value"&gt;{{ c.value | number:0 }}&lt;/div&gt;
+        &lt;div class="kpi-card__unit" ng-if="c.options.unit"&gt;{{ ::c.options.unit }}&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1399264850</payload_hash>
+        <record_name>Single Score widget</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 07:58:33</sys_created_on>
+        <sys_id>345add14877ba650b3fb021a0cbb35d8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1990448f2e90000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 07:58:33</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>b45add14567ba650f8001ee81463f6d7</update_guid>
+        <update_guid_history>b45add14567ba650f8001ee81463f6d7:1399264850,10b99190577ba650c3c65c5d168ffbfa:951285411,a4399190587ba650865b0324cd6df107:-1118775317,cac855509b7ba650f3894ddb92820f8b:1667408967</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Single Score widget">f87a9154877ba650b3fb021a0cbb3581</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 07:59:06</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>0d4c15868adc46ae86c9592779e28469</sys_id>
+        <sys_metadata>cac899dc873ba650b3fb021a0cbb3592</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Single Score widget</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sp_widget_cac899dc873ba650b3fb021a0cbb3592</sys_update_name>
+        <sys_update_version display_value="sp_widget_cac899dc873ba650b3fb021a0cbb3592">345add14877ba650b3fb021a0cbb35d8</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 07:59:06</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

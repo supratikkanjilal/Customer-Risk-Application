@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="DELETE">
+        <child display_value="Clone Data Table">f9d332e887376a50b3fb021a0cbb35ce</child>
+        <cloned>2025-09-02 09:08:08</cloned>
+        <last_validated>2025-09-02 09:08:08</last_validated>
+        <parent display_value="Data Table with URL Filter">5d8f9dc2936832003706dfa5e57ffb06</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category/&gt;&lt;client_script&gt;&lt;![CDATA[function ($scope, $http, spUtil, $location, spAriaFocusManager) {
+	$scope.$on('data_table.click', function(e, parms){
+		var p = $scope.data.page_id; //No defaulting to 'form' page 
+		if(p) {
+			var s = {id: p, table: parms.table, sys_id: parms.sys_id, view: 'sp'};
+			$location.search(s);
+		}
+		var oid = $location.search().id;
+		var p = $scope.data.page_id || 'form';
+		var s = {id: p, table: parms.table, sys_id: parms.sys_id, view: $scope.data.view};
+		if (oid == p) {
+			s.spa = 1;
+			var t = $location.search();
+			s = angular.extend(t, s);
+			$rootScope.$broadcast('$sp.list.click', s);
+		}
+
+		var newURL = $location.search(s);
+		spAriaFocusManager.navigateToLink(newURL.url());	
+	});
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css/&gt;&lt;data_table&gt;sp_instance_table&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description&gt;Same as Data Table from Instance Definition, supports adding additional filter query&lt;/description&gt;&lt;docs/&gt;&lt;field_list&gt;title,table,filter,maximum_entries,order_direction,glyph,field_list,color,order_by,sp_page,sp_widget.script,sp_widget.client_script,sp_widget.template,sp_widget.css&lt;/field_list&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id/&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link/&gt;&lt;name&gt;Data Table with URL Filter&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles&gt;snc_external,snc_internal&lt;/roles&gt;&lt;script&gt;&lt;![CDATA[(function(){
+	/*  "use strict"; - linter issues */
+	// populate the 'data' object
+	var sp_page = $sp.getValue('sp_page');
+	var pageGR = new GlideRecord('sp_page');
+	pageGR.get(sp_page);
+	data.page_id = pageGR.id.getDisplayValue();
+	$sp.getValues(data);
+	if (data.field_list) {
+		data.fields_array = data.field_list.split(',');	
+	} else {
+		data.field_list = $sp.getListColumns(data.table);
+	}
+
+	if (input) {
+		data.p = input.p;
+		data.o = input.o;
+		data.d = input.d;
+		data.q = input.q;
+	}
+	data.p = data.p || 1;
+	data.o = data.o || $sp.getValue('order_by');
+	data.d = data.d || $sp.getValue('order_direction');
+
+	data.page_index = (data.p - 1);
+	data.window_size = $sp.getValue('maximum_entries') || 10;
+	data.window_start  = (data.page_index * data.window_size);
+	data.window_end = (((data.page_index + 1) * data.window_size));
+	data.filter = $sp.getValue("filter");
+	var filterField = options.filter_field || 'itfm_sb_stmt_def';
+	if(filterField) {
+		var value = $sp.getParameter(filterField);
+		
+		if(value) {
+			var query = filterField + '=' + value;
+			if(data.filter)
+				data.filter = data.filter + '^' + query;
+			else 
+				data.filter = query;
+		}
+	}
+	gs.info('data.filter = ' + data.filter);
+	
+	var gr = new GlideRecordSecure(data.table);
+	if (!gr.isValid()) {
+		data.invalid_table = true;
+		data.table_label = data.table;
+		return;
+	}
+	data.table_label = gr.getLabel();
+	
+	var widgetParams = {
+		table: data.table, 
+		fields: data.field_list,
+		o: data.o,
+		d: data.d,
+		filter: data.filter,
+		window_size: data.window_size,
+		view: 'sp',
+		title: options.title,
+		show_breadcrumbs: true,
+		headerTitle: options.title,
+		useInstanceTitle: true
+	};
+
+	gs.info('widgetParams = ' + JSON.stringify(widgetParams));
+	data.dataTableWidget = $sp.getWidget('widget-data-table', widgetParams);
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2017-01-27 14:39:16&lt;/sys_created_on&gt;&lt;sys_id&gt;5d8f9dc2936832003706dfa5e57ffb06&lt;/sys_id&gt;&lt;sys_mod_count&gt;20&lt;/sys_mod_count&gt;&lt;sys_name&gt;Data Table with URL Filter&lt;/sys_name&gt;&lt;sys_package display_value="Business Planner" source="com.snc.apm.business_planner"&gt;00e9bc908791a91002fdeac73cbb3509&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_5d8f9dc2936832003706dfa5e57ffb06&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;brijesh.banerjee&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-09-01 12:57:02&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div&gt;
+  &lt;div class="alert alert-danger" ng-if="data.invalid_table"&gt;
+    ${Table not defined} '{{data.table_label}}'
+  &lt;/div&gt;
+  &lt;sp-widget ng-if="data.dataTableWidget" widget="data.dataTableWidget"&gt;&lt;/sp-widget&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-02 09:08:08</sys_created_on>
+        <sys_id>7dd332e887376a50b3fb021a0cbb35d2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>f9d332e887376a50b3fb021a0cbb35ce</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_7dd332e887376a50b3fb021a0cbb35d2</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-02 09:08:08</sys_updated_on>
+    </sp_rel_widget_clone>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sp_rel_widget_clone_7dd332e887376a50b3fb021a0cbb35d2</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone"><sp_rel_widget_clone action="INSERT_OR_UPDATE"><child display_value="Clone Data Table">f9d332e887376a50b3fb021a0cbb35ce</child><cloned>2025-09-02 09:08:08</cloned><last_validated>2025-09-02 09:08:08</last_validated><parent display_value="Data Table with URL Filter">5d8f9dc2936832003706dfa5e57ffb06</parent><payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category/&gt;&lt;client_script&gt;&lt;![CDATA[function ($scope, $http, spUtil, $location, spAriaFocusManager) {
+	$scope.$on('data_table.click', function(e, parms){
+		var p = $scope.data.page_id; //No defaulting to 'form' page 
+		if(p) {
+			var s = {id: p, table: parms.table, sys_id: parms.sys_id, view: 'sp'};
+			$location.search(s);
+		}
+		var oid = $location.search().id;
+		var p = $scope.data.page_id || 'form';
+		var s = {id: p, table: parms.table, sys_id: parms.sys_id, view: $scope.data.view};
+		if (oid == p) {
+			s.spa = 1;
+			var t = $location.search();
+			s = angular.extend(t, s);
+			$rootScope.$broadcast('$sp.list.click', s);
+		}
+
+		var newURL = $location.search(s);
+		spAriaFocusManager.navigateToLink(newURL.url());	
+	});
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css/&gt;&lt;data_table&gt;sp_instance_table&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description&gt;Same as Data Table from Instance Definition, supports adding additional filter query&lt;/description&gt;&lt;docs/&gt;&lt;field_list&gt;title,table,filter,maximum_entries,order_direction,glyph,field_list,color,order_by,sp_page,sp_widget.script,sp_widget.client_script,sp_widget.template,sp_widget.css&lt;/field_list&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id/&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link/&gt;&lt;name&gt;Data Table with URL Filter&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles&gt;snc_external,snc_internal&lt;/roles&gt;&lt;script&gt;&lt;![CDATA[(function(){
+	/*  "use strict"; - linter issues */
+	// populate the 'data' object
+	var sp_page = $sp.getValue('sp_page');
+	var pageGR = new GlideRecord('sp_page');
+	pageGR.get(sp_page);
+	data.page_id = pageGR.id.getDisplayValue();
+	$sp.getValues(data);
+	if (data.field_list) {
+		data.fields_array = data.field_list.split(',');	
+	} else {
+		data.field_list = $sp.getListColumns(data.table);
+	}
+
+	if (input) {
+		data.p = input.p;
+		data.o = input.o;
+		data.d = input.d;
+		data.q = input.q;
+	}
+	data.p = data.p || 1;
+	data.o = data.o || $sp.getValue('order_by');
+	data.d = data.d || $sp.getValue('order_direction');
+
+	data.page_index = (data.p - 1);
+	data.window_size = $sp.getValue('maximum_entries') || 10;
+	data.window_start  = (data.page_index * data.window_size);
+	data.window_end = (((data.page_index + 1) * data.window_size));
+	data.filter = $sp.getValue("filter");
+	var filterField = options.filter_field || 'itfm_sb_stmt_def';
+	if(filterField) {
+		var value = $sp.getParameter(filterField);
+		
+		if(value) {
+			var query = filterField + '=' + value;
+			if(data.filter)
+				data.filter = data.filter + '^' + query;
+			else 
+				data.filter = query;
+		}
+	}
+	gs.info('data.filter = ' + data.filter);
+	
+	var gr = new GlideRecordSecure(data.table);
+	if (!gr.isValid()) {
+		data.invalid_table = true;
+		data.table_label = data.table;
+		return;
+	}
+	data.table_label = gr.getLabel();
+	
+	var widgetParams = {
+		table: data.table, 
+		fields: data.field_list,
+		o: data.o,
+		d: data.d,
+		filter: data.filter,
+		window_size: data.window_size,
+		view: 'sp',
+		title: options.title,
+		show_breadcrumbs: true,
+		headerTitle: options.title,
+		useInstanceTitle: true
+	};
+
+	gs.info('widgetParams = ' + JSON.stringify(widgetParams));
+	data.dataTableWidget = $sp.getWidget('widget-data-table', widgetParams);
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2017-01-27 14:39:16&lt;/sys_created_on&gt;&lt;sys_id&gt;5d8f9dc2936832003706dfa5e57ffb06&lt;/sys_id&gt;&lt;sys_mod_count&gt;20&lt;/sys_mod_count&gt;&lt;sys_name&gt;Data Table with URL Filter&lt;/sys_name&gt;&lt;sys_package display_value="Business Planner" source="com.snc.apm.business_planner"&gt;00e9bc908791a91002fdeac73cbb3509&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_5d8f9dc2936832003706dfa5e57ffb06&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;brijesh.banerjee&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-09-01 12:57:02&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div&gt;
+  &lt;div class="alert alert-danger" ng-if="data.invalid_table"&gt;
+    ${Table not defined} '{{data.table_label}}'
+  &lt;/div&gt;
+  &lt;sp-widget ng-if="data.dataTableWidget" widget="data.dataTableWidget"&gt;&lt;/sp-widget&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload><sys_class_name>sp_rel_widget_clone</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-09-02 09:08:08</sys_created_on><sys_id>7dd332e887376a50b3fb021a0cbb35d2</sys_id><sys_mod_count>0</sys_mod_count><sys_name>f9d332e887376a50b3fb021a0cbb35ce</sys_name><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sp_rel_widget_clone_7dd332e887376a50b3fb021a0cbb35d2</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-09-02 09:08:08</sys_updated_on></sp_rel_widget_clone></record_update>]]></payload>
+        <payload_hash>-22317851</payload_hash>
+        <record_name>f9d332e887376a50b3fb021a0cbb35ce</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-02 09:08:08</sys_created_on>
+        <sys_id>71d376e887376a50b3fb021a0cbb35ca</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19909af03980000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-02 09:08:08</sys_updated_on>
+        <type>Widget Clone</type>
+        <update_guid>f1d376e89c376a502afe968aa466b0c9</update_guid>
+        <update_guid_history>f1d376e89c376a502afe968aa466b0c9:-22317851</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 04:13:35</sys_created_on>
+        <sys_db_object display_value="" name="sp_rel_widget_clone">sp_rel_widget_clone</sys_db_object>
+        <sys_id>6430f4c1d2d3401d8823b0940f0c44d1</sys_id>
+        <sys_metadata>7dd332e887376a50b3fb021a0cbb35d2</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>f9d332e887376a50b3fb021a0cbb35ce</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sp_rel_widget_clone_7dd332e887376a50b3fb021a0cbb35d2</sys_update_name>
+        <sys_update_version display_value="sp_rel_widget_clone_7dd332e887376a50b3fb021a0cbb35d2">71d376e887376a50b3fb021a0cbb35ca</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 04:13:35</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

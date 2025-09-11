@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page">
+    <sp_page action="DELETE">
+        <category>custom</category>
+        <css/>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <human_readable_url_structure/>
+        <id>clone_data_table</id>
+        <internal>false</internal>
+        <omit_watcher>false</omit_watcher>
+        <public>false</public>
+        <roles/>
+        <seo_script/>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-02 09:08:08</sys_created_on>
+        <sys_id>79d376e887376a50b3fb021a0cbb35ca</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>clone_data_table</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sp_page_79d376e887376a50b3fb021a0cbb35ca</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-02 09:08:08</sys_updated_on>
+        <title>Clone Data Table - Test Page</title>
+        <use_seo_script>false</use_seo_script>
+    </sp_page>
+    <sys_translated_text action="DELETE" query="documentkey=79d376e887376a50b3fb021a0cbb35ca"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sp_page_79d376e887376a50b3fb021a0cbb35ca</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page"><sp_page action="INSERT_OR_UPDATE"><category>custom</category><css/><draft>false</draft><dynamic_title_structure/><human_readable_url_structure/><id>clone_data_table</id><internal>false</internal><omit_watcher>false</omit_watcher><public>false</public><roles/><seo_script/><short_description/><sys_class_name>sp_page</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-09-02 09:08:08</sys_created_on><sys_id>79d376e887376a50b3fb021a0cbb35ca</sys_id><sys_mod_count>0</sys_mod_count><sys_name>clone_data_table</sys_name><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sp_page_79d376e887376a50b3fb021a0cbb35ca</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-09-02 09:08:08</sys_updated_on><title>Clone Data Table - Test Page</title><use_seo_script>false</use_seo_script></sp_page><sys_translated_text action="delete_multiple" query="documentkey=79d376e887376a50b3fb021a0cbb35ca"/></record_update>]]></payload>
+        <payload_hash>691863098</payload_hash>
+        <record_name>clone_data_table</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-02 09:08:08</sys_created_on>
+        <sys_id>71d376e887376a50b3fb021a0cbb35cd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19909af03c70000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-02 09:08:08</sys_updated_on>
+        <type>Page</type>
+        <update_guid>f1d376e808376a505119d917e277f1cc</update_guid>
+        <update_guid_history>f1d376e808376a505119d917e277f1cc:691863098</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="clone_data_table">902b30ee87f32a90b3fb021a0cbb350b</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-08 05:28:36</sys_created_on>
+        <sys_db_object display_value="" name="sp_page">sp_page</sys_db_object>
+        <sys_id>9fc76b2f880f4d90981f782a642b6c40</sys_id>
+        <sys_metadata>79d376e887376a50b3fb021a0cbb35ca</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>clone_data_table</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sp_page_79d376e887376a50b3fb021a0cbb35ca</sys_update_name>
+        <sys_update_version display_value="sp_page_79d376e887376a50b3fb021a0cbb35ca">71d376e887376a50b3fb021a0cbb35cd</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-08 05:28:36</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

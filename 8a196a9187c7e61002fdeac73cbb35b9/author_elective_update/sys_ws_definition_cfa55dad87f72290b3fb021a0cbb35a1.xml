@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_definition">
+    <sys_ws_definition action="DELETE">
+        <active>true</active>
+        <base_uri>/api/x_cpszo_spoke/relatedlistapi</base_uri>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_version>No active default version</default_version>
+        <doc_link/>
+        <enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl>
+        <is_versioned>false</is_versioned>
+        <name>RelatedListAPI</name>
+        <namespace>x_cpszo_spoke</namespace>
+        <produces>application/json,application/xml,text/xml</produces>
+        <produces_customized>false</produces_customized>
+        <service_id>relatedlistapi</service_id>
+        <short_description/>
+        <sys_class_name>sys_ws_definition</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-05 04:51:08</sys_created_on>
+        <sys_id>cfa55dad87f72290b3fb021a0cbb35a1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>RelatedListAPI</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_ws_definition_cfa55dad87f72290b3fb021a0cbb35a1</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-05 04:51:08</sys_updated_on>
+    </sys_ws_definition>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_ws_definition_cfa55dad87f72290b3fb021a0cbb35a1</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_definition"><sys_ws_definition action="INSERT_OR_UPDATE"><active>true</active><base_uri>/api/x_cpszo_spoke/relatedlistapi</base_uri><consumes>application/json,application/xml,text/xml</consumes><consumes_customized>false</consumes_customized><default_version>No active default version</default_version><doc_link/><enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl><is_versioned>false</is_versioned><name>RelatedListAPI</name><namespace>x_cpszo_spoke</namespace><produces>application/json,application/xml,text/xml</produces><produces_customized>false</produces_customized><service_id>relatedlistapi</service_id><short_description/><sys_class_name>sys_ws_definition</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-09-05 04:51:08</sys_created_on><sys_id>cfa55dad87f72290b3fb021a0cbb35a1</sys_id><sys_mod_count>0</sys_mod_count><sys_name>RelatedListAPI</sys_name><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sys_ws_definition_cfa55dad87f72290b3fb021a0cbb35a1</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-09-05 04:51:08</sys_updated_on></sys_ws_definition></record_update>]]></payload>
+        <payload_hash>647784888</payload_hash>
+        <record_name>RelatedListAPI</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-05 04:51:09</sys_created_on>
+        <sys_id>1ac55dad87f72290b3fb021a0cbb35c7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1991836ce8a0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-05 04:51:09</sys_updated_on>
+        <type>Scripted REST API</type>
+        <update_guid>dac55dad2ef722900f337480c001f0c6</update_guid>
+        <update_guid_history>dac55dad2ef722900f337480c001f0c6:647784888</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-05 05:14:39</sys_created_on>
+        <sys_db_object display_value="" name="sys_ws_definition">sys_ws_definition</sys_db_object>
+        <sys_id>a77fe6c086d64de0942bfa5a67e5b240</sys_id>
+        <sys_metadata>cfa55dad87f72290b3fb021a0cbb35a1</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>RelatedListAPI</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_ws_definition_cfa55dad87f72290b3fb021a0cbb35a1</sys_update_name>
+        <sys_update_version display_value="sys_ws_definition_cfa55dad87f72290b3fb021a0cbb35a1">1ac55dad87f72290b3fb021a0cbb35c7</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-05 05:14:39</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

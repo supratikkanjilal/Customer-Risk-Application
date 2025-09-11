@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ux_page_property">
+    <sys_ux_page_property action="DELETE">
+        <choices/>
+        <description/>
+        <name>chrome_header</name>
+        <page display_value="">63e8469f87e7ea1002fdeac73cbb35c1</page>
+        <required_translations>[]</required_translations>
+        <route display_value="Login">7be8869f8ce7ea101f617fc67910a913</route>
+        <suffix/>
+        <sys_class_name>sys_ux_page_property</sys_class_name>
+        <sys_created_by>system</sys_created_by>
+        <sys_created_on>2025-08-29 08:48:20</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>global</sys_domain_path>
+        <sys_id>ffe8469f07e7ea10b4281919e23927f2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>chrome_header</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_ux_page_property_ffe8469f07e7ea10b4281919e23927f2</sys_update_name>
+        <sys_updated_by>system</sys_updated_by>
+        <sys_updated_on>2025-08-29 08:48:20</sys_updated_on>
+        <type>json</type>
+        <unique_name>x_cpszo_spoke.63e8469f87e7ea1002fdeac73cbb35c1.route.chrome_header.7be8869f8ce7ea101f617fc67910a913</unique_name>
+        <value>{&#13;
+    "privatePage":{&#13;
+       "searchEnabled": false,&#13;
+       "userPrefsEnabled": false,&#13;
+       "menuEnabled": false&#13;
+    },&#13;
+    "publicPage":{&#13;
+       "searchEnabled": false,&#13;
+       "userPrefsEnabled": false,&#13;
+       "menuEnabled": false&#13;
+    }&#13;
+ }</value>
+    </sys_ux_page_property>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_ux_page_property_ffe8469f07e7ea10b4281919e23927f2</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ux_page_property"><sys_ux_page_property action="INSERT_OR_UPDATE"><choices/><description/><name>chrome_header</name><page display_value="">63e8469f87e7ea1002fdeac73cbb35c1</page><required_translations>[]</required_translations><route display_value="Login">7be8869f8ce7ea101f617fc67910a913</route><suffix/><sys_class_name>sys_ux_page_property</sys_class_name><sys_created_by>system</sys_created_by><sys_created_on>2025-08-29 08:48:20</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>global</sys_domain_path><sys_id>ffe8469f07e7ea10b4281919e23927f2</sys_id><sys_mod_count>0</sys_mod_count><sys_name>chrome_header</sys_name><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sys_ux_page_property_ffe8469f07e7ea10b4281919e23927f2</sys_update_name><sys_updated_by>system</sys_updated_by><sys_updated_on>2025-08-29 08:48:20</sys_updated_on><type>json</type><unique_name>x_cpszo_spoke.63e8469f87e7ea1002fdeac73cbb35c1.route.chrome_header.7be8869f8ce7ea101f617fc67910a913</unique_name><value>{&#13;
+    "privatePage":{&#13;
+       "searchEnabled": false,&#13;
+       "userPrefsEnabled": false,&#13;
+       "menuEnabled": false&#13;
+    },&#13;
+    "publicPage":{&#13;
+       "searchEnabled": false,&#13;
+       "userPrefsEnabled": false,&#13;
+       "menuEnabled": false&#13;
+    }&#13;
+ }</value></sys_ux_page_property></record_update>]]></payload>
+        <payload_hash>1477198903</payload_hash>
+        <record_name>chrome_header</record_name>
+        <reverted_from/>
+        <source>cd726a3287022210b3fb021a0cbb356b</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by/>
+        <sys_created_on>2025-06-14 07:48:37</sys_created_on>
+        <sys_id>f45986df87e7ea1002fdeac73cbb356f</sys_id>
+        <sys_mod_count/>
+        <sys_recorded_at>1976d6974080000000</sys_recorded_at>
+        <sys_updated_by/>
+        <sys_updated_on/>
+        <type>UX Page Property</type>
+        <update_guid>b45986df5ce7ea10b292e045d18bea6f</update_guid>
+        <update_guid_history>b45986df5ce7ea10b292e045d18bea6f:1477198903</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>system</sys_created_by>
+        <sys_created_on>2025-08-29 08:49:59</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_page_property">sys_ux_page_property</sys_db_object>
+        <sys_id>0b943e20b47f490c979ae56073bdadc4</sys_id>
+        <sys_metadata>ffe8469f07e7ea10b4281919e23927f2</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>chrome_header</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_ux_page_property_ffe8469f07e7ea10b4281919e23927f2</sys_update_name>
+        <sys_update_version display_value="sys_ux_page_property_ffe8469f07e7ea10b4281919e23927f2">f45986df87e7ea1002fdeac73cbb356f</sys_update_version>
+        <sys_updated_by>system</sys_updated_by>
+        <sys_updated_on>2025-08-29 08:49:59</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

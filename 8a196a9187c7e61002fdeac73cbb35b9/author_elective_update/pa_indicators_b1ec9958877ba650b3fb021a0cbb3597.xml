@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="pa_indicators">
+    <pa_indicators action="DELETE">
+        <aggregate>1</aggregate>
+        <allow_multi_element_aggregation>false</allow_multi_element_aggregation>
+        <benchmarking>false</benchmarking>
+        <calendar>standard</calendar>
+        <calendar_freq/>
+        <collect_breakdown_matrix>false</collect_breakdown_matrix>
+        <collect_records>true</collect_records>
+        <conditions/>
+        <contributor/>
+        <cube display_value="Days Since Last Payment">ed6c9d18877ba650b3fb021a0cbb352a</cube>
+        <data_source/>
+        <default_aggregate/>
+        <default_chart_type>line</default_chart_type>
+        <description>Days Since Last Payment is measured daily as unit .
+The goal for this indicator is to minimize.
+It is the count on data source Days Since Last Payment, which is using the table: 
+x_cpszo_spoke_customer_profile
+with the following conditions:
+Last Payment Date is not empty</description>
+        <direction>1</direction>
+        <display>false</display>
+        <excluded_statistics/>
+        <field/>
+        <forecast_base_periods>2</forecast_base_periods>
+        <forecast_base_start>00000000</forecast_base_start>
+        <forecast_base_type>1</forecast_base_type>
+        <forecast_lower_limit/>
+        <forecast_method>1</forecast_method>
+        <forecast_periods>2</forecast_periods>
+        <forecast_preselect_observations>false</forecast_preselect_observations>
+        <forecast_robust_estimation>false</forecast_robust_estimation>
+        <forecast_upper_limit/>
+        <formula/>
+        <formula_aggregate_whole>false</formula_aggregate_whole>
+        <formula_allow_null>false</formula_allow_null>
+        <frequency>10</frequency>
+        <groups/>
+        <has_managed_indicators>false</has_managed_indicators>
+        <key>false</key>
+        <label/>
+        <linked_indicator/>
+        <live_group_profile/>
+        <managed_breakdown/>
+        <managed_element/>
+        <managing_indicator/>
+        <name>Days Since Last Payment </name>
+        <order/>
+        <override_periods>false</override_periods>
+        <precision>0</precision>
+        <related_breakdowns>0</related_breakdowns>
+        <related_jobs>0</related_jobs>
+        <render_continuous_lines>false</render_continuous_lines>
+        <role_override>false</role_override>
+        <roles/>
+        <score_periods>-1</score_periods>
+        <scores_format>kMGTPE</scores_format>
+        <scores_modified_at/>
+        <script/>
+        <scripted>false</scripted>
+        <show_delta>true</show_delta>
+        <show_realtime_score>false</show_realtime_score>
+        <snapshot_periods>-1</snapshot_periods>
+        <sql_statement/>
+        <sys_class_name>pa_indicators</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 08:10:37</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>b1ec9958877ba650b3fb021a0cbb3597</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Days Since Last Payment </sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>pa_indicators_b1ec9958877ba650b3fb021a0cbb3597</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 08:12:18</sys_updated_on>
+        <type>1</type>
+        <unit display_value="#">17b365e2d7320100ba986f14ce6103ad</unit>
+        <users/>
+        <value_when_nil/>
+        <visible_to>2</visible_to>
+    </pa_indicators>
+    <sys_translated_text action="DELETE" query="documentkey=b1ec9958877ba650b3fb021a0cbb3597"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>pa_indicators_b1ec9958877ba650b3fb021a0cbb3597</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="pa_indicators"><pa_indicators action="INSERT_OR_UPDATE"><aggregate>1</aggregate><allow_multi_element_aggregation>false</allow_multi_element_aggregation><benchmarking>false</benchmarking><calendar>standard</calendar><calendar_freq/><collect_breakdown_matrix>false</collect_breakdown_matrix><collect_records>true</collect_records><conditions/><contributor/><cube display_value="Days Since Last Payment">ed6c9d18877ba650b3fb021a0cbb352a</cube><data_source/><default_aggregate/><default_chart_type>line</default_chart_type><description>Days Since Last Payment is measured daily as unit .
+The goal for this indicator is to minimize.
+It is the count on data source Days Since Last Payment, which is using the table: 
+x_cpszo_spoke_customer_profile
+with the following conditions:
+Last Payment Date is not empty</description><direction>1</direction><display>false</display><excluded_statistics/><field/><forecast_base_periods>2</forecast_base_periods><forecast_base_start>00000000</forecast_base_start><forecast_base_type>1</forecast_base_type><forecast_lower_limit/><forecast_method>1</forecast_method><forecast_periods>2</forecast_periods><forecast_preselect_observations>false</forecast_preselect_observations><forecast_robust_estimation>false</forecast_robust_estimation><forecast_upper_limit/><formula/><formula_aggregate_whole>false</formula_aggregate_whole><formula_allow_null>false</formula_allow_null><frequency>10</frequency><groups/><has_managed_indicators>false</has_managed_indicators><key>false</key><label/><linked_indicator/><live_group_profile/><managed_breakdown/><managed_element/><managing_indicator/><name>Days Since Last Payment </name><order/><override_periods>false</override_periods><precision>0</precision><related_breakdowns>0</related_breakdowns><related_jobs>0</related_jobs><render_continuous_lines>false</render_continuous_lines><role_override>false</role_override><roles/><score_periods>-1</score_periods><scores_format>kMGTPE</scores_format><scores_modified_at/><script/><scripted>false</scripted><show_delta>true</show_delta><show_realtime_score>false</show_realtime_score><snapshot_periods>-1</snapshot_periods><sql_statement/><sys_class_name>pa_indicators</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-09-01 08:10:37</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>b1ec9958877ba650b3fb021a0cbb3597</sys_id><sys_mod_count>2</sys_mod_count><sys_name>Days Since Last Payment </sys_name><sys_overrides/><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>pa_indicators_b1ec9958877ba650b3fb021a0cbb3597</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-09-01 08:12:18</sys_updated_on><type>1</type><unit display_value="#">17b365e2d7320100ba986f14ce6103ad</unit><users/><value_when_nil/><visible_to>2</visible_to></pa_indicators><sys_translated_text action="delete_multiple" query="documentkey=b1ec9958877ba650b3fb021a0cbb3597"/></record_update>]]></payload>
+        <payload_hash>1936648945</payload_hash>
+        <record_name>Days Since Last Payment </record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 08:12:18</sys_created_on>
+        <sys_id>867ddd98877ba650b3fb021a0cbb3556</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>199045587de0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 08:12:18</sys_updated_on>
+        <type>Indicator</type>
+        <update_guid>4a7ddd98897ba650e9c86b9f948ed355</update_guid>
+        <update_guid_history>4a7ddd98897ba650e9c86b9f948ed355:1936648945,691d1598677ba6503054deea033d3f11:-102995493,691d1598817ba650baedb54d710ef50f:-927847540,651d1598bf7ba6504334e2edc0c5c70d:-102995493</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Days Since Last Payment ">2b3ed1d8877ba650b3fb021a0cbb35d1</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 08:15:41</sys_created_on>
+        <sys_db_object display_value="" name="pa_indicators">pa_indicators</sys_db_object>
+        <sys_id>4d00ece6d3fa429c80fe4964fb3c7cc4</sys_id>
+        <sys_metadata>b1ec9958877ba650b3fb021a0cbb3597</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Days Since Last Payment </sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>pa_indicators_b1ec9958877ba650b3fb021a0cbb3597</sys_update_name>
+        <sys_update_version display_value="pa_indicators_b1ec9958877ba650b3fb021a0cbb3597">867ddd98877ba650b3fb021a0cbb3556</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 08:15:41</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_operation">
+    <sys_ws_operation action="DELETE">
+        <active>true</active>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_operation_uri/>
+        <enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl>
+        <http_method>GET</http_method>
+        <name>GetCreditEligiblity</name>
+        <operation_script><![CDATA[// (function process(request, response) {
+//     var customerId = request.queryParams.customer_id;
+
+//     if (!customerId) {
+//         response.setStatus(400);
+//         response.setBody({ error: 'Missing customer_id parameter' });
+//         return;
+//     }
+
+//     gs.info('Looking up customer: ' + customerId);
+
+//     var customerGR = new GlideRecord('x_cpszo_spoke_customer_profile');
+//     customerGR.addQuery('customer_id', customerId);
+//     customerGR.query();
+
+//     if (!customerGR.next()) {
+//         gs.info('Customer not found.');
+//         response.setStatus(404);
+//         response.setBody({ error: 'Customer not found' });
+//         return;
+//     }
+
+//     var customerSysId = customerGR.getUniqueValue();
+//     gs.info('Customer sys_id: ' + customerSysId);
+
+//     var income = Math.floor(Math.random() * 100000) + 30000;
+
+//     var offerGR = new GlideRecord('x_cpszo_spoke_offer_tracker');
+//     offerGR.addQuery('customer_id', customerSysId); // reference match
+//     offerGR.query();
+
+//     if (offerGR.next()) {
+//         var eligible_offer = offerGR.getValue('offer_type');
+//         gs.info('Eligible offer found: ' + eligible_offer);
+//     } else {
+//         gs.info('No offer found for customer.');
+//         var eligible_offer = 'None';
+//     }
+
+//     response.setStatus(200);
+//     response.setBody({
+//         customer_id: customerId,
+//         income: income,
+//         eligible_offer: eligible_offer
+//     });
+// })(request, response);
+
+
+
+(function process(request, response) { 
+
+    var customerId = request.pathParams.customer_id; 
+
+    // Try Offer Tracker as source 
+
+    var gr = new GlideRecord('x_cpszo_spoke_offer_tracker'); 
+
+    if (gr.get('number', customerId)) { 
+
+        var resp = { 
+
+            number: customerId, 
+
+            income: (gr.u_income || Math.floor(Math.random()*100000)).toString(), 
+
+            eligible: gr.offer_type ? true : (Math.random() > 0.5) 
+
+        }; 
+
+        var il = new GlideRecord('x_cpszo_spoke_integration_log'); 
+
+        il.initialize(); 
+
+        il.timestamp = new GlideDateTime(); 
+
+        il.interface = 'Mock CRM GET'; 
+
+        il.payload = JSON.stringify({number: customerId}); 
+
+        il.status = 'OK'; 
+
+        il.response = JSON.stringify(resp); 
+
+        il.insert(); 
+
+ 
+
+        response.setStatus(200); 
+
+        response.setBody(resp); 
+
+    } else { 
+
+        var resp2 = { 
+
+            number: customerId, 
+
+            income: (20000 + Math.floor(Math.random()*80000)).toString(), 
+
+            eligible: Math.random() > 0.3 
+
+        }; 
+
+        var il2 = new GlideRecord('x_cpszo_spoke_integration_log'); 
+
+        il2.initialize(); 
+
+        il2.timestamp = new GlideDateTime(); 
+
+        il2.interface = 'Mock CRM GET'; 
+
+        il2.payload = JSON.stringify({number: customerId}); 
+
+        il2.status = 'Simulated'; 
+
+        il2.response = JSON.stringify(resp2); 
+
+        il2.insert(); 
+
+ 
+
+        response.setStatus(200); 
+
+        response.setBody(resp2); 
+
+    } 
+
+})(request, response); 
+
+
+]]></operation_script>
+        <operation_uri>/api/x_cpszo_spoke/simulate_crm_eligibility/crm_eligibility</operation_uri>
+        <produces>application/json,application/xml,text/xml</produces>
+        <produces_customized>false</produces_customized>
+        <relative_path>/crm_eligibility</relative_path>
+        <request_example/>
+        <requires_acl_authorization>true</requires_acl_authorization>
+        <requires_authentication>true</requires_authentication>
+        <requires_snc_internal_role>true</requires_snc_internal_role>
+        <short_description/>
+        <sys_class_name>sys_ws_operation</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-07-30 11:21:17</sys_created_on>
+        <sys_id>61da8cf587036a10b3fb021a0cbb3500</sys_id>
+        <sys_mod_count>16</sys_mod_count>
+        <sys_name>GetCreditEligiblity</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_ws_operation_61da8cf587036a10b3fb021a0cbb3500</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-09 09:10:08</sys_updated_on>
+        <web_service_definition display_value="SimulateCRMEligibility">ba7a00f587036a10b3fb021a0cbb35b4</web_service_definition>
+        <web_service_version/>
+    </sys_ws_operation>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_ws_operation_61da8cf587036a10b3fb021a0cbb3500</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ws_operation"&gt;&lt;sys_ws_operation action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;consumes&gt;application/json,application/xml,text/xml&lt;/consumes&gt;&lt;consumes_customized&gt;false&lt;/consumes_customized&gt;&lt;default_operation_uri/&gt;&lt;enforce_acl&gt;cf9d01d3e73003009d6247e603f6a990&lt;/enforce_acl&gt;&lt;http_method&gt;GET&lt;/http_method&gt;&lt;name&gt;GetCreditEligiblity&lt;/name&gt;&lt;operation_script&gt;&lt;![CDATA[// (function process(request, response) {
+//     var customerId = request.queryParams.customer_id;
+
+//     if (!customerId) {
+//         response.setStatus(400);
+//         response.setBody({ error: 'Missing customer_id parameter' });
+//         return;
+//     }
+
+//     gs.info('Looking up customer: ' + customerId);
+
+//     var customerGR = new GlideRecord('x_cpszo_spoke_customer_profile');
+//     customerGR.addQuery('customer_id', customerId);
+//     customerGR.query();
+
+//     if (!customerGR.next()) {
+//         gs.info('Customer not found.');
+//         response.setStatus(404);
+//         response.setBody({ error: 'Customer not found' });
+//         return;
+//     }
+
+//     var customerSysId = customerGR.getUniqueValue();
+//     gs.info('Customer sys_id: ' + customerSysId);
+
+//     var income = Math.floor(Math.random() * 100000) + 30000;
+
+//     var offerGR = new GlideRecord('x_cpszo_spoke_offer_tracker');
+//     offerGR.addQuery('customer_id', customerSysId); // reference match
+//     offerGR.query();
+
+//     if (offerGR.next()) {
+//         var eligible_offer = offerGR.getValue('offer_type');
+//         gs.info('Eligible offer found: ' + eligible_offer);
+//     } else {
+//         gs.info('No offer found for customer.');
+//         var eligible_offer = 'None';
+//     }
+
+//     response.setStatus(200);
+//     response.setBody({
+//         customer_id: customerId,
+//         income: income,
+//         eligible_offer: eligible_offer
+//     });
+// })(request, response);
+
+
+
+(function process(request, response) { 
+
+    var customerId = request.pathParams.customer_id; 
+
+    // Try Offer Tracker as source 
+
+    var gr = new GlideRecord('x_cpszo_spoke_offer_tracker'); 
+
+    if (gr.get('number', customerId)) { 
+
+        var resp = { 
+
+            number: customerId, 
+
+            income: (gr.u_income || Math.floor(Math.random()*100000)).toString(), 
+
+            eligible: gr.offer_type ? true : (Math.random() &gt; 0.5) 
+
+        }; 
+
+        var il = new GlideRecord('x_cpszo_spoke_integration_log'); 
+
+        il.initialize(); 
+
+        il.timestamp = new GlideDateTime(); 
+
+        il.interface = 'Mock CRM GET'; 
+
+        il.payload = JSON.stringify({number: customerId}); 
+
+        il.status = 'OK'; 
+
+        il.response = JSON.stringify(resp); 
+
+        il.insert(); 
+
+ 
+
+        response.setStatus(200); 
+
+        response.setBody(resp); 
+
+    } else { 
+
+        var resp2 = { 
+
+            number: customerId, 
+
+            income: (20000 + Math.floor(Math.random()*80000)).toString(), 
+
+            eligible: Math.random() &gt; 0.3 
+
+        }; 
+
+        var il2 = new GlideRecord('x_cpszo_spoke_integration_log'); 
+
+        il2.initialize(); 
+
+        il2.timestamp = new GlideDateTime(); 
+
+        il2.interface = 'Mock CRM GET'; 
+
+        il2.payload = JSON.stringify({number: customerId}); 
+
+        il2.status = 'Simulated'; 
+
+        il2.response = JSON.stringify(resp2); 
+
+        il2.insert(); 
+
+ 
+
+        response.setStatus(200); 
+
+        response.setBody(resp2); 
+
+    } 
+
+})(request, response); 
+
+
+]]&gt;&lt;/operation_script&gt;&lt;operation_uri&gt;/api/x_cpszo_spoke/simulate_crm_eligibility/crm_eligibility&lt;/operation_uri&gt;&lt;produces&gt;application/json,application/xml,text/xml&lt;/produces&gt;&lt;produces_customized&gt;false&lt;/produces_customized&gt;&lt;relative_path&gt;/crm_eligibility&lt;/relative_path&gt;&lt;request_example/&gt;&lt;requires_acl_authorization&gt;true&lt;/requires_acl_authorization&gt;&lt;requires_authentication&gt;true&lt;/requires_authentication&gt;&lt;requires_snc_internal_role&gt;true&lt;/requires_snc_internal_role&gt;&lt;short_description/&gt;&lt;sys_class_name&gt;sys_ws_operation&lt;/sys_class_name&gt;&lt;sys_created_by&gt;brijesh.banerjee&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-07-30 11:21:17&lt;/sys_created_on&gt;&lt;sys_id&gt;61da8cf587036a10b3fb021a0cbb3500&lt;/sys_id&gt;&lt;sys_mod_count&gt;16&lt;/sys_mod_count&gt;&lt;sys_name&gt;GetCreditEligiblity&lt;/sys_name&gt;&lt;sys_package display_value="Spoke" source="x_cpszo_spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ws_operation_61da8cf587036a10b3fb021a0cbb3500&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;brijesh.banerjee&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-09-09 09:10:08&lt;/sys_updated_on&gt;&lt;web_service_definition display_value="SimulateCRMEligibility"&gt;ba7a00f587036a10b3fb021a0cbb35b4&lt;/web_service_definition&gt;&lt;web_service_version/&gt;&lt;/sys_ws_operation&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1598582493</payload_hash>
+        <record_name>GetCreditEligiblity</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-09 09:10:08</sys_created_on>
+        <sys_id>9b67fe3a87f3ea90b3fb021a0cbb3500</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1992dbd5c8c0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-09 09:10:08</sys_updated_on>
+        <type>Scripted REST Resource</type>
+        <update_guid>5f67be3ac7f3ea903f64a6ae89d13cff</update_guid>
+        <update_guid_history>5f67be3ac7f3ea903f64a6ae89d13cff:1598582493,3c91aebe2d33ea90f17844378e1b6e7d:-1817044429,5ac618c0929b6a504b314fe5a1c6f050:-2069204238,f4f01848505b6a504fabb33a9b4c4ba0:598517769,8c2b40cc191b6a505812abbdf427c99f:-1849727123,23bac44c651b6a5003b83b7d8e850f67:950319368,f3b9004c301b6a50236a27b20d4baa90:-1907412992,be28f0063a83ea108b5392fb1f99f1f1:622226045,d7195c71ed836a10652b714208f39ab1:-1043802818,9f4818fddf436a103d05d52aa42ea837:-1406302545,12b7d4fd1d436a10ee6c9e5060f56a99:-527258106,4a07187d4b436a10f993a22c0a61e66b:1545288286,6fe59cb979436a1053ee049b4092ab45:941413380,42c4d879d0436a10f8e5362775aaf3e4:1527919652,3ae398393a436a10d8989330a37487b8:-516021774,2a6fc8fddb036a1029221ea5d9700b76:708051416,204c04b942036a10acf7fe9890289a71:-214677550</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-09 09:13:15</sys_created_on>
+        <sys_db_object display_value="" name="sys_ws_operation">sys_ws_operation</sys_db_object>
+        <sys_id>853c89b1b4c4450a9b93b07ad394af24</sys_id>
+        <sys_metadata>61da8cf587036a10b3fb021a0cbb3500</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>GetCreditEligiblity</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_ws_operation_61da8cf587036a10b3fb021a0cbb3500</sys_update_name>
+        <sys_update_version display_value="sys_ws_operation_61da8cf587036a10b3fb021a0cbb3500">9b67fe3a87f3ea90b3fb021a0cbb3500</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-09 09:13:15</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

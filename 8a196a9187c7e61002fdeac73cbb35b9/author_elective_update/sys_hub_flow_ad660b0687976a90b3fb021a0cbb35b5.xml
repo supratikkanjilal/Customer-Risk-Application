@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_hub_flow">
+    <sys_hub_flow action="DELETE">
+        <access>public</access>
+        <acls/>
+        <active>false</active>
+        <annotation/>
+        <attributes>labelCacheCleanUpExecuted=true</attributes>
+        <authored_on_release_version>25000</authored_on_release_version>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category/>
+        <compiler_build/>
+        <copied_from/>
+        <copied_from_name/>
+        <description/>
+        <display_name_after_preview/>
+        <flow_priority>MEDIUM</flow_priority>
+        <generation_source/>
+        <internal_name>scheduled_reminder</internal_name>
+        <label_cache>null</label_cache>
+        <latest_snapshot/>
+        <master_snapshot/>
+        <name>Scheduled Reminder</name>
+        <natlang/>
+        <outputs/>
+        <pre_compiled>false</pre_compiled>
+        <remote_trigger_id/>
+        <run_as>user</run_as>
+        <run_with_roles/>
+        <sc_callable>false</sc_callable>
+        <show_draft_actions>false</show_draft_actions>
+        <show_triggered_flows>false</show_triggered_flows>
+        <status>draft</status>
+        <substatus/>
+        <sys_class_name>sys_hub_flow</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-13 05:48:43</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>ad660b0687976a90b3fb021a0cbb35b5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Scheduled Reminder</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_hub_flow_ad660b0687976a90b3fb021a0cbb35b5</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-13 05:48:43</sys_updated_on>
+        <type>flow</type>
+    </sys_hub_flow>
+    <sys_translated_text action="DELETE" query="documentkey=ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_variable_value action="DELETE" query="document_key=ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_hub_trigger_instance action="DELETE" query="flow=ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_hub_flow_stage action="DELETE" query="flow=ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_flow_cat_variable_model action="DELETE" query="id=ad660b0687976a90b3fb021a0cbb35b5^sys_idNOT INa9660b0687976a90b3fb021a0cbb35b6"/>
+    <sys_flow_cat_variable_model action="DELETE">
+        <id>ad660b0687976a90b3fb021a0cbb35b5</id>
+        <name>Scheduled Reminder</name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-13 05:48:43</sys_created_on>
+        <sys_id>a9660b0687976a90b3fb021a0cbb35b6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-13 05:48:43</sys_updated_on>
+    </sys_flow_cat_variable_model>
+    <sys_flow_cat_variable action="DELETE" query="flow_catalog_model=a9660b0687976a90b3fb021a0cbb35b6"/>
+    <sys_hub_flow_input action="DELETE" query="model=ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_hub_flow_output action="DELETE" query="model=ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_hub_alias_mapping action="DELETE" query="source_id=ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_hub_action_instance action="DELETE" query="flow=ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_hub_sub_flow_instance action="DELETE" query="flow=ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_hub_flow_logic action="DELETE" query="flow=ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_hub_pill_compound action="DELETE" query="attached_to=ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_hub_flow_variable action="DELETE" query="model=ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_documentation action="DELETE" query="name=var__m_sys_hub_flow_input_ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_choice action="DELETE" query="name=var__m_sys_hub_flow_input_ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_documentation action="DELETE" query="name=var__m_sys_hub_flow_output_ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_choice action="DELETE" query="name=var__m_sys_hub_flow_output_ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_flow_trigger_plan action="DELETE" query="plan_id=ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_flow_subflow_plan action="DELETE" query="plan_id=ad660b0687976a90b3fb021a0cbb35b5"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_hub_flow_ad660b0687976a90b3fb021a0cbb35b5</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_hub_flow"><sys_hub_flow action="INSERT_OR_UPDATE"><access>public</access><acls/><active>false</active><annotation/><attributes>labelCacheCleanUpExecuted=true</attributes><authored_on_release_version>25000</authored_on_release_version><callable_by_client_api>false</callable_by_client_api><category/><compiler_build/><copied_from/><copied_from_name/><description/><display_name_after_preview/><flow_priority>MEDIUM</flow_priority><generation_source/><internal_name>scheduled_reminder</internal_name><label_cache>null</label_cache><latest_snapshot/><master_snapshot/><name>Scheduled Reminder</name><natlang/><outputs/><pre_compiled>false</pre_compiled><remote_trigger_id/><run_as>user</run_as><run_with_roles/><sc_callable>false</sc_callable><show_draft_actions>false</show_draft_actions><show_triggered_flows>false</show_triggered_flows><status>draft</status><substatus/><sys_class_name>sys_hub_flow</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-08-13 05:48:43</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>ad660b0687976a90b3fb021a0cbb35b5</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Scheduled Reminder</sys_name><sys_overrides/><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sys_hub_flow_ad660b0687976a90b3fb021a0cbb35b5</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-08-13 05:48:43</sys_updated_on><type>flow</type></sys_hub_flow><sys_translated_text action="delete_multiple" query="documentkey=ad660b0687976a90b3fb021a0cbb35b5"/><sys_variable_value action="delete_multiple" query="document_key=ad660b0687976a90b3fb021a0cbb35b5"/><sys_hub_trigger_instance action="delete_multiple" query="flow=ad660b0687976a90b3fb021a0cbb35b5"/><sys_hub_flow_stage action="delete_multiple" query="flow=ad660b0687976a90b3fb021a0cbb35b5"/><sys_flow_cat_variable_model action="delete_multiple" query="id=ad660b0687976a90b3fb021a0cbb35b5^sys_idNOT INa9660b0687976a90b3fb021a0cbb35b6"/><sys_flow_cat_variable_model action="INSERT_OR_UPDATE"><id>ad660b0687976a90b3fb021a0cbb35b5</id><name>Scheduled Reminder</name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-08-13 05:48:43</sys_created_on><sys_id>a9660b0687976a90b3fb021a0cbb35b6</sys_id><sys_mod_count>0</sys_mod_count><sys_scope/><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-08-13 05:48:43</sys_updated_on></sys_flow_cat_variable_model><sys_flow_cat_variable action="delete_multiple" query="flow_catalog_model=a9660b0687976a90b3fb021a0cbb35b6"/><sys_hub_flow_input action="delete_multiple" query="model=ad660b0687976a90b3fb021a0cbb35b5"/><sys_hub_flow_output action="delete_multiple" query="model=ad660b0687976a90b3fb021a0cbb35b5"/><sys_hub_alias_mapping action="delete_multiple" query="source_id=ad660b0687976a90b3fb021a0cbb35b5"/><sys_hub_action_instance action="delete_multiple" query="flow=ad660b0687976a90b3fb021a0cbb35b5"/><sys_hub_sub_flow_instance action="delete_multiple" query="flow=ad660b0687976a90b3fb021a0cbb35b5"/><sys_hub_flow_logic action="delete_multiple" query="flow=ad660b0687976a90b3fb021a0cbb35b5"/><sys_hub_pill_compound action="delete_multiple" query="attached_to=ad660b0687976a90b3fb021a0cbb35b5"/><sys_hub_flow_variable action="delete_multiple" query="model=ad660b0687976a90b3fb021a0cbb35b5"/><sys_documentation action="delete_multiple" query="name=var__m_sys_hub_flow_input_ad660b0687976a90b3fb021a0cbb35b5"/><sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_input_ad660b0687976a90b3fb021a0cbb35b5"/><sys_documentation action="delete_multiple" query="name=var__m_sys_hub_flow_output_ad660b0687976a90b3fb021a0cbb35b5"/><sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_output_ad660b0687976a90b3fb021a0cbb35b5"/><sys_flow_trigger_plan action="delete_multiple" query="plan_id=ad660b0687976a90b3fb021a0cbb35b5"/><sys_flow_subflow_plan action="delete_multiple" query="plan_id=ad660b0687976a90b3fb021a0cbb35b5"/></record_update>]]></payload>
+        <payload_hash>61655676</payload_hash>
+        <record_name>Scheduled Reminder</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-13 05:48:43</sys_created_on>
+        <sys_id>a5660b0687976a90b3fb021a0cbb35bc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>198a1f940660000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-13 05:48:43</sys_updated_on>
+        <type>Flow</type>
+        <update_guid>e5660b06c5976a9099cf55018d720cbb</update_guid>
+        <update_guid_history>e5660b06c5976a9099cf55018d720cbb:61655676</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-13 06:05:15</sys_created_on>
+        <sys_db_object display_value="" name="sys_hub_flow">sys_hub_flow</sys_db_object>
+        <sys_id>c5dbc4716d5148d8b73d30bd2dd7cb90</sys_id>
+        <sys_metadata>ad660b0687976a90b3fb021a0cbb35b5</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Scheduled Reminder</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_hub_flow_ad660b0687976a90b3fb021a0cbb35b5</sys_update_name>
+        <sys_update_version display_value="sys_hub_flow_ad660b0687976a90b3fb021a0cbb35b5">a5660b0687976a90b3fb021a0cbb35bc</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-13 06:05:15</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

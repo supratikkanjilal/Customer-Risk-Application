@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_app_config">
+    <sys_ux_app_config action="DELETE">
+        <active>true</active>
+        <custom_icon/>
+        <default_route_type/>
+        <description/>
+        <disable_auto_reflow>false</disable_auto_reflow>
+        <encode_query_string>false</encode_query_string>
+        <icon/>
+        <landing_path>home</landing_path>
+        <name>Credit Ops Workspace </name>
+        <prefetch_limits/>
+        <sys_class_name>sys_ux_app_config</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-28 06:55:56</sys_created_on>
+        <sys_id>18a5a84b87e32e10b3fb021a0cbb354e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Credit Ops Workspace </sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_ux_app_config_18a5a84b87e32e10b3fb021a0cbb354e</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-28 06:55:56</sys_updated_on>
+    </sys_ux_app_config>
+    <sys_translated_text action="DELETE" query="documentkey=18a5a84b87e32e10b3fb021a0cbb354e"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_ux_app_config_18a5a84b87e32e10b3fb021a0cbb354e</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_app_config"><sys_ux_app_config action="INSERT_OR_UPDATE"><active>true</active><custom_icon/><default_route_type/><description/><disable_auto_reflow>false</disable_auto_reflow><encode_query_string>false</encode_query_string><icon/><landing_path>home</landing_path><name>Credit Ops Workspace </name><prefetch_limits/><sys_class_name>sys_ux_app_config</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-08-28 06:55:56</sys_created_on><sys_id>18a5a84b87e32e10b3fb021a0cbb354e</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Credit Ops Workspace </sys_name><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sys_ux_app_config_18a5a84b87e32e10b3fb021a0cbb354e</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-08-28 06:55:56</sys_updated_on></sys_ux_app_config><sys_translated_text action="delete_multiple" query="documentkey=18a5a84b87e32e10b3fb021a0cbb354e"/></record_update>]]></payload>
+        <payload_hash>842955158</payload_hash>
+        <record_name>Credit Ops Workspace </record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-28 06:55:56</sys_created_on>
+        <sys_id>98a5a84b87e32e10b3fb021a0cbb3551</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>198ef762db20000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-28 06:55:56</sys_updated_on>
+        <type>UX App Configuration</type>
+        <update_guid>1ca5a84b44e32e1086cf769b5f00a250</update_guid>
+        <update_guid_history>1ca5a84b44e32e1086cf769b5f00a250:842955158</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-29 07:51:22</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_app_config">sys_ux_app_config</sys_db_object>
+        <sys_id>295c57b6e6b741abb7d9bce5db501041</sys_id>
+        <sys_metadata>18a5a84b87e32e10b3fb021a0cbb354e</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Credit Ops Workspace </sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_ux_app_config_18a5a84b87e32e10b3fb021a0cbb354e</sys_update_name>
+        <sys_update_version display_value="sys_ux_app_config_18a5a84b87e32e10b3fb021a0cbb354e">98a5a84b87e32e10b3fb021a0cbb3551</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-29 07:51:22</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

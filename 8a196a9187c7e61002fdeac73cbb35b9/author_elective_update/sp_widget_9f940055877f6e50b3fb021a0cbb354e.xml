@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($scope, $location, $timeout) {
+  'use strict';
+
+  function getSysIdFromUrl() {
+    try {
+      var q = $location.search() || {};
+      return q.sys_id || q.id || q.record || null;
+    } catch (e) {
+      console.error('[Customer Widget] getSysIdFromUrl error:', e);
+      return null;
+    }
+  }
+
+  function refresh(sys_id) {
+    if (!sys_id) return;
+    console.log('[Customer Widget] refresh -> sys_id:', sys_id);
+    $scope.data.loading = true;
+    $scope.server.update({ sys_id: sys_id })
+      .then(function (rsp) {
+        console.log('[Customer Widget] server.update OK', rsp && rsp.data && rsp.data.data);
+      })
+      .catch(function (err) {
+        console.error('[Customer Widget] server.update FAILED', err);
+      })
+      .finally(function () { $scope.data.loading = false; });
+  }
+
+  var lastSysId = null;
+  function maybeRefresh(sys_id) {
+    if (sys_id && sys_id !== lastSysId) {
+      lastSysId = sys_id;
+      refresh(sys_id);
+    }
+  }
+
+  function sysIdFromPayload(payload) {
+    if (!payload) return null;
+    return payload.sys_id
+      || payload.row_id
+      || (payload.row && payload.row.sys_id)
+      || (payload.record && payload.record.sys_id)
+      || (payload.item && payload.item.sys_id)
+      || null;
+  }
+
+  function handleRowSelect(payload) {
+    console.log('[Customer Widget] row click payload:', payload);
+    var id = sysIdFromPayload(payload);
+    if (!id) return;
+    var q = $location.search() || {};
+    if (q.sys_id !== id) $location.search('sys_id', id);
+    maybeRefresh(id);
+  }
+
+  // Initial from URL
+  $timeout(function () {
+    var initial = getSysIdFromUrl();
+    console.log('[Customer Widget] initial sys_id from URL:', initial);
+    maybeRefresh(initial);
+  }, 0);
+
+  // Listen to various possible events from the OOB table
+  $scope.$on('sp.list.click', function (evt, payload) { handleRowSelect(payload); });
+  $scope.$on('data_table.row.click', function (evt, payload) { handleRowSelect(payload); });
+  $scope.$on('table.row.click', function (evt, payload) { handleRowSelect(payload); });
+
+  // React to URL changes (back/forward or deep-links)
+  $scope.$watch(function () { 
+    try { return ($location.search() || {}).sys_id; }
+    catch (e) { console.error('[Customer Widget] $watch error:', e); return null; }
+  }, function (nv, ov) {
+    if (nv !== ov) {
+      console.log('[Customer Widget] URL sys_id changed:', nv);
+      maybeRefresh(nv);
+    }
+  });
+
+  // Optional: custom event from other widgets
+  $scope.$on('customer.selected', function (evt, payload) {
+    handleRowSelect(payload);
+  });
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>customer_related_list</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Customer Related List</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function () {
+  'use strict';
+
+  data.loading = true;
+  data.errors = [];
+  data.debug = { used: {} };
+
+  // ---------- CONFIG ----------
+  var CONFIG = {
+    customer: {
+      table: 'x_cpszo_spoke_customer_profile',
+      numberField: 'number' // API name of the Number field on the customer profile table
+    },
+    // 'auto' will try sys_id via reference first, then fall back to number
+    joinMode: 'auto',
+
+    // Related tables
+    offers: {
+      table: 'x_cpszo_spoke_offer_tracker',
+      // If you already know the exact fields, fill them to override auto-detect:
+      joinFieldSysId: '',      // e.g., 'customer' or 'customer_profile'
+      joinFieldNumber: '',     // e.g., 'customer_number'
+      fields: ['delinquency_status','offer_status','acceptance_date','installment_amount'],
+      order: 'sys_updated_on',
+      limit: 10
+    },
+    reminders: {
+      table: 'x_cpszo_spoke_reminder_log',
+      joinFieldSysId: '',
+      joinFieldNumber: '',
+      fields: ['last_contact_date','preferred_channel','reminder_message','reminder_schedule','reminder_type'],
+      order: 'remind_at',
+      limit: 10
+    },
+    notifications: {
+      table: 'x_cpszo_spoke_notification_preview',
+      joinFieldSysId: '',
+      joinFieldNumber: '',
+      fields: ['message','channel','sent_at','status'],
+      order: 'sent_at',
+      limit: 10
+    },
+    integrations: {
+      table: 'x_cpszo_spoke_integration_log',
+      joinFieldSysId: '',
+      joinFieldNumber: '',
+      fields: ['interface','response','status','timestamp','payload'],
+      order: 'timestamp',
+      limit: 10
+    }
+  };
+  // ----------------------------
+
+  // Read selection (from client or URL)
+  var selectedSysId  = (input && input.sys_id)   || $sp.getParameter('sys_id')   || '';
+  var selectedNumber = (input && input.number)   || $sp.getParameter('number')   || '';
+
+  function loadCustomerBySysId(sysId) {
+    if (!sysId) return null;
+    var c = new GlideRecordSecure(CONFIG.customer.table);
+    if (!c.isValid()) { data.errors.push('Invalid customer table: ' + CONFIG.customer.table); return null; }
+    return c.get(sysId) ? c : null;
+  }
+
+  function getLatestCustomer() {
+    var c = new GlideRecordSecure(CONFIG.customer.table);
+    if (!c.isValid()) { data.errors.push('Invalid customer table: ' + CONFIG.customer.table); return null; }
+    c.orderByDesc('sys_updated_on'); c.setLimit(1); c.query();
+    return c.next() ? c : null;
+  }
+
+  // Default selection if nothing provided
+  if (!selectedSysId && !selectedNumber) {
+    var latest = getLatestCustomer();
+    if (latest) {
+      selectedSysId  = latest.getUniqueValue();
+      selectedNumber = latest.getValue(CONFIG.customer.numberField);
+    } else {
+      data.errors.push('No customer records found to default to.');
+    }
+  } else if (selectedSysId && !selectedNumber) {
+    var rec = loadCustomerBySysId(selectedSysId);
+    if (rec) selectedNumber = rec.getValue(CONFIG.customer.numberField);
+  }
+
+  data.sys_id  = selectedSysId || '';
+  data.number  = selectedNumber || '';
+  data.debug.selected = { sys_id: data.sys_id, number: data.number };
+
+  // ---- helpers to introspect dictionary (may require access to sys_dictionary) ----
+  function findReferenceFields(table, targetTable) {
+    var fields = [];
+    try {
+      var d = new GlideRecord('sys_dictionary');
+      d.addQuery('name', table);
+      d.addQuery('internal_type', 'IN', 'reference,glide_list');
+      d.addQuery('reference', targetTable);
+      d.query();
+      while (d.next()) fields.push(d.element.toString());
+    } catch (e) {
+      data.errors.push('Dictionary probe failed for ' + table + ': ' + e);
+    }
+    return fields;
+  }
+
+  function findLikelyNumberFields(table) {
+    // Heuristics for number-based joins
+    var candidates = [];
+    try {
+      var d = new GlideRecord('sys_dictionary');
+      d.addQuery('name', table);
+      d.addQuery('internal_type', 'string'); // short string fields
+      d.query();
+      while (d.next()) {
+        var name = d.element.toString();
+        var low = name.toLowerCase();
+        if (low.indexOf('customer') !== -1 && (low.indexOf('number') !== -1 || low.indexOf('no') !== -1 || low.indexOf('id') !== -1)) {
+          candidates.push(name);
+        }
+      }
+    } catch (e) {
+      data.errors.push('Dictionary probe (number fields) failed for ' + table + ': ' + e);
+    }
+    // Also consider a few common names even if not string-only
+    ['customer_number','cust_number','customer_no','cust_no','customerid','customer_id','profile_number'].forEach(function(n){
+      if (candidates.indexOf(n) === -1) candidates.push(n);
+    });
+    return candidates;
+  }
+
+  function addOrderAndLimit(gr, def) {
+    if (def.order) gr.orderByDesc(def.order);
+    if (def.limit) gr.setLimit(def.limit);
+  }
+
+  function fetchList(def, key) {
+    var out = [];
+    var gr = new GlideRecordSecure(def.table);
+    if (!gr.isValid()) { data.errors.push('Invalid table: ' + def.table); return out; }
+
+    var used = { mode: null, field: null };
+
+    // 1) Explicit sys_id field in config
+    if ((CONFIG.joinMode === 'sys_id' || CONFIG.joinMode === 'auto') && selectedSysId) {
+      var field = def.joinFieldSysId;
+      if (field && gr.isValidField(field)) {
+        gr.addQuery(field, selectedSysId);
+        used.mode = 'sys_id(explicit)'; used.field = field;
+      }
+    }
+
+    // 2) Auto-detect sys_id reference field
+    if (!used.mode && (CONFIG.joinMode === 'sys_id' || CONFIG.joinMode === 'auto') && selectedSysId) {
+      var refFields = findReferenceFields(def.table, CONFIG.customer.table);
+      if (refFields.length) {
+        // Prefer the most obvious names if multiple found
+        var preferredOrder = ['customer_profile','customer','u_customer_profile','u_customer'];
+        var chosen = refFields[0];
+        for (var i=0;i<preferredOrder.length;i++) {
+          if (refFields.indexOf(preferredOrder[i]) !== -1) { chosen = preferredOrder[i]; break; }
+        }
+        gr.addQuery(chosen, selectedSysId);
+        used.mode = 'sys_id(auto)'; used.field = chosen;
+      }
+    }
+
+    // 3) Explicit number field in config
+    if (!used.mode && (CONFIG.joinMode === 'number' || CONFIG.joinMode === 'auto') && selectedNumber) {
+      var nf = def.joinFieldNumber;
+      if (nf && gr.isValidField(nf)) {
+        gr.addQuery(nf, selectedNumber);
+        used.mode = 'number(explicit)'; used.field = nf;
+      }
+    }
+
+    // 4) Auto-detect number field (heuristics)
+    if (!used.mode && (CONFIG.joinMode === 'number' || CONFIG.joinMode === 'auto') && selectedNumber) {
+      var likely = findLikelyNumberFields(def.table);
+      for (var j=0;j<likely.length;j++) {
+        var lf = likely[j];
+        if (gr.isValidField(lf)) {
+          gr.addQuery(lf, selectedNumber);
+          used.mode = 'number(auto)'; used.field = lf;
+          break;
+        }
+      }
+    }
+
+    if (!used.mode) {
+      data.errors.push('No valid join built for ' + def.table + '. Provide joinFieldSysId or joinFieldNumber, or ensure a reference/number field exists.');
+      data.debug.used[key] = used;
+      return out;
+    }
+
+    addOrderAndLimit(gr, def);
+    gr.query();
+    while (gr.next()) {
+      var row = { sys_id: gr.getUniqueValue() };
+      var flds = def.fields || [];
+      for (var i=0;i<flds.length;i++) {
+        var f = flds[i];
+        if (!gr.isValidField(f)) continue;
+        row[f] = gr.getDisplayValue(f);
+        row[f + '__value'] = gr.getValue(f);
+      }
+      out.push(row);
+    }
+
+    data.debug.used[key] = used;
+    return out;
+  }
+
+  data.offers        = fetchList(CONFIG.offers,        'offers');
+  data.reminders     = fetchList(CONFIG.reminders,     'reminders');
+  data.notifications = fetchList(CONFIG.notifications, 'notifications');
+  data.integrations  = fetchList(CONFIG.integrations,  'integrations');
+
+  data.debug.joinMode = CONFIG.joinMode;
+  data.debug.counts = {
+    offers: (data.offers||[]).length,
+    reminders: (data.reminders||[]).length,
+    notifications: (data.notifications||[]).length,
+    integrations: (data.integrations||[]).length
+  };
+
+  data.loading = false;
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 04:18:01</sys_created_on>
+        <sys_id>9f940055877f6e50b3fb021a0cbb354e</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>Customer Related List</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sp_widget_9f940055877f6e50b3fb021a0cbb354e</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 04:37:12</sys_updated_on>
+        <template><![CDATA[<div>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#offers">Offers</a></li>
+    <li><a data-toggle="tab" href="#reminders">Reminders</a></li>
+    <li><a data-toggle="tab" href="#notifications">Notifications</a></li>
+    <li><a data-toggle="tab" href="#integrations">Integrations</a></li>
+  </ul>
+ 
+  <div class="tab-content">
+    <div id="offers" class="tab-pane fade in active">
+      <h4>Offers</h4>
+      <table class="table table-striped">
+        <tr><th>Acceptance Date</th><th>Offer Status</th><th>Delinquency Status</th><th>Installment Amount</th></tr>
+        <tr ng-repeat="o in data.offers">
+                <td>{{o.offer_status}}</td>
+                <td>{{o.delinquency_status}}</td>
+                <td>{{o.acceptance_date}}</td>
+                <td>{{o.installment_amount}}</td>
+              </tr>
+
+      </table>
+    </div>
+ 
+    <div id="reminders" class="tab-pane fade">
+      <h4>Reminders</h4>
+      <table class="table table-striped">
+        <tr><th>Preferred Channel</th><th>Reminder Type</th><th>Reminder Schedule</th><th>Reminder Message</th><th>Last Contact Date</th></tr>
+        <tr ng-repeat="r in data.reminders">
+          			<td>{{r.reminder_schedule}}</td>
+          			<td>{{r.reminder_type}}</td>
+          			<td>{{r.reminder_message}}</td>
+         				<td>{{r.last_contact_date}}</td>
+                <td>{{r.preferred_channel}}</td>
+              </tr>
+
+      </table>
+    </div>
+ 
+    <div id="notifications" class="tab-pane fade">
+      <h4>Notifications</h4>
+      <table class="table table-striped">
+        <tr><th>Channel</th><th>Message</th><th>Sent At</th><th>Status</th></tr>
+        <tr ng-repeat="n in data.notifications">
+                <td>{{n.message}}</td>
+                <td>{{n.channel}}</td>
+                <td>{{n.sent_at}}</td>
+                <td>{{n.status}}</td>
+              </tr>
+
+      </table>
+    </div>
+ 
+    <div id="integrations" class="tab-pane fade">
+      <h4>Integrations</h4>
+      <table class="table table-striped">
+        <tr><th>Status</th><th>Timestamp</th><th>Response</th><th>Payload</th><th>Interface</th><th>Status</th></tr>
+        <tr ng-repeat="i in data.integrations">
+                <td>{{i.timestamp}}</td>
+                <td>{{i.response}}</td>
+                <td>{{i.payload}}</td>
+           			<td>{{i.interface}}</td>
+           			<td>{{i.status}}</td>
+
+      </table>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sp_widget_9f940055877f6e50b3fb021a0cbb354e</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function ($scope, $location, $timeout) {
+  'use strict';
+
+  function getSysIdFromUrl() {
+    try {
+      var q = $location.search() || {};
+      return q.sys_id || q.id || q.record || null;
+    } catch (e) {
+      console.error('[Customer Widget] getSysIdFromUrl error:', e);
+      return null;
+    }
+  }
+
+  function refresh(sys_id) {
+    if (!sys_id) return;
+    console.log('[Customer Widget] refresh -&gt; sys_id:', sys_id);
+    $scope.data.loading = true;
+    $scope.server.update({ sys_id: sys_id })
+      .then(function (rsp) {
+        console.log('[Customer Widget] server.update OK', rsp &amp;&amp; rsp.data &amp;&amp; rsp.data.data);
+      })
+      .catch(function (err) {
+        console.error('[Customer Widget] server.update FAILED', err);
+      })
+      .finally(function () { $scope.data.loading = false; });
+  }
+
+  var lastSysId = null;
+  function maybeRefresh(sys_id) {
+    if (sys_id &amp;&amp; sys_id !== lastSysId) {
+      lastSysId = sys_id;
+      refresh(sys_id);
+    }
+  }
+
+  function sysIdFromPayload(payload) {
+    if (!payload) return null;
+    return payload.sys_id
+      || payload.row_id
+      || (payload.row &amp;&amp; payload.row.sys_id)
+      || (payload.record &amp;&amp; payload.record.sys_id)
+      || (payload.item &amp;&amp; payload.item.sys_id)
+      || null;
+  }
+
+  function handleRowSelect(payload) {
+    console.log('[Customer Widget] row click payload:', payload);
+    var id = sysIdFromPayload(payload);
+    if (!id) return;
+    var q = $location.search() || {};
+    if (q.sys_id !== id) $location.search('sys_id', id);
+    maybeRefresh(id);
+  }
+
+  // Initial from URL
+  $timeout(function () {
+    var initial = getSysIdFromUrl();
+    console.log('[Customer Widget] initial sys_id from URL:', initial);
+    maybeRefresh(initial);
+  }, 0);
+
+  // Listen to various possible events from the OOB table
+  $scope.$on('sp.list.click', function (evt, payload) { handleRowSelect(payload); });
+  $scope.$on('data_table.row.click', function (evt, payload) { handleRowSelect(payload); });
+  $scope.$on('table.row.click', function (evt, payload) { handleRowSelect(payload); });
+
+  // React to URL changes (back/forward or deep-links)
+  $scope.$watch(function () { 
+    try { return ($location.search() || {}).sys_id; }
+    catch (e) { console.error('[Customer Widget] $watch error:', e); return null; }
+  }, function (nv, ov) {
+    if (nv !== ov) {
+      console.log('[Customer Widget] URL sys_id changed:', nv);
+      maybeRefresh(nv);
+    }
+  });
+
+  // Optional: custom event from other widgets
+  $scope.$on('customer.selected', function (evt, payload) {
+    handleRowSelect(payload);
+  });
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css/&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;customer_related_list&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;Customer Related List&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function () {
+  'use strict';
+
+  data.loading = true;
+  data.errors = [];
+  data.debug = { used: {} };
+
+  // ---------- CONFIG ----------
+  var CONFIG = {
+    customer: {
+      table: 'x_cpszo_spoke_customer_profile',
+      numberField: 'number' // API name of the Number field on the customer profile table
+    },
+    // 'auto' will try sys_id via reference first, then fall back to number
+    joinMode: 'auto',
+
+    // Related tables
+    offers: {
+      table: 'x_cpszo_spoke_offer_tracker',
+      // If you already know the exact fields, fill them to override auto-detect:
+      joinFieldSysId: '',      // e.g., 'customer' or 'customer_profile'
+      joinFieldNumber: '',     // e.g., 'customer_number'
+      fields: ['delinquency_status','offer_status','acceptance_date','installment_amount'],
+      order: 'sys_updated_on',
+      limit: 10
+    },
+    reminders: {
+      table: 'x_cpszo_spoke_reminder_log',
+      joinFieldSysId: '',
+      joinFieldNumber: '',
+      fields: ['last_contact_date','preferred_channel','reminder_message','reminder_schedule','reminder_type'],
+      order: 'remind_at',
+      limit: 10
+    },
+    notifications: {
+      table: 'x_cpszo_spoke_notification_preview',
+      joinFieldSysId: '',
+      joinFieldNumber: '',
+      fields: ['message','channel','sent_at','status'],
+      order: 'sent_at',
+      limit: 10
+    },
+    integrations: {
+      table: 'x_cpszo_spoke_integration_log',
+      joinFieldSysId: '',
+      joinFieldNumber: '',
+      fields: ['interface','response','status','timestamp','payload'],
+      order: 'timestamp',
+      limit: 10
+    }
+  };
+  // ----------------------------
+
+  // Read selection (from client or URL)
+  var selectedSysId  = (input &amp;&amp; input.sys_id)   || $sp.getParameter('sys_id')   || '';
+  var selectedNumber = (input &amp;&amp; input.number)   || $sp.getParameter('number')   || '';
+
+  function loadCustomerBySysId(sysId) {
+    if (!sysId) return null;
+    var c = new GlideRecordSecure(CONFIG.customer.table);
+    if (!c.isValid()) { data.errors.push('Invalid customer table: ' + CONFIG.customer.table); return null; }
+    return c.get(sysId) ? c : null;
+  }
+
+  function getLatestCustomer() {
+    var c = new GlideRecordSecure(CONFIG.customer.table);
+    if (!c.isValid()) { data.errors.push('Invalid customer table: ' + CONFIG.customer.table); return null; }
+    c.orderByDesc('sys_updated_on'); c.setLimit(1); c.query();
+    return c.next() ? c : null;
+  }
+
+  // Default selection if nothing provided
+  if (!selectedSysId &amp;&amp; !selectedNumber) {
+    var latest = getLatestCustomer();
+    if (latest) {
+      selectedSysId  = latest.getUniqueValue();
+      selectedNumber = latest.getValue(CONFIG.customer.numberField);
+    } else {
+      data.errors.push('No customer records found to default to.');
+    }
+  } else if (selectedSysId &amp;&amp; !selectedNumber) {
+    var rec = loadCustomerBySysId(selectedSysId);
+    if (rec) selectedNumber = rec.getValue(CONFIG.customer.numberField);
+  }
+
+  data.sys_id  = selectedSysId || '';
+  data.number  = selectedNumber || '';
+  data.debug.selected = { sys_id: data.sys_id, number: data.number };
+
+  // ---- helpers to introspect dictionary (may require access to sys_dictionary) ----
+  function findReferenceFields(table, targetTable) {
+    var fields = [];
+    try {
+      var d = new GlideRecord('sys_dictionary');
+      d.addQuery('name', table);
+      d.addQuery('internal_type', 'IN', 'reference,glide_list');
+      d.addQuery('reference', targetTable);
+      d.query();
+      while (d.next()) fields.push(d.element.toString());
+    } catch (e) {
+      data.errors.push('Dictionary probe failed for ' + table + ': ' + e);
+    }
+    return fields;
+  }
+
+  function findLikelyNumberFields(table) {
+    // Heuristics for number-based joins
+    var candidates = [];
+    try {
+      var d = new GlideRecord('sys_dictionary');
+      d.addQuery('name', table);
+      d.addQuery('internal_type', 'string'); // short string fields
+      d.query();
+      while (d.next()) {
+        var name = d.element.toString();
+        var low = name.toLowerCase();
+        if (low.indexOf('customer') !== -1 &amp;&amp; (low.indexOf('number') !== -1 || low.indexOf('no') !== -1 || low.indexOf('id') !== -1)) {
+          candidates.push(name);
+        }
+      }
+    } catch (e) {
+      data.errors.push('Dictionary probe (number fields) failed for ' + table + ': ' + e);
+    }
+    // Also consider a few common names even if not string-only
+    ['customer_number','cust_number','customer_no','cust_no','customerid','customer_id','profile_number'].forEach(function(n){
+      if (candidates.indexOf(n) === -1) candidates.push(n);
+    });
+    return candidates;
+  }
+
+  function addOrderAndLimit(gr, def) {
+    if (def.order) gr.orderByDesc(def.order);
+    if (def.limit) gr.setLimit(def.limit);
+  }
+
+  function fetchList(def, key) {
+    var out = [];
+    var gr = new GlideRecordSecure(def.table);
+    if (!gr.isValid()) { data.errors.push('Invalid table: ' + def.table); return out; }
+
+    var used = { mode: null, field: null };
+
+    // 1) Explicit sys_id field in config
+    if ((CONFIG.joinMode === 'sys_id' || CONFIG.joinMode === 'auto') &amp;&amp; selectedSysId) {
+      var field = def.joinFieldSysId;
+      if (field &amp;&amp; gr.isValidField(field)) {
+        gr.addQuery(field, selectedSysId);
+        used.mode = 'sys_id(explicit)'; used.field = field;
+      }
+    }
+
+    // 2) Auto-detect sys_id reference field
+    if (!used.mode &amp;&amp; (CONFIG.joinMode === 'sys_id' || CONFIG.joinMode === 'auto') &amp;&amp; selectedSysId) {
+      var refFields = findReferenceFields(def.table, CONFIG.customer.table);
+      if (refFields.length) {
+        // Prefer the most obvious names if multiple found
+        var preferredOrder = ['customer_profile','customer','u_customer_profile','u_customer'];
+        var chosen = refFields[0];
+        for (var i=0;i&lt;preferredOrder.length;i++) {
+          if (refFields.indexOf(preferredOrder[i]) !== -1) { chosen = preferredOrder[i]; break; }
+        }
+        gr.addQuery(chosen, selectedSysId);
+        used.mode = 'sys_id(auto)'; used.field = chosen;
+      }
+    }
+
+    // 3) Explicit number field in config
+    if (!used.mode &amp;&amp; (CONFIG.joinMode === 'number' || CONFIG.joinMode === 'auto') &amp;&amp; selectedNumber) {
+      var nf = def.joinFieldNumber;
+      if (nf &amp;&amp; gr.isValidField(nf)) {
+        gr.addQuery(nf, selectedNumber);
+        used.mode = 'number(explicit)'; used.field = nf;
+      }
+    }
+
+    // 4) Auto-detect number field (heuristics)
+    if (!used.mode &amp;&amp; (CONFIG.joinMode === 'number' || CONFIG.joinMode === 'auto') &amp;&amp; selectedNumber) {
+      var likely = findLikelyNumberFields(def.table);
+      for (var j=0;j&lt;likely.length;j++) {
+        var lf = likely[j];
+        if (gr.isValidField(lf)) {
+          gr.addQuery(lf, selectedNumber);
+          used.mode = 'number(auto)'; used.field = lf;
+          break;
+        }
+      }
+    }
+
+    if (!used.mode) {
+      data.errors.push('No valid join built for ' + def.table + '. Provide joinFieldSysId or joinFieldNumber, or ensure a reference/number field exists.');
+      data.debug.used[key] = used;
+      return out;
+    }
+
+    addOrderAndLimit(gr, def);
+    gr.query();
+    while (gr.next()) {
+      var row = { sys_id: gr.getUniqueValue() };
+      var flds = def.fields || [];
+      for (var i=0;i&lt;flds.length;i++) {
+        var f = flds[i];
+        if (!gr.isValidField(f)) continue;
+        row[f] = gr.getDisplayValue(f);
+        row[f + '__value'] = gr.getValue(f);
+      }
+      out.push(row);
+    }
+
+    data.debug.used[key] = used;
+    return out;
+  }
+
+  data.offers        = fetchList(CONFIG.offers,        'offers');
+  data.reminders     = fetchList(CONFIG.reminders,     'reminders');
+  data.notifications = fetchList(CONFIG.notifications, 'notifications');
+  data.integrations  = fetchList(CONFIG.integrations,  'integrations');
+
+  data.debug.joinMode = CONFIG.joinMode;
+  data.debug.counts = {
+    offers: (data.offers||[]).length,
+    reminders: (data.reminders||[]).length,
+    notifications: (data.notifications||[]).length,
+    integrations: (data.integrations||[]).length
+  };
+
+  data.loading = false;
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;brijesh.banerjee&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-09-04 04:18:01&lt;/sys_created_on&gt;&lt;sys_id&gt;9f940055877f6e50b3fb021a0cbb354e&lt;/sys_id&gt;&lt;sys_mod_count&gt;4&lt;/sys_mod_count&gt;&lt;sys_name&gt;Customer Related List&lt;/sys_name&gt;&lt;sys_package display_value="Spoke" source="x_cpszo_spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_9f940055877f6e50b3fb021a0cbb354e&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;brijesh.banerjee&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-09-04 04:37:12&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div&gt;
+  &lt;ul class="nav nav-tabs"&gt;
+    &lt;li class="active"&gt;&lt;a data-toggle="tab" href="#offers"&gt;Offers&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a data-toggle="tab" href="#reminders"&gt;Reminders&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a data-toggle="tab" href="#notifications"&gt;Notifications&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a data-toggle="tab" href="#integrations"&gt;Integrations&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+ 
+  &lt;div class="tab-content"&gt;
+    &lt;div id="offers" class="tab-pane fade in active"&gt;
+      &lt;h4&gt;Offers&lt;/h4&gt;
+      &lt;table class="table table-striped"&gt;
+        &lt;tr&gt;&lt;th&gt;Acceptance Date&lt;/th&gt;&lt;th&gt;Offer Status&lt;/th&gt;&lt;th&gt;Delinquency Status&lt;/th&gt;&lt;th&gt;Installment Amount&lt;/th&gt;&lt;/tr&gt;
+        &lt;tr ng-repeat="o in data.offers"&gt;
+                &lt;td&gt;{{o.offer_status}}&lt;/td&gt;
+                &lt;td&gt;{{o.delinquency_status}}&lt;/td&gt;
+                &lt;td&gt;{{o.acceptance_date}}&lt;/td&gt;
+                &lt;td&gt;{{o.installment_amount}}&lt;/td&gt;
+              &lt;/tr&gt;
+
+      &lt;/table&gt;
+    &lt;/div&gt;
+ 
+    &lt;div id="reminders" class="tab-pane fade"&gt;
+      &lt;h4&gt;Reminders&lt;/h4&gt;
+      &lt;table class="table table-striped"&gt;
+        &lt;tr&gt;&lt;th&gt;Preferred Channel&lt;/th&gt;&lt;th&gt;Reminder Type&lt;/th&gt;&lt;th&gt;Reminder Schedule&lt;/th&gt;&lt;th&gt;Reminder Message&lt;/th&gt;&lt;th&gt;Last Contact Date&lt;/th&gt;&lt;/tr&gt;
+        &lt;tr ng-repeat="r in data.reminders"&gt;
+          			&lt;td&gt;{{r.reminder_schedule}}&lt;/td&gt;
+          			&lt;td&gt;{{r.reminder_type}}&lt;/td&gt;
+          			&lt;td&gt;{{r.reminder_message}}&lt;/td&gt;
+         				&lt;td&gt;{{r.last_contact_date}}&lt;/td&gt;
+                &lt;td&gt;{{r.preferred_channel}}&lt;/td&gt;
+              &lt;/tr&gt;
+
+      &lt;/table&gt;
+    &lt;/div&gt;
+ 
+    &lt;div id="notifications" class="tab-pane fade"&gt;
+      &lt;h4&gt;Notifications&lt;/h4&gt;
+      &lt;table class="table table-striped"&gt;
+        &lt;tr&gt;&lt;th&gt;Channel&lt;/th&gt;&lt;th&gt;Message&lt;/th&gt;&lt;th&gt;Sent At&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;/tr&gt;
+        &lt;tr ng-repeat="n in data.notifications"&gt;
+                &lt;td&gt;{{n.message}}&lt;/td&gt;
+                &lt;td&gt;{{n.channel}}&lt;/td&gt;
+                &lt;td&gt;{{n.sent_at}}&lt;/td&gt;
+                &lt;td&gt;{{n.status}}&lt;/td&gt;
+              &lt;/tr&gt;
+
+      &lt;/table&gt;
+    &lt;/div&gt;
+ 
+    &lt;div id="integrations" class="tab-pane fade"&gt;
+      &lt;h4&gt;Integrations&lt;/h4&gt;
+      &lt;table class="table table-striped"&gt;
+        &lt;tr&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th&gt;Timestamp&lt;/th&gt;&lt;th&gt;Response&lt;/th&gt;&lt;th&gt;Payload&lt;/th&gt;&lt;th&gt;Interface&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;/tr&gt;
+        &lt;tr ng-repeat="i in data.integrations"&gt;
+                &lt;td&gt;{{i.timestamp}}&lt;/td&gt;
+                &lt;td&gt;{{i.response}}&lt;/td&gt;
+                &lt;td&gt;{{i.payload}}&lt;/td&gt;
+           			&lt;td&gt;{{i.interface}}&lt;/td&gt;
+           			&lt;td&gt;{{i.status}}&lt;/td&gt;
+
+      &lt;/table&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1921072957</payload_hash>
+        <record_name>Customer Related List</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 04:37:12</sys_created_on>
+        <sys_id>10098cd9877f6e50b3fb021a0cbb35f0</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1991303adc50000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 04:37:12</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>54098cd93f7f6e5003cca05589ff39ef</update_guid>
+        <update_guid_history>54098cd93f7f6e5003cca05589ff39ef:1921072957,4496c459b67f6e5031e5e37e51bddf08:84017389,1ae588191e7f6e50e483a7170fcca452:-554471705,a41504d5ef7f6e50b02590a5e6f3a5b9:-554612849,5f940055607f6e50621736d51076b450:-1314764888</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Customer Related List">fc598cdd877f6e50b3fb021a0cbb350e</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 04:38:36</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>4db229661d0d469ca2aa61f712c9fa90</sys_id>
+        <sys_metadata>9f940055877f6e50b3fb021a0cbb354e</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Customer Related List</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sp_widget_9f940055877f6e50b3fb021a0cbb354e</sys_update_name>
+        <sys_update_version display_value="sp_widget_9f940055877f6e50b3fb021a0cbb354e">10098cd9877f6e50b3fb021a0cbb35f0</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 04:38:36</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

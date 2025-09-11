@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $location, spModal) {
+  $scope.formData = {
+    number: $location.search().number || '',
+    offer_status: 'Pending'
+  };
+
+  $scope.errorMessage = '';
+  $scope.successMessage = '';
+
+  $scope.submitOffer = function() {
+    var amt = parseFloat($scope.formData.installment_amount);
+    if (!amt || amt <= 0) {
+      $scope.errorMessage = 'Installment amount must be greater than 0.';
+      return;
+    }
+
+    var gr = new GlideRecord('x_cpszo_spoke_offer_tracker');
+    gr.initialize();
+    gr.number = $scope.formData.number;
+    gr.installment_amount = amt;
+    gr.offer_status = $scope.formData.offer_status;
+    if ($scope.formData.offer_status === 'Accepted') {
+      gr.acceptance_date = new GlideDateTime();
+    }
+    gr.insert();
+
+    $scope.successMessage = 'Offer created successfully.';
+    $scope.errorMessage = '';
+  };
+}
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.hidden-widget{
+  display: none
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>offer_plan_form_modal</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>offer_plan_form_modal</name>
+        <option_schema/>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 06:19:27</sys_created_on>
+        <sys_id>ce602c9d8733ae50b3fb021a0cbb35b8</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>offer_plan_form_modal</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sp_widget_ce602c9d8733ae50b3fb021a0cbb35b8</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-08 03:50:33</sys_updated_on>
+        <template><![CDATA[<div class="modal-header">
+  <h3 class="modal-title">Create Offer</h3>
+</div>
+<div class="modal-body">
+  <!-- Include your form fields here -->
+  <form>
+    <!-- Example field -->
+    <label>Offer Name</label>
+    <input type="text" class="form-control" ng-model="offer.name">
+    <!-- Add more fields as needed -->
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-success" ng-click="submitOffer()">Submit</button>
+  <button class="btn btn-secondary" ng-click="cancel()">Cancel</button>
+</div>
+]]></template>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sp_widget_ce602c9d8733ae50b3fb021a0cbb35b8</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function($scope, $location, spModal) {
+  $scope.formData = {
+    number: $location.search().number || '',
+    offer_status: 'Pending'
+  };
+
+  $scope.errorMessage = '';
+  $scope.successMessage = '';
+
+  $scope.submitOffer = function() {
+    var amt = parseFloat($scope.formData.installment_amount);
+    if (!amt || amt &lt;= 0) {
+      $scope.errorMessage = 'Installment amount must be greater than 0.';
+      return;
+    }
+
+    var gr = new GlideRecord('x_cpszo_spoke_offer_tracker');
+    gr.initialize();
+    gr.number = $scope.formData.number;
+    gr.installment_amount = amt;
+    gr.offer_status = $scope.formData.offer_status;
+    if ($scope.formData.offer_status === 'Accepted') {
+      gr.acceptance_date = new GlideDateTime();
+    }
+    gr.insert();
+
+    $scope.successMessage = 'Offer created successfully.';
+    $scope.errorMessage = '';
+  };
+}
+]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.hidden-widget{
+  display: none
+}&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;offer_plan_form_modal&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;offer_plan_form_modal&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;true&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;brijesh.banerjee&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-09-04 06:19:27&lt;/sys_created_on&gt;&lt;sys_id&gt;ce602c9d8733ae50b3fb021a0cbb35b8&lt;/sys_id&gt;&lt;sys_mod_count&gt;7&lt;/sys_mod_count&gt;&lt;sys_name&gt;offer_plan_form_modal&lt;/sys_name&gt;&lt;sys_package display_value="Spoke" source="x_cpszo_spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_ce602c9d8733ae50b3fb021a0cbb35b8&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;brijesh.banerjee&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-09-08 03:50:33&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="modal-header"&gt;
+  &lt;h3 class="modal-title"&gt;Create Offer&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div class="modal-body"&gt;
+  &lt;!-- Include your form fields here --&gt;
+  &lt;form&gt;
+    &lt;!-- Example field --&gt;
+    &lt;label&gt;Offer Name&lt;/label&gt;
+    &lt;input type="text" class="form-control" ng-model="offer.name"&gt;
+    &lt;!-- Add more fields as needed --&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;div class="modal-footer"&gt;
+  &lt;button class="btn btn-success" ng-click="submitOffer()"&gt;Submit&lt;/button&gt;
+  &lt;button class="btn btn-secondary" ng-click="cancel()"&gt;Cancel&lt;/button&gt;
+&lt;/div&gt;
+]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1506452409</payload_hash>
+        <record_name>offer_plan_form_modal</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-08 03:50:33</sys_created_on>
+        <sys_id>9cb464ea87332a90b3fb021a0cbb3543</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19927726afd0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-08 03:50:33</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>90b464ea6a332a90c3500eedaaa49543</update_guid>
+        <update_guid_history>90b464ea6a332a90c3500eedaaa49543:1506452409,5bdeec952ef3ae5081071ca62801205b:-1036833442,194b681d74b3ae5031687e120d89d414:-2129572878,9f052c592773ae507611ab86f093271f:1231238263,21046c950573ae50319daaebd78f5b2b:-1652130431,5fe024119a73ae501c248ca7513c4c79:-1433323396,1980e0ddda33ae50a6bb0965ee93fbf7:1023769267,8a60ec9d5133ae5098bc4c7f7fa4461c:-16447814</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="offer_plan_form_modal">a009ec2687732a90b3fb021a0cbb3538</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-08 04:09:26</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>cc62e22ac7b74fe3a4469901c7105291</sys_id>
+        <sys_metadata>ce602c9d8733ae50b3fb021a0cbb35b8</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>offer_plan_form_modal</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sp_widget_ce602c9d8733ae50b3fb021a0cbb35b8</sys_update_name>
+        <sys_update_version display_value="sp_widget_ce602c9d8733ae50b3fb021a0cbb35b8">9cb464ea87332a90b3fb021a0cbb3543</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-08 04:09:26</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

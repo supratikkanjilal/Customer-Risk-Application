@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module">
+    <sys_app_module action="DELETE">
+        <active>true</active>
+        <application display_value="System Import Sets">import_sets</application>
+        <assessment/>
+        <device_type/>
+        <filter/>
+        <hint/>
+        <homepage/>
+        <image/>
+        <link_type>LIST</link_type>
+        <map_page/>
+        <mobile_title>offer tracker sample</mobile_title>
+        <mobile_view_name>Mobile</mobile_view_name>
+        <name>x_cpszo_spoke_offer_tracker_sample</name>
+        <order>1100</order>
+        <override_menu_roles>false</override_menu_roles>
+        <query/>
+        <report/>
+        <require_confirmation>true</require_confirmation>
+        <roles/>
+        <sys_class_name>sys_app_module</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-07-30 10:56:23</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>4896003187036a10b3fb021a0cbb35f1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>offer tracker sample</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_app_module_4896003187036a10b3fb021a0cbb35f1</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-07-30 10:56:23</sys_updated_on>
+        <timeline_page/>
+        <title>offer tracker sample</title>
+        <uncancelable>false</uncancelable>
+        <view_name/>
+        <window_name/>
+    </sys_app_module>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_app_module_4896003187036a10b3fb021a0cbb35f1</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module"><sys_app_module action="INSERT_OR_UPDATE"><active>true</active><application display_value="System Import Sets">import_sets</application><assessment/><device_type/><filter/><hint/><homepage/><image/><link_type>LIST</link_type><map_page/><mobile_title>offer tracker sample</mobile_title><mobile_view_name>Mobile</mobile_view_name><name>x_cpszo_spoke_offer_tracker_sample</name><order>1100</order><override_menu_roles>false</override_menu_roles><query/><report/><require_confirmation>true</require_confirmation><roles/><sys_class_name>sys_app_module</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-07-30 10:56:23</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>4896003187036a10b3fb021a0cbb35f1</sys_id><sys_mod_count>0</sys_mod_count><sys_name>offer tracker sample</sys_name><sys_overrides/><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sys_app_module_4896003187036a10b3fb021a0cbb35f1</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-07-30 10:56:23</sys_updated_on><timeline_page/><title>offer tracker sample</title><uncancelable>false</uncancelable><view_name/><window_name/></sys_app_module></record_update>]]></payload>
+        <payload_hash>-1579760152</payload_hash>
+        <record_name>offer tracker sample</record_name>
+        <reverted_from/>
+        <source>92196a9187c7e61002fdeac73cbb35bc</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-07-30 10:56:23</sys_created_on>
+        <sys_id>0096003187036a10b3fb021a0cbb35f4</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1985af9e6fd0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-07-30 10:56:23</sys_updated_on>
+        <type>Module</type>
+        <update_guid>8096003144036a100e168d2c3ab754f3</update_guid>
+        <update_guid_history>8096003144036a100e168d2c3ab754f3:-1579760152</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="offer tracker sample">b7b988f387cbe650b3fb021a0cbb35d5</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-05 16:18:09</sys_created_on>
+        <sys_db_object display_value="" name="sys_app_module">sys_app_module</sys_db_object>
+        <sys_id>92faf4e613004d1095ec60ff8bfffc39</sys_id>
+        <sys_metadata>4896003187036a10b3fb021a0cbb35f1</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>offer tracker sample</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_app_module_4896003187036a10b3fb021a0cbb35f1</sys_update_name>
+        <sys_update_version display_value="sys_app_module_4896003187036a10b3fb021a0cbb35f1">0096003187036a10b3fb021a0cbb35f4</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-05 16:18:09</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

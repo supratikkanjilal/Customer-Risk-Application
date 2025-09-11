@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_db_object">
+    <sys_db_object action="DELETE">
+        <access/>
+        <actions_access>false</actions_access>
+        <alter_access>false</alter_access>
+        <caller_access/>
+        <client_scripts_access>false</client_scripts_access>
+        <configuration_access>false</configuration_access>
+        <create_access>false</create_access>
+        <create_access_controls>false</create_access_controls>
+        <delete_access>false</delete_access>
+        <is_extendable>false</is_extendable>
+        <label>notificaton_preview_sample1</label>
+        <live_feed_enabled>false</live_feed_enabled>
+        <name>x_cpszo_spoke_notificaton_preview_sample1</name>
+        <number_ref/>
+        <provider_class/>
+        <read_access>true</read_access>
+        <scriptable_table>false</scriptable_table>
+        <super_class display_value="Import Set Row" name="sys_import_set_row">208973d287302110b3fb021a0cbb35ad</super_class>
+        <sys_class_name>sys_db_object</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-20 06:33:58</sys_created_on>
+        <sys_id>70e35f94872b2ed002fdeac73cbb3565</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Spoke Notificaton Preview Sample1</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_db_object_70e35f94872b2ed002fdeac73cbb3565</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-20 06:33:58</sys_updated_on>
+        <update_access>false</update_access>
+        <user_role/>
+        <ws_access>true</ws_access>
+    </sys_db_object>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_db_object_70e35f94872b2ed002fdeac73cbb3565</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_db_object"><sys_db_object action="INSERT_OR_UPDATE"><access/><actions_access>false</actions_access><alter_access>false</alter_access><caller_access/><client_scripts_access>false</client_scripts_access><configuration_access>false</configuration_access><create_access>false</create_access><create_access_controls>false</create_access_controls><delete_access>false</delete_access><is_extendable>false</is_extendable><label>notificaton_preview_sample1</label><live_feed_enabled>false</live_feed_enabled><name>x_cpszo_spoke_notificaton_preview_sample1</name><number_ref/><provider_class/><read_access>true</read_access><scriptable_table>false</scriptable_table><super_class display_value="Import Set Row" name="sys_import_set_row">208973d287302110b3fb021a0cbb35ad</super_class><sys_class_name>sys_db_object</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-08-20 06:33:58</sys_created_on><sys_id>70e35f94872b2ed002fdeac73cbb3565</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Spoke Notificaton Preview Sample1</sys_name><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sys_db_object_70e35f94872b2ed002fdeac73cbb3565</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-08-20 06:33:58</sys_updated_on><update_access>false</update_access><user_role/><ws_access>true</ws_access></sys_db_object></record_update>]]></payload>
+        <payload_hash>-1144443698</payload_hash>
+        <record_name>notificaton_preview_sample1</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-20 06:33:59</sys_created_on>
+        <sys_id>09e35f94872b2ed002fdeac73cbb35c3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>198c62f359b0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-20 06:33:59</sys_updated_on>
+        <type>Table</type>
+        <update_guid>4de35f94642b2ed05f3c244e4ccc56c2</update_guid>
+        <update_guid_history>4de35f94642b2ed05f3c244e4ccc56c2:-1144443698</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-09 09:15:09</sys_created_on>
+        <sys_db_object display_value="" name="sys_db_object">sys_db_object</sys_db_object>
+        <sys_id>93a1c4e1c20b45ed879c918ecafc7191</sys_id>
+        <sys_metadata>70e35f94872b2ed002fdeac73cbb3565</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Spoke Notificaton Preview Sample1</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_db_object_70e35f94872b2ed002fdeac73cbb3565</sys_update_name>
+        <sys_update_version display_value="sys_db_object_70e35f94872b2ed002fdeac73cbb3565">09e35f94872b2ed002fdeac73cbb35c3</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-09 09:15:09</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

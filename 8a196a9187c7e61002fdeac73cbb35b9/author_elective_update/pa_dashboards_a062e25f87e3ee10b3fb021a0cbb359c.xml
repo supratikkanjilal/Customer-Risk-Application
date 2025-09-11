@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="pa_dashboards">
+    <pa_dashboards action="DELETE">
+        <active>true</active>
+        <breakdown_source/>
+        <color>#ffffff</color>
+        <disable_multiple_element>false</disable_multiple_element>
+        <group/>
+        <groups/>
+        <is_breakdown>false</is_breakdown>
+        <managed_breakdown/>
+        <managed_publisher/>
+        <name>Borrower 360 Dashboard</name>
+        <no_bulk_migration>false</no_bulk_migration>
+        <no_tabs>false</no_tabs>
+        <notification_link_label/>
+        <notification_link_url/>
+        <notification_text/>
+        <order/>
+        <owner display_value="Brijesh Banerjee">75a3c27c875a6e1002fdeac73cbb3560</owner>
+        <restrict_to_roles/>
+        <role_override>true</role_override>
+        <roles/>
+        <should_migrate_permissions>false</should_migrate_permissions>
+        <sys_class_name>pa_dashboards</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-29 10:39:43</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>a062e25f87e3ee10b3fb021a0cbb359c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Borrower 360 Dashboard</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>pa_dashboards_a062e25f87e3ee10b3fb021a0cbb359c</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-29 10:39:43</sys_updated_on>
+        <users/>
+        <visible_to>2</visible_to>
+    </pa_dashboards>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>pa_dashboards_a062e25f87e3ee10b3fb021a0cbb359c</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="pa_dashboards"><pa_dashboards action="INSERT_OR_UPDATE"><active>true</active><breakdown_source/><color>#ffffff</color><disable_multiple_element>false</disable_multiple_element><group/><groups/><is_breakdown>false</is_breakdown><managed_breakdown/><managed_publisher/><name>Borrower 360 Dashboard</name><no_bulk_migration>false</no_bulk_migration><no_tabs>false</no_tabs><notification_link_label/><notification_link_url/><notification_text/><order/><owner display_value="Brijesh Banerjee">75a3c27c875a6e1002fdeac73cbb3560</owner><restrict_to_roles/><role_override>true</role_override><roles/><should_migrate_permissions>false</should_migrate_permissions><sys_class_name>pa_dashboards</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-08-29 10:39:43</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>a062e25f87e3ee10b3fb021a0cbb359c</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Borrower 360 Dashboard</sys_name><sys_overrides/><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>pa_dashboards_a062e25f87e3ee10b3fb021a0cbb359c</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-08-29 10:39:43</sys_updated_on><users/><visible_to>2</visible_to></pa_dashboards></record_update>]]></payload>
+        <payload_hash>-1467533876</payload_hash>
+        <record_name>Borrower 360 Dashboard</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-29 10:39:44</sys_created_on>
+        <sys_id>1472a65f87e3ee10b3fb021a0cbb35e6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>198f5696e9b0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-29 10:39:44</sys_updated_on>
+        <type>Dashboard</type>
+        <update_guid>d472a65ffee3ee10462b865e31b974e5</update_guid>
+        <update_guid_history>d472a65ffee3ee10462b865e31b974e5:-1467533876</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-29 10:44:57</sys_created_on>
+        <sys_db_object display_value="" name="pa_dashboards">pa_dashboards</sys_db_object>
+        <sys_id>0075d242687c441281a55623390d6579</sys_id>
+        <sys_metadata>a062e25f87e3ee10b3fb021a0cbb359c</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Borrower 360 Dashboard</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>pa_dashboards_a062e25f87e3ee10b3fb021a0cbb359c</sys_update_name>
+        <sys_update_version display_value="pa_dashboards_a062e25f87e3ee10b3fb021a0cbb359c">1472a65f87e3ee10b3fb021a0cbb35e6</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-29 10:44:57</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

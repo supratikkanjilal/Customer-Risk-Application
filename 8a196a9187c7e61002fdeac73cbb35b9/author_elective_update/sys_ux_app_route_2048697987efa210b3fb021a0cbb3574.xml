@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_app_route">
+    <sys_ux_app_route action="DELETE">
+        <app_config/>
+        <description/>
+        <extension_point/>
+        <fields/>
+        <icon/>
+        <name>Ops Console</name>
+        <optional_parameters>sysId,tabSysId,filter,edit,element</optional_parameters>
+        <order>0</order>
+        <parent_macroponent display_value="">undefined</parent_macroponent>
+        <parent_macroponent_composition_element_id/>
+        <route_type>ops-console</route_type>
+        <screen_type display_value="Ops Console">2448edf187efa210b3fb021a0cbb3576</screen_type>
+        <sys_class_name>sys_ux_app_route</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-24 14:34:38</sys_created_on>
+        <sys_id>2048697987efa210b3fb021a0cbb3574</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Ops Console</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_ux_app_route_2048697987efa210b3fb021a0cbb3574</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-24 14:34:38</sys_updated_on>
+    </sys_ux_app_route>
+    <sys_translated_text action="DELETE" query="documentkey=2048697987efa210b3fb021a0cbb3574"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_ux_app_route_2048697987efa210b3fb021a0cbb3574</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_app_route"><sys_ux_app_route action="INSERT_OR_UPDATE"><app_config/><description/><extension_point/><fields/><icon/><name>Ops Console</name><optional_parameters>sysId,tabSysId,filter,edit,element</optional_parameters><order>0</order><parent_macroponent display_value="">undefined</parent_macroponent><parent_macroponent_composition_element_id/><route_type>ops-console</route_type><screen_type display_value="Ops Console">2448edf187efa210b3fb021a0cbb3576</screen_type><sys_class_name>sys_ux_app_route</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-08-24 14:34:38</sys_created_on><sys_id>2048697987efa210b3fb021a0cbb3574</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Ops Console</sys_name><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sys_ux_app_route_2048697987efa210b3fb021a0cbb3574</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-08-24 14:34:38</sys_updated_on></sys_ux_app_route><sys_translated_text action="delete_multiple" query="documentkey=2048697987efa210b3fb021a0cbb3574"/></record_update>]]></payload>
+        <payload_hash>-386128331</payload_hash>
+        <record_name>Ops Console</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-24 14:34:38</sys_created_on>
+        <sys_id>a448697987efa210b3fb021a0cbb3576</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>198dc80b1760000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-24 14:34:38</sys_updated_on>
+        <type>UX App Route</type>
+        <update_guid>68486979ccefa210ffaf2ac711742d75</update_guid>
+        <update_guid_history>68486979ccefa210ffaf2ac711742d75:-386128331</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-24 14:34:38</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_app_route">sys_ux_app_route</sys_db_object>
+        <sys_id>63fe085e5f14454e9c58818a23352859</sys_id>
+        <sys_metadata>2048697987efa210b3fb021a0cbb3574</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Ops Console</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_ux_app_route_2048697987efa210b3fb021a0cbb3574</sys_update_name>
+        <sys_update_version display_value="sys_ux_app_route_2048697987efa210b3fb021a0cbb3574">a448697987efa210b3fb021a0cbb3576</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-24 14:34:38</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

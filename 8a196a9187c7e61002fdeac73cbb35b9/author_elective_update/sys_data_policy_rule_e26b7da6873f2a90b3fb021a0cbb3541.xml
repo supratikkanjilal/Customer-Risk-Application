@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_data_policy_rule">
+    <sys_data_policy_rule action="DELETE">
+        <disabled>true</disabled>
+        <field>number</field>
+        <mandatory>ignore</mandatory>
+        <sys_class_name>sys_data_policy_rule</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-08 10:09:28</sys_created_on>
+        <sys_data_policy display_value="Customer Number is Read Only">e66bb5a6873f2a90b3fb021a0cbb3518</sys_data_policy>
+        <sys_id>e26b7da6873f2a90b3fb021a0cbb3541</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>number</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_data_policy_rule_e26b7da6873f2a90b3fb021a0cbb3541</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-08 10:09:28</sys_updated_on>
+        <table>x_cpszo_spoke_offer_tracker</table>
+    </sys_data_policy_rule>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_data_policy_rule_e26b7da6873f2a90b3fb021a0cbb3541</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_data_policy_rule"><sys_data_policy_rule action="INSERT_OR_UPDATE"><disabled>true</disabled><field>number</field><mandatory>ignore</mandatory><sys_class_name>sys_data_policy_rule</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-09-08 10:09:28</sys_created_on><sys_data_policy display_value="Customer Number is Read Only">e66bb5a6873f2a90b3fb021a0cbb3518</sys_data_policy><sys_id>e26b7da6873f2a90b3fb021a0cbb3541</sys_id><sys_mod_count>0</sys_mod_count><sys_name>number</sys_name><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sys_data_policy_rule_e26b7da6873f2a90b3fb021a0cbb3541</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-09-08 10:09:28</sys_updated_on><table>x_cpszo_spoke_offer_tracker</table></sys_data_policy_rule></record_update>]]></payload>
+        <payload_hash>1910973335</payload_hash>
+        <record_name>number</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-08 10:09:28</sys_created_on>
+        <sys_id>266b7da6873f2a90b3fb021a0cbb3544</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19928cd50ef0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-08 10:09:28</sys_updated_on>
+        <type>Data Policy Rule</type>
+        <update_guid>a66b7da6ca3f2a90e71d443704341d43</update_guid>
+        <update_guid_history>a66b7da6ca3f2a90e71d443704341d43:1910973335</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-09 05:39:55</sys_created_on>
+        <sys_db_object display_value="" name="sys_data_policy_rule">sys_data_policy_rule</sys_db_object>
+        <sys_id>3aaae74a426e431493e1c4b8c04f6a04</sys_id>
+        <sys_metadata>e26b7da6873f2a90b3fb021a0cbb3541</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>number</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_data_policy_rule_e26b7da6873f2a90b3fb021a0cbb3541</sys_update_name>
+        <sys_update_version display_value="sys_data_policy_rule_e26b7da6873f2a90b3fb021a0cbb3541">266b7da6873f2a90b3fb021a0cbb3544</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-09 05:39:55</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
