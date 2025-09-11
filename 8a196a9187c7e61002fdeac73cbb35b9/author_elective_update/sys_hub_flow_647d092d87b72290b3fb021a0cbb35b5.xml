@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_hub_flow">
+    <sys_hub_flow action="DELETE">
+        <access>package_private</access>
+        <acls/>
+        <active>false</active>
+        <annotation/>
+        <attributes>labelCacheCleanUpExecuted=true</attributes>
+        <authored_on_release_version>25000</authored_on_release_version>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category display_value="">{}</category>
+        <compiler_build/>
+        <copied_from/>
+        <copied_from_name/>
+        <description/>
+        <display_name_after_preview/>
+        <flow_priority>MEDIUM</flow_priority>
+        <generation_source/>
+        <internal_name>get_customer_activity_snapshot</internal_name>
+        <label_cache>null</label_cache>
+        <latest_snapshot/>
+        <master_snapshot/>
+        <name>Get Customer Activity Snapshot</name>
+        <natlang/>
+        <outputs/>
+        <pre_compiled>false</pre_compiled>
+        <remote_trigger_id/>
+        <run_as>user</run_as>
+        <run_with_roles/>
+        <sc_callable>false</sc_callable>
+        <show_draft_actions>false</show_draft_actions>
+        <show_triggered_flows>false</show_triggered_flows>
+        <status>draft</status>
+        <substatus/>
+        <sys_class_name>sys_hub_flow</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-05 04:14:42</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>647d092d87b72290b3fb021a0cbb35b5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Get Customer Activity Snapshot</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_hub_flow_647d092d87b72290b3fb021a0cbb35b5</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-05 04:14:42</sys_updated_on>
+        <type>subflow</type>
+    </sys_hub_flow>
+    <sys_translated_text action="DELETE" query="documentkey=647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_variable_value action="DELETE" query="document_key=647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_hub_trigger_instance action="DELETE" query="flow=647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_hub_flow_stage action="DELETE" query="flow=647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_flow_cat_variable_model action="DELETE" query="id=647d092d87b72290b3fb021a0cbb35b5^sys_idNOT IN607d092d87b72290b3fb021a0cbb35b6"/>
+    <sys_flow_cat_variable_model action="DELETE">
+        <id>647d092d87b72290b3fb021a0cbb35b5</id>
+        <name>Get Customer Activity Snapshot</name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-05 04:14:42</sys_created_on>
+        <sys_id>607d092d87b72290b3fb021a0cbb35b6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-05 04:14:42</sys_updated_on>
+    </sys_flow_cat_variable_model>
+    <sys_flow_cat_variable action="DELETE" query="flow_catalog_model=607d092d87b72290b3fb021a0cbb35b6"/>
+    <sys_hub_flow_input action="DELETE" query="model=647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_hub_flow_output action="DELETE" query="model=647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_hub_alias_mapping action="DELETE" query="source_id=647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_hub_action_instance action="DELETE" query="flow=647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_hub_sub_flow_instance action="DELETE" query="flow=647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_hub_flow_logic action="DELETE" query="flow=647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_hub_pill_compound action="DELETE" query="attached_to=647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_hub_flow_variable action="DELETE" query="model=647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_documentation action="DELETE" query="name=var__m_sys_hub_flow_input_647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_choice action="DELETE" query="name=var__m_sys_hub_flow_input_647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_documentation action="DELETE" query="name=var__m_sys_hub_flow_output_647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_choice action="DELETE" query="name=var__m_sys_hub_flow_output_647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_flow_trigger_plan action="DELETE" query="plan_id=647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_flow_subflow_plan action="DELETE" query="plan_id=647d092d87b72290b3fb021a0cbb35b5"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_hub_flow_647d092d87b72290b3fb021a0cbb35b5</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_hub_flow"><sys_hub_flow action="INSERT_OR_UPDATE"><access>package_private</access><acls/><active>false</active><annotation/><attributes>labelCacheCleanUpExecuted=true</attributes><authored_on_release_version>25000</authored_on_release_version><callable_by_client_api>false</callable_by_client_api><category display_value="">{}</category><compiler_build/><copied_from/><copied_from_name/><description/><display_name_after_preview/><flow_priority>MEDIUM</flow_priority><generation_source/><internal_name>get_customer_activity_snapshot</internal_name><label_cache>null</label_cache><latest_snapshot/><master_snapshot/><name>Get Customer Activity Snapshot</name><natlang/><outputs/><pre_compiled>false</pre_compiled><remote_trigger_id/><run_as>user</run_as><run_with_roles/><sc_callable>false</sc_callable><show_draft_actions>false</show_draft_actions><show_triggered_flows>false</show_triggered_flows><status>draft</status><substatus/><sys_class_name>sys_hub_flow</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-09-05 04:14:42</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>647d092d87b72290b3fb021a0cbb35b5</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Get Customer Activity Snapshot</sys_name><sys_overrides/><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sys_hub_flow_647d092d87b72290b3fb021a0cbb35b5</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-09-05 04:14:42</sys_updated_on><type>subflow</type></sys_hub_flow><sys_translated_text action="delete_multiple" query="documentkey=647d092d87b72290b3fb021a0cbb35b5"/><sys_variable_value action="delete_multiple" query="document_key=647d092d87b72290b3fb021a0cbb35b5"/><sys_hub_trigger_instance action="delete_multiple" query="flow=647d092d87b72290b3fb021a0cbb35b5"/><sys_hub_flow_stage action="delete_multiple" query="flow=647d092d87b72290b3fb021a0cbb35b5"/><sys_flow_cat_variable_model action="delete_multiple" query="id=647d092d87b72290b3fb021a0cbb35b5^sys_idNOT IN607d092d87b72290b3fb021a0cbb35b6"/><sys_flow_cat_variable_model action="INSERT_OR_UPDATE"><id>647d092d87b72290b3fb021a0cbb35b5</id><name>Get Customer Activity Snapshot</name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-09-05 04:14:42</sys_created_on><sys_id>607d092d87b72290b3fb021a0cbb35b6</sys_id><sys_mod_count>0</sys_mod_count><sys_scope/><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-09-05 04:14:42</sys_updated_on></sys_flow_cat_variable_model><sys_flow_cat_variable action="delete_multiple" query="flow_catalog_model=607d092d87b72290b3fb021a0cbb35b6"/><sys_hub_flow_input action="delete_multiple" query="model=647d092d87b72290b3fb021a0cbb35b5"/><sys_hub_flow_output action="delete_multiple" query="model=647d092d87b72290b3fb021a0cbb35b5"/><sys_hub_alias_mapping action="delete_multiple" query="source_id=647d092d87b72290b3fb021a0cbb35b5"/><sys_hub_action_instance action="delete_multiple" query="flow=647d092d87b72290b3fb021a0cbb35b5"/><sys_hub_sub_flow_instance action="delete_multiple" query="flow=647d092d87b72290b3fb021a0cbb35b5"/><sys_hub_flow_logic action="delete_multiple" query="flow=647d092d87b72290b3fb021a0cbb35b5"/><sys_hub_pill_compound action="delete_multiple" query="attached_to=647d092d87b72290b3fb021a0cbb35b5"/><sys_hub_flow_variable action="delete_multiple" query="model=647d092d87b72290b3fb021a0cbb35b5"/><sys_documentation action="delete_multiple" query="name=var__m_sys_hub_flow_input_647d092d87b72290b3fb021a0cbb35b5"/><sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_input_647d092d87b72290b3fb021a0cbb35b5"/><sys_documentation action="delete_multiple" query="name=var__m_sys_hub_flow_output_647d092d87b72290b3fb021a0cbb35b5"/><sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_output_647d092d87b72290b3fb021a0cbb35b5"/><sys_flow_trigger_plan action="delete_multiple" query="plan_id=647d092d87b72290b3fb021a0cbb35b5"/><sys_flow_subflow_plan action="delete_multiple" query="plan_id=647d092d87b72290b3fb021a0cbb35b5"/></record_update>]]></payload>
+        <payload_hash>-791786015</payload_hash>
+        <record_name>Get Customer Activity Snapshot</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-05 04:14:42</sys_created_on>
+        <sys_id>ac7d092d87b72290b3fb021a0cbb35bb</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>199181571d10000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-05 04:14:42</sys_updated_on>
+        <type>Flow</type>
+        <update_guid>ec7d092da7b72290cc9c5ce3e55651ba</update_guid>
+        <update_guid_history>ec7d092da7b72290cc9c5ce3e55651ba:-791786015</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-05 05:04:40</sys_created_on>
+        <sys_db_object display_value="" name="sys_hub_flow">sys_hub_flow</sys_db_object>
+        <sys_id>1873693ad5ab4e6690871bb67aee6e29</sys_id>
+        <sys_metadata>647d092d87b72290b3fb021a0cbb35b5</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Get Customer Activity Snapshot</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_hub_flow_647d092d87b72290b3fb021a0cbb35b5</sys_update_name>
+        <sys_update_version display_value="sys_hub_flow_647d092d87b72290b3fb021a0cbb35b5">ac7d092d87b72290b3fb021a0cbb35bb</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-05 05:04:40</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

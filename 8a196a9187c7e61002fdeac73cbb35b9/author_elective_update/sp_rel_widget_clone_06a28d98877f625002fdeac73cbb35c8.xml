@@ -1,0 +1,836 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="DELETE">
+        <child display_value="Single Score widget">46a28d98877f625002fdeac73cbb35c4</child>
+        <cloned>2025-09-01 06:15:08</cloned>
+        <last_validated>2025-09-01 06:15:08</last_validated>
+        <parent display_value="Journey Template Single Scores">0252b3d9772555108d1375173e5a99c6</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller = function($window, $scope, $rootScope, spUtil, i18n) {
+    /* widget controller */
+    var c = this;
+    c.isPreviewMode = false;
+    c.isPreviewAsUser = false;
+    c.totalSingleScoreLength = 5;
+
+    var i18nStrings = {
+        "count_all_tasks": "{count} ${All task templates}",
+        "count_for_user": "{count} ${Task templates for} {user}",
+        "count_type_tasks": "{count} {type} ${task templates}"
+    };
+
+    c.singleScoresCount = {
+        "all": 0,
+        "recently_published": 0,
+        "unpublished": 0,
+        "recently_updated": 0,
+        "manager": 0,
+        "employee": 0,
+        "mentors": 0
+    };
+
+    c.applyFilters = function(singleScore) {
+        c.selectedSingleScore = singleScore;
+        $rootScope.$broadcast('template_single_score_selected', singleScore.type);
+    };
+
+    function resetFilterCounts(templateInfo) {
+
+        // reset filter counts
+        c.singleScoresCount = {
+            "all": 0,
+            "recently_published": 0,
+            "unpublished": 0,
+            "recently_updated": 0,
+            "manager": 0,
+            "employee": 0,
+            "mentors": 0
+        };
+        c.singleScoresCount.all = templateInfo.task_templates.length;
+
+        templateInfo.task_templates.forEach(function(taskTemp) {
+            // update single score counts with store data
+            switch (taskTemp.assign_to_source) {
+                case ("employee"):
+                    c.singleScoresCount.employee++;
+                    break;
+                case ("manager"):
+                    c.singleScoresCount.manager++;
+                    break;
+                case ("mentors"):
+                    c.singleScoresCount.mentors++;
+                    break;
+            }
+
+            switch (taskTemp.badge) {
+                case ("not_published"):
+                case ("awaiting_approval"):
+                case ("rejected"):
+                    c.singleScoresCount.unpublished++;
+                    break;
+                case ("new"):
+                    c.singleScoresCount.recently_published++;
+                    break;
+                case ("updated"):
+                    c.singleScoresCount.recently_updated++;
+                    break;
+            }
+        });
+
+        c.singleScoresList = [{
+            "count": c.singleScoresCount.all,
+            "label": "${All task templates}",
+            "infoIconText": "${Visible to you and other owners}",
+            "order": 100,
+            "type": "all",
+            "btnLabel": spUtil.format(i18nStrings.count_all_tasks, {
+                count: c.singleScoresCount.all
+            })
+        }, {
+            "count": c.singleScoresCount.recently_published,
+            "label": "${Recently published}",
+            "infoIconText": "${Published within the last 7 days}",
+            "order": 150,
+            "type": "recently_published",
+            "btnLabel": spUtil.format(i18nStrings.count_type_tasks, {
+                count: c.singleScoresCount.recently_published,
+                type: "${Recently published}"
+            })
+        }, {
+            "count": c.singleScoresCount.recently_updated,
+            "label": "${Recently updated}",
+            "infoIconText": "${Updated within the last 7 days}",
+            "order": 200,
+            "type": "recently_updated",
+            "btnLabel": spUtil.format(i18nStrings.count_type_tasks, {
+                count: c.singleScoresCount.recently_updated,
+                type: "${Recently updated}"
+            })
+        }, {
+            "count": c.singleScoresCount.unpublished,
+            "label": "${Unpublished}",
+            "infoIconText": "${Tasks that need approval, are awaiting approval, or have been rejected}",
+            "order": 250,
+            "type": "unpublished",
+            "btnLabel": spUtil.format(i18nStrings.count_type_tasks, {
+                count: c.singleScoresCount.unpublished,
+                type: "${Unpublished}"
+            })
+        }];
+
+        c.singleScoresListPreview = [{
+            "count": c.singleScoresCount.all,
+            "label": "${All task templates}",
+            "infoIconText": "${Visible to you and other owners}",
+            "order": 100,
+            "type": "all",
+            "btnLabel": spUtil.format(i18nStrings.count_all_tasks, {
+                count: c.singleScoresCount.all
+            })
+        }, {
+            "count": c.singleScoresCount.employee,
+            "label": "${For employees}",
+            "order": 150,
+            "type": "employee",
+            "btnLabel": spUtil.format(i18nStrings.count_for_user, {
+                count: c.singleScoresCount.employee,
+                user: "${Employees}"
+            })
+        }, {
+            "count": c.singleScoresCount.manager,
+            "label": "${For managers}",
+            "order": 200,
+            "type": "manager",
+            "btnLabel": spUtil.format(i18nStrings.count_for_user, {
+                count: c.singleScoresCount.manager,
+                user: "${Managers}"
+            })
+        }, {
+            "count": c.singleScoresCount.mentors,
+            "label": "${For mentors}",
+            "order": 250,
+            "type": "mentors",
+            "btnLabel": spUtil.format(i18nStrings.count_for_user, {
+                count: c.singleScoresCount.mentors,
+                user: "${Mentors}"
+            })
+        }, {
+            "count": c.singleScoresCount.unpublished,
+            "label": "${Unpublished}",
+            "infoIconText": "${Tasks that need approval, are awaiting approval, or have been rejected}",
+            "order": 300,
+            "type": "unpublished",
+            "btnLabel": spUtil.format(i18nStrings.count_type_tasks, {
+                count: c.singleScoresCount.unpublished,
+                type: "${Unpublished}"
+            })
+        }];
+    }
+
+    $scope.$on('store.jny_template_updated', function() {
+        var templateInfo = $rootScope.store.template_info;
+        if (!templateInfo || !templateInfo.task_templates || templateInfo.task_templates.length == 0)
+            return;
+
+        resetFilterCounts(templateInfo);
+    });
+
+    $scope.$on('store.task_template.delete.success', function() {
+        var templateInfo = $rootScope.store.template_info;
+        if (!templateInfo || !templateInfo.task_templates || templateInfo.task_templates.length == 0)
+            return;
+
+        resetFilterCounts(templateInfo);
+    });
+
+    $scope.$on('store.template_info', function(data, event) {
+        var templateInfo = $rootScope.store.template_info;
+        if (!templateInfo || !templateInfo.task_templates || templateInfo.task_templates.length == 0)
+            return;
+
+        resetFilterCounts(templateInfo);
+
+        if (templateInfo.in_preview_mode)
+            c.unpublishedSingleScore = c.singleScoresListPreview.pop();
+
+        // By default all is selected
+        c.selectedSingleScore = c.isPreviewMode ? c.singleScoresListPreview[0] : c.singleScoresList[0];
+
+        if (c.data.redirected_from_task_list)
+            c.applyFilters(c.singleScoresList[3]);
+
+        // TODO add event listner for preview mode and flip c.isPreviewMode
+
+    });
+
+    $scope.$on('template_stage_selected', function() {
+        c.selectedSingleScore = null;
+    });
+
+    $scope.$on('template_filter_selects_persona', function(event, filterType) {
+        if (c.isPreviewMode) {
+            if (filterType == "none") {
+                c.selectedSingleScore = null;
+                return;
+            }
+            for (var i = 0; i &lt; c.singleScoresListPreview.length; i++) {
+                var obj = c.singleScoresListPreview[i];
+                if (obj.type == filterType)
+                    c.selectedSingleScore = obj;
+            }
+        }
+    });
+
+    $scope.$on('template.preview.on', function() {
+        c.isPreviewMode = true;
+    });
+
+    $scope.$on('template.preview.off', function() {
+        c.isPreviewMode = false;
+    });
+
+    $scope.$on('template.preview_as_user.start', function(userID, userDetails) {
+        c.isPreviewMode = true;
+        c.isPreviewAsUser = true;
+        if (c.singleScoresListPreview.length === c.totalSingleScoreLength)
+            c.unpublishedSingleScore = c.singleScoresListPreview.pop();
+    });
+
+    $scope.$on('template.preview_as_user.end', function(userID, userDetails) {
+        c.isPreviewMode = false;
+        c.isPreviewAsUser = false;
+        c.singleScoresListPreview.push(c.unpublishedSingleScore);
+    });
+
+};]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.panel-wrapper {
+  border: none;
+  background: $background-primary;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  max-width: 100%;
+  overflow: visible;
+  box-shadow: $sp-panel-box-shadow;
+  border: 1px solid $border-tertiary;
+  padding: 0px;
+
+  .panel-header {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    padding: $sp-space--xl;
+    h3 {
+      margin: 0px;
+    }
+  }
+
+  .single-scores-container {
+    border-top: 1px solid $border-tertiary;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: $sp-space--xl;
+    padding: $sp-space--xl;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+    .single-score-card{
+      cursor: pointer;
+      border-radius: 4px;
+      background: $background-primary;
+      padding: $sp-space--lg $sp-space--md;
+      display: inline-block;
+      font-family: Lato;
+      width: 180px;
+      height: 90px;
+      max-width: 180px;
+      max-height: 90px;
+
+      margin: 0px;
+      text-align: center;
+      flex-wrap: wrap;
+
+      span {
+        max-width: 100%;
+        overflow: hidden;
+        display: block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin: 0px;
+      }
+      .heading {
+        margin-bottom:  $sp-space--xs;
+
+      }
+      .link {
+        color: $link-color;
+      }
+      .text {
+        font-size: $font-size-base;
+        color: $text-primary;
+      }
+      .labelInfoIconContainer {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        justify-content: center;
+        gap: 4px;
+        align-items: center;
+      }
+    }
+
+    .single-score-card:hover:not(.selected):not(.disabled) {
+      background: $background-secondary;
+      .link {
+        color: $link-hover-color;
+      }
+    }
+
+    .single-score-card.selected {
+      background: $background-secondary;
+      border: 1px solid $border-primary;
+      .link {
+        color: $link-hover;
+      }
+    }
+
+    .single-score-card.disabled {
+      background: transparent !important;
+      border: 0px solid $border-primary !important;
+      cursor: not-allowed;
+      .link, .text{
+        color: $gray-light;
+      }
+    }
+  }
+}&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;journey_template_single_scores&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {
+
+}]]&gt;&lt;/link&gt;&lt;name&gt;Journey Template Single Scores&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+    /* populate the 'data' object */
+    /* e.g., data.table = $sp.getValue('table'); */
+    data.journey_template_stages_task_widget = $sp.getWidget('jny_template_card');
+    data.redirected_from_task_list = $sp.getParameter("focus_on_unpublished") === 'true';
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-08-25 20:20:29&lt;/sys_created_on&gt;&lt;sys_id&gt;0252b3d9772555108d1375173e5a99c6&lt;/sys_id&gt;&lt;sys_mod_count&gt;158&lt;/sys_mod_count&gt;&lt;sys_name&gt;Journey Template Single Scores&lt;/sys_name&gt;&lt;sys_package display_value="Journey designer" source="sn_jny"&gt;70b67750c7010110eadc357098c26026&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Journey designer"&gt;70b67750c7010110eadc357098c26026&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_0252b3d9772555108d1375173e5a99c6&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-06-16 18:18:19&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="panel panel-wrapper"&gt;
+  &lt;div class="heading panel-header"&gt;
+    &lt;h3&gt;${Journey template overview}&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class="single-scores-container" ng-if="c.singleScoresCount.all &gt; 0"&gt;
+    &lt;!-- Non-preview --&gt;
+    &lt;div ng-if="!c.isPreviewMode" class="single-score-card" aria-label="{{item.btnLabel}}" tabindex="{{item.count &gt; 0 ? 0 : -1}}" ng-click="item.count &gt; 0 &amp;&amp; item != c.selectedSingleScore &amp;&amp; c.applyFilters(item)" ng-class="{'selected': item == c.selectedSingleScore, 'disabled': item.count == 0 }" ng-repeat="item in singleScoresList = ( c.singleScoresList | orderBy: 'order' )"&gt;
+      &lt;span class="heading bold h2 link"&gt;
+        {{ item.count }}
+      &lt;/span&gt;
+      &lt;div class="labelInfoIconContainer"&gt;
+        &lt;span class="text regular"&gt;
+          {{ item.label }}
+        &lt;/span&gt;
+        &lt;i class="text regular fa fa-info-circle" ng-if="item.infoIconText" tabindex="{{item.count &gt; 0 ? 0 : -1}}" role="tooltip" data-toggle="tooltip" data-placement="top" aria-label="{{item.infoIconText}}" data-original-title="{{item.infoIconText}}"&gt; &lt;/i&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- Preview --&gt;
+    &lt;div ng-if="c.isPreviewMode" class="single-score-card" aria-label="{{item.btnLabel}}" tabindex="{{item.count &gt; 0 ? 0 : -1}}" ng-click="item.count &gt; 0 &amp;&amp; item != c.selectedSingleScore &amp;&amp; c.applyFilters(item)" ng-class="{'selected': item == c.selectedSingleScore, 'disabled': item.count == 0 }" ng-repeat="item in singleScoresListPreview = ( c.singleScoresListPreview | orderBy: 'order' )"&gt;
+      &lt;span class="heading bold h2 link"&gt;
+        {{ item.count }}
+      &lt;/span&gt;
+      &lt;div class="labelInfoIconContainer"&gt;
+        &lt;span class="text regular"&gt;
+          {{ item.label }}
+        &lt;/span&gt;
+        &lt;i class="text regular fa fa-info-circle" ng-if="item.infoIconText" tabindex="{{item.count &gt; 0 ? 0 : -1}}" role="tooltip" data-toggle="tooltip" data-placement="top" aria-label="{{item.infoIconText}}" data-original-title="{{item.infoIconText}}"&gt; &lt;/i&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="stagesNTasksList"&gt;
+    &lt;!-- Add Stage and TaskList Widget Here --&gt;
+    &lt;sp-widget widget="c.data.journey_template_stages_task_widget"&gt;&lt;/sp-widget&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 06:15:08</sys_created_on>
+        <sys_id>06a28d98877f625002fdeac73cbb35c8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>46a28d98877f625002fdeac73cbb35c4</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_06a28d98877f625002fdeac73cbb35c8</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 06:15:08</sys_updated_on>
+    </sp_rel_widget_clone>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sp_rel_widget_clone_06a28d98877f625002fdeac73cbb35c8</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone"><sp_rel_widget_clone action="INSERT_OR_UPDATE"><child display_value="Single Score widget">46a28d98877f625002fdeac73cbb35c4</child><cloned>2025-09-01 06:15:08</cloned><last_validated>2025-09-01 06:15:08</last_validated><parent display_value="Journey Template Single Scores">0252b3d9772555108d1375173e5a99c6</parent><payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller = function($window, $scope, $rootScope, spUtil, i18n) {
+    /* widget controller */
+    var c = this;
+    c.isPreviewMode = false;
+    c.isPreviewAsUser = false;
+    c.totalSingleScoreLength = 5;
+
+    var i18nStrings = {
+        "count_all_tasks": "{count} ${All task templates}",
+        "count_for_user": "{count} ${Task templates for} {user}",
+        "count_type_tasks": "{count} {type} ${task templates}"
+    };
+
+    c.singleScoresCount = {
+        "all": 0,
+        "recently_published": 0,
+        "unpublished": 0,
+        "recently_updated": 0,
+        "manager": 0,
+        "employee": 0,
+        "mentors": 0
+    };
+
+    c.applyFilters = function(singleScore) {
+        c.selectedSingleScore = singleScore;
+        $rootScope.$broadcast('template_single_score_selected', singleScore.type);
+    };
+
+    function resetFilterCounts(templateInfo) {
+
+        // reset filter counts
+        c.singleScoresCount = {
+            "all": 0,
+            "recently_published": 0,
+            "unpublished": 0,
+            "recently_updated": 0,
+            "manager": 0,
+            "employee": 0,
+            "mentors": 0
+        };
+        c.singleScoresCount.all = templateInfo.task_templates.length;
+
+        templateInfo.task_templates.forEach(function(taskTemp) {
+            // update single score counts with store data
+            switch (taskTemp.assign_to_source) {
+                case ("employee"):
+                    c.singleScoresCount.employee++;
+                    break;
+                case ("manager"):
+                    c.singleScoresCount.manager++;
+                    break;
+                case ("mentors"):
+                    c.singleScoresCount.mentors++;
+                    break;
+            }
+
+            switch (taskTemp.badge) {
+                case ("not_published"):
+                case ("awaiting_approval"):
+                case ("rejected"):
+                    c.singleScoresCount.unpublished++;
+                    break;
+                case ("new"):
+                    c.singleScoresCount.recently_published++;
+                    break;
+                case ("updated"):
+                    c.singleScoresCount.recently_updated++;
+                    break;
+            }
+        });
+
+        c.singleScoresList = [{
+            "count": c.singleScoresCount.all,
+            "label": "${All task templates}",
+            "infoIconText": "${Visible to you and other owners}",
+            "order": 100,
+            "type": "all",
+            "btnLabel": spUtil.format(i18nStrings.count_all_tasks, {
+                count: c.singleScoresCount.all
+            })
+        }, {
+            "count": c.singleScoresCount.recently_published,
+            "label": "${Recently published}",
+            "infoIconText": "${Published within the last 7 days}",
+            "order": 150,
+            "type": "recently_published",
+            "btnLabel": spUtil.format(i18nStrings.count_type_tasks, {
+                count: c.singleScoresCount.recently_published,
+                type: "${Recently published}"
+            })
+        }, {
+            "count": c.singleScoresCount.recently_updated,
+            "label": "${Recently updated}",
+            "infoIconText": "${Updated within the last 7 days}",
+            "order": 200,
+            "type": "recently_updated",
+            "btnLabel": spUtil.format(i18nStrings.count_type_tasks, {
+                count: c.singleScoresCount.recently_updated,
+                type: "${Recently updated}"
+            })
+        }, {
+            "count": c.singleScoresCount.unpublished,
+            "label": "${Unpublished}",
+            "infoIconText": "${Tasks that need approval, are awaiting approval, or have been rejected}",
+            "order": 250,
+            "type": "unpublished",
+            "btnLabel": spUtil.format(i18nStrings.count_type_tasks, {
+                count: c.singleScoresCount.unpublished,
+                type: "${Unpublished}"
+            })
+        }];
+
+        c.singleScoresListPreview = [{
+            "count": c.singleScoresCount.all,
+            "label": "${All task templates}",
+            "infoIconText": "${Visible to you and other owners}",
+            "order": 100,
+            "type": "all",
+            "btnLabel": spUtil.format(i18nStrings.count_all_tasks, {
+                count: c.singleScoresCount.all
+            })
+        }, {
+            "count": c.singleScoresCount.employee,
+            "label": "${For employees}",
+            "order": 150,
+            "type": "employee",
+            "btnLabel": spUtil.format(i18nStrings.count_for_user, {
+                count: c.singleScoresCount.employee,
+                user: "${Employees}"
+            })
+        }, {
+            "count": c.singleScoresCount.manager,
+            "label": "${For managers}",
+            "order": 200,
+            "type": "manager",
+            "btnLabel": spUtil.format(i18nStrings.count_for_user, {
+                count: c.singleScoresCount.manager,
+                user: "${Managers}"
+            })
+        }, {
+            "count": c.singleScoresCount.mentors,
+            "label": "${For mentors}",
+            "order": 250,
+            "type": "mentors",
+            "btnLabel": spUtil.format(i18nStrings.count_for_user, {
+                count: c.singleScoresCount.mentors,
+                user: "${Mentors}"
+            })
+        }, {
+            "count": c.singleScoresCount.unpublished,
+            "label": "${Unpublished}",
+            "infoIconText": "${Tasks that need approval, are awaiting approval, or have been rejected}",
+            "order": 300,
+            "type": "unpublished",
+            "btnLabel": spUtil.format(i18nStrings.count_type_tasks, {
+                count: c.singleScoresCount.unpublished,
+                type: "${Unpublished}"
+            })
+        }];
+    }
+
+    $scope.$on('store.jny_template_updated', function() {
+        var templateInfo = $rootScope.store.template_info;
+        if (!templateInfo || !templateInfo.task_templates || templateInfo.task_templates.length == 0)
+            return;
+
+        resetFilterCounts(templateInfo);
+    });
+
+    $scope.$on('store.task_template.delete.success', function() {
+        var templateInfo = $rootScope.store.template_info;
+        if (!templateInfo || !templateInfo.task_templates || templateInfo.task_templates.length == 0)
+            return;
+
+        resetFilterCounts(templateInfo);
+    });
+
+    $scope.$on('store.template_info', function(data, event) {
+        var templateInfo = $rootScope.store.template_info;
+        if (!templateInfo || !templateInfo.task_templates || templateInfo.task_templates.length == 0)
+            return;
+
+        resetFilterCounts(templateInfo);
+
+        if (templateInfo.in_preview_mode)
+            c.unpublishedSingleScore = c.singleScoresListPreview.pop();
+
+        // By default all is selected
+        c.selectedSingleScore = c.isPreviewMode ? c.singleScoresListPreview[0] : c.singleScoresList[0];
+
+        if (c.data.redirected_from_task_list)
+            c.applyFilters(c.singleScoresList[3]);
+
+        // TODO add event listner for preview mode and flip c.isPreviewMode
+
+    });
+
+    $scope.$on('template_stage_selected', function() {
+        c.selectedSingleScore = null;
+    });
+
+    $scope.$on('template_filter_selects_persona', function(event, filterType) {
+        if (c.isPreviewMode) {
+            if (filterType == "none") {
+                c.selectedSingleScore = null;
+                return;
+            }
+            for (var i = 0; i &lt; c.singleScoresListPreview.length; i++) {
+                var obj = c.singleScoresListPreview[i];
+                if (obj.type == filterType)
+                    c.selectedSingleScore = obj;
+            }
+        }
+    });
+
+    $scope.$on('template.preview.on', function() {
+        c.isPreviewMode = true;
+    });
+
+    $scope.$on('template.preview.off', function() {
+        c.isPreviewMode = false;
+    });
+
+    $scope.$on('template.preview_as_user.start', function(userID, userDetails) {
+        c.isPreviewMode = true;
+        c.isPreviewAsUser = true;
+        if (c.singleScoresListPreview.length === c.totalSingleScoreLength)
+            c.unpublishedSingleScore = c.singleScoresListPreview.pop();
+    });
+
+    $scope.$on('template.preview_as_user.end', function(userID, userDetails) {
+        c.isPreviewMode = false;
+        c.isPreviewAsUser = false;
+        c.singleScoresListPreview.push(c.unpublishedSingleScore);
+    });
+
+};]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.panel-wrapper {
+  border: none;
+  background: $background-primary;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  max-width: 100%;
+  overflow: visible;
+  box-shadow: $sp-panel-box-shadow;
+  border: 1px solid $border-tertiary;
+  padding: 0px;
+
+  .panel-header {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    padding: $sp-space--xl;
+    h3 {
+      margin: 0px;
+    }
+  }
+
+  .single-scores-container {
+    border-top: 1px solid $border-tertiary;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: $sp-space--xl;
+    padding: $sp-space--xl;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+    .single-score-card{
+      cursor: pointer;
+      border-radius: 4px;
+      background: $background-primary;
+      padding: $sp-space--lg $sp-space--md;
+      display: inline-block;
+      font-family: Lato;
+      width: 180px;
+      height: 90px;
+      max-width: 180px;
+      max-height: 90px;
+
+      margin: 0px;
+      text-align: center;
+      flex-wrap: wrap;
+
+      span {
+        max-width: 100%;
+        overflow: hidden;
+        display: block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin: 0px;
+      }
+      .heading {
+        margin-bottom:  $sp-space--xs;
+
+      }
+      .link {
+        color: $link-color;
+      }
+      .text {
+        font-size: $font-size-base;
+        color: $text-primary;
+      }
+      .labelInfoIconContainer {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        justify-content: center;
+        gap: 4px;
+        align-items: center;
+      }
+    }
+
+    .single-score-card:hover:not(.selected):not(.disabled) {
+      background: $background-secondary;
+      .link {
+        color: $link-hover-color;
+      }
+    }
+
+    .single-score-card.selected {
+      background: $background-secondary;
+      border: 1px solid $border-primary;
+      .link {
+        color: $link-hover;
+      }
+    }
+
+    .single-score-card.disabled {
+      background: transparent !important;
+      border: 0px solid $border-primary !important;
+      cursor: not-allowed;
+      .link, .text{
+        color: $gray-light;
+      }
+    }
+  }
+}&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;journey_template_single_scores&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {
+
+}]]&gt;&lt;/link&gt;&lt;name&gt;Journey Template Single Scores&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+    /* populate the 'data' object */
+    /* e.g., data.table = $sp.getValue('table'); */
+    data.journey_template_stages_task_widget = $sp.getWidget('jny_template_card');
+    data.redirected_from_task_list = $sp.getParameter("focus_on_unpublished") === 'true';
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2022-08-25 20:20:29&lt;/sys_created_on&gt;&lt;sys_id&gt;0252b3d9772555108d1375173e5a99c6&lt;/sys_id&gt;&lt;sys_mod_count&gt;158&lt;/sys_mod_count&gt;&lt;sys_name&gt;Journey Template Single Scores&lt;/sys_name&gt;&lt;sys_package display_value="Journey designer" source="sn_jny"&gt;70b67750c7010110eadc357098c26026&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Journey designer"&gt;70b67750c7010110eadc357098c26026&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_0252b3d9772555108d1375173e5a99c6&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-06-16 18:18:19&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="panel panel-wrapper"&gt;
+  &lt;div class="heading panel-header"&gt;
+    &lt;h3&gt;${Journey template overview}&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class="single-scores-container" ng-if="c.singleScoresCount.all &gt; 0"&gt;
+    &lt;!-- Non-preview --&gt;
+    &lt;div ng-if="!c.isPreviewMode" class="single-score-card" aria-label="{{item.btnLabel}}" tabindex="{{item.count &gt; 0 ? 0 : -1}}" ng-click="item.count &gt; 0 &amp;&amp; item != c.selectedSingleScore &amp;&amp; c.applyFilters(item)" ng-class="{'selected': item == c.selectedSingleScore, 'disabled': item.count == 0 }" ng-repeat="item in singleScoresList = ( c.singleScoresList | orderBy: 'order' )"&gt;
+      &lt;span class="heading bold h2 link"&gt;
+        {{ item.count }}
+      &lt;/span&gt;
+      &lt;div class="labelInfoIconContainer"&gt;
+        &lt;span class="text regular"&gt;
+          {{ item.label }}
+        &lt;/span&gt;
+        &lt;i class="text regular fa fa-info-circle" ng-if="item.infoIconText" tabindex="{{item.count &gt; 0 ? 0 : -1}}" role="tooltip" data-toggle="tooltip" data-placement="top" aria-label="{{item.infoIconText}}" data-original-title="{{item.infoIconText}}"&gt; &lt;/i&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- Preview --&gt;
+    &lt;div ng-if="c.isPreviewMode" class="single-score-card" aria-label="{{item.btnLabel}}" tabindex="{{item.count &gt; 0 ? 0 : -1}}" ng-click="item.count &gt; 0 &amp;&amp; item != c.selectedSingleScore &amp;&amp; c.applyFilters(item)" ng-class="{'selected': item == c.selectedSingleScore, 'disabled': item.count == 0 }" ng-repeat="item in singleScoresListPreview = ( c.singleScoresListPreview | orderBy: 'order' )"&gt;
+      &lt;span class="heading bold h2 link"&gt;
+        {{ item.count }}
+      &lt;/span&gt;
+      &lt;div class="labelInfoIconContainer"&gt;
+        &lt;span class="text regular"&gt;
+          {{ item.label }}
+        &lt;/span&gt;
+        &lt;i class="text regular fa fa-info-circle" ng-if="item.infoIconText" tabindex="{{item.count &gt; 0 ? 0 : -1}}" role="tooltip" data-toggle="tooltip" data-placement="top" aria-label="{{item.infoIconText}}" data-original-title="{{item.infoIconText}}"&gt; &lt;/i&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="stagesNTasksList"&gt;
+    &lt;!-- Add Stage and TaskList Widget Here --&gt;
+    &lt;sp-widget widget="c.data.journey_template_stages_task_widget"&gt;&lt;/sp-widget&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload><sys_class_name>sp_rel_widget_clone</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-09-01 06:15:08</sys_created_on><sys_id>06a28d98877f625002fdeac73cbb35c8</sys_id><sys_mod_count>0</sys_mod_count><sys_name>46a28d98877f625002fdeac73cbb35c4</sys_name><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sp_rel_widget_clone_06a28d98877f625002fdeac73cbb35c8</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-09-01 06:15:08</sys_updated_on></sp_rel_widget_clone></record_update>]]></payload>
+        <payload_hash>1417059309</payload_hash>
+        <record_name>46a28d98877f625002fdeac73cbb35c4</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 06:15:08</sys_created_on>
+        <sys_id>46a205d8877f625002fdeac73cbb3586</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19903ea459d0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 06:15:08</sys_updated_on>
+        <type>Widget Clone</type>
+        <update_guid>c6a205d8d27f6250c70190349a54bd85</update_guid>
+        <update_guid_history>c6a205d8d27f6250c70190349a54bd85:1417059309</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">7bf24dd8877f625002fdeac73cbb3568</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 06:16:38</sys_created_on>
+        <sys_db_object display_value="" name="sp_rel_widget_clone">sp_rel_widget_clone</sys_db_object>
+        <sys_id>00327d0a81d0491580326274fc8b26f1</sys_id>
+        <sys_metadata>06a28d98877f625002fdeac73cbb35c8</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>46a28d98877f625002fdeac73cbb35c4</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sp_rel_widget_clone_06a28d98877f625002fdeac73cbb35c8</sys_update_name>
+        <sys_update_version display_value="sp_rel_widget_clone_06a28d98877f625002fdeac73cbb35c8">46a205d8877f625002fdeac73cbb3586</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 06:16:38</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $location, spUtil) {
+  // --- STATE ---
+  $scope.page     = parseInt($location.search().page, 10) || 1;
+  $scope.pageSize = parseInt($location.search().pageSize, 10) || 10; // fixed size
+  $scope.sortDir  = ($location.search().dir === 'desc') ? 'desc' : 'asc';
+  $scope.total    = 0;
+
+  // --- EXISTING ---
+  $scope.selectCustomer = function(customer) {
+    $scope.selectedCustomer = customer;
+    $location.search('table', 'CustomerProfile');
+    $location.search('number', customer.number);
+    syncUrl();
+  };
+  $scope.getRiskStyle = function(risk) {
+    switch ((risk || '').toLowerCase()) {
+      case 'high': return { color: 'red', 'font-weight': 'bold' };
+      case 'medium': return { color: 'orange', 'font-weight': 'bold' };
+      case 'low': return { color: 'green', 'font-weight': 'bold' };
+      default: return {};
+    }
+  };
+
+  // --- HELPERS ---
+  function totalPages() {
+    return Math.max(1, Math.ceil($scope.total / $scope.pageSize));
+  }
+  function syncUrl() {
+    $location.search('page', $scope.page);
+    $location.search('pageSize', $scope.pageSize);
+    $location.search('dir', $scope.sortDir);
+  }
+  function load() {
+    spUtil.update($scope, {
+      page: $scope.page,
+      pageSize: $scope.pageSize,
+      sortDir: $scope.sortDir
+    }).then(function(resp) {
+      $scope.total = (resp && resp.data && resp.data.total) || 0;
+      var tp = totalPages();
+      if ($scope.page > tp) $scope.page = tp;
+      syncUrl();
+    });
+  }
+
+  // --- SORT ---
+  $scope.setSortByNumber = function() {
+    $scope.sortDir = ($scope.sortDir === 'desc') ? 'asc' : 'desc';
+    $scope.page = 1;
+    load();
+  };
+  $scope.getSortIcon = function() {
+    return $scope.sortDir === 'desc' ? '▼' : '▲';
+  };
+
+  // --- FIXED: PREVIOUS / NEXT with event protection ---
+  $scope.prevPage = function($event) {
+    if ($event) { $event.preventDefault(); $event.stopPropagation(); }
+    if ($scope.page > 1) {
+      $scope.page--;
+      load();
+    }
+  };
+
+  $scope.nextPage = function($event) {
+    if ($event) { $event.preventDefault(); $event.stopPropagation(); }
+    var tp = totalPages();
+    if ($scope.page < tp) {
+      $scope.page++;
+      load();
+    }
+  };
+
+  // Initial load
+  load();
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.pager-link { display:inline-block; padding:2px 4px; text-decoration:none; cursor:pointer; }
+.pager-link:hover { text-decoration:underline; }
+.pager-link-disabled { cursor:default; }
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>custom_data_table_from_url</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Custom Data Table from Url</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  // ---- CONFIG ----
+  var table = 'x_cpszo_spoke_customer_profile'; // your table
+  var nameField   = 'name';
+  var numberField = 'number';
+  var riskField   = 'risk_band';
+
+  var defaultPageSize = 10;
+  var maxPageSize = 100;
+
+  // ---- INPUTS FROM CLIENT ----
+  input = input || {};
+  var page     = parseInt(input.page, 10) || 1;
+  var pageSize = Math.min(Math.max(parseInt(input.pageSize, 10) || defaultPageSize, 1), maxPageSize);
+  var sortDir  = (input.sortDir === 'desc') ? 'desc' : 'asc'; // sort by Number only
+
+  // ---- OUTPUT SKELETON ----
+  data.meta = {
+    page: page,
+    pageSize: pageSize,
+    sortDir: sortDir,
+    table: table,
+    fields: { name: nameField, number: numberField, risk: riskField }
+  };
+  data.customers = [];
+  data.total = 0;
+  data.error = null;
+
+  // ---- VALIDATE TABLE ----
+  try {
+    var grCheck = new GlideRecord(table);
+    if (!grCheck.isValid()) {
+      data.error = 'Invalid table: ' + table;
+      return;
+    }
+  } catch (e) {
+    data.error = 'Unable to access table: ' + table + ' (' + e.message + ')';
+    return;
+  }
+
+  // ---- COUNT (all records) ----
+  try {
+    var ga = new GlideAggregate(table);
+    ga.addAggregate('COUNT');
+    ga.query();
+    if (ga.next()) {
+      data.total = parseInt(ga.getAggregate('COUNT'), 10) || 0;
+    }
+  } catch (errCount) {
+    data.error = 'Count error: ' + errCount.message;
+    return;
+  }
+
+  if (data.total === 0) {
+    data.customers = [];
+    return;
+  }
+
+  // ---- PAGE WINDOW ----
+  var offset = (page - 1) * pageSize;
+
+  // ---- DATA QUERY (ACL-aware) ----
+  try {
+    var gr = new GlideRecordSecure(table);
+
+    // Server-side sort by Number (lexicographic)
+    if (sortDir === 'desc') gr.orderByDesc(numberField); else gr.orderBy(numberField);
+
+    gr.query();
+
+    // Manually skip offset rows (compatible across releases)
+    var i = 0, returned = 0;
+    while (gr.next()) {
+      if (i++ < offset) continue;
+
+      data.customers.push({
+        sys_id: gr.getUniqueValue(),
+        name: gr.getDisplayValue(nameField),
+        number: gr.getDisplayValue(numberField),
+        risk_bond: gr.getDisplayValue(riskField)
+      });
+
+      if (++returned >= pageSize) break;
+    }
+  } catch (errData) {
+    data.error = 'Data fetch error: ' + errData.message;
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 07:23:16</sys_created_on>
+        <sys_id>410fec9587f3ae50b3fb021a0cbb35b1</sys_id>
+        <sys_mod_count>52</sys_mod_count>
+        <sys_name>Custom Data Table from Url</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sp_widget_410fec9587f3ae50b3fb021a0cbb35b1</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 08:52:21</sys_updated_on>
+        <template><![CDATA[<!-- Optional title -->
+<h4 style="margin: 6px 0;">Customers</h4>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th style="cursor:pointer;" ng-click="setSortByNumber()">
+        Number
+        <span style="font-size: 11px; margin-left: 4px;">{{ getSortIcon() }}</span>
+      </th>
+      <th>Risk Bond</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="customer in data.customers" ng-click="selectCustomer(customer)">
+      <td>{{customer.name}}</td>
+      <td>{{customer.number}}</td>
+      <td ng-style="getRiskStyle(customer.risk_bond)">{{customer.risk_bond}}</td>
+    </tr>
+    <tr ng-if="(!data.customers || data.customers.length === 0)">
+      <td colspan="3" class="text-center text-muted">No records found</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Inline icon-style pager: ‹ Previous | Next › -->
+<div class="row" style="margin-top: 8px;">
+  <div class="col-sm-12 text-right" ng-if="total > 0">
+    <!-- Previous (disabled on first page) -->
+    <span ng-if="page <= 1" class="text-muted pager-link-disabled">‹ Previous</span>
+    <a ng-if="page > 1"
+       class="pager-link"
+       role="button"
+       tabindex="0"
+       ng-click="prevPage($event)"
+       ng-keypress="$event.keyCode===13 || $event.keyCode===32 ? prevPage($event) : null"
+       aria-label="Previous page"
+       title="Previous page">‹ Previous</a>
+
+    <span class="pager-sep">|</span>
+
+    <!-- Next (disabled on last page) -->
+    <a ng-if="page < Math.max(1, Math.ceil(total / pageSize))"
+       class="pager-link"
+       role="button"
+       tabindex="0"
+       ng-click="nextPage($event)"
+       ng-keypress="$event.keyCode===13 || $event.keyCode===32 ? nextPage($event) : null"
+       aria-label="Next page"
+       title="Next page">Next ›</a>
+    <span ng-if="page >= Math.max(1, Math.ceil(total / pageSize))"
+          class="text-muted pager-link-disabled">Next ›</span>
+  </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sp_widget_410fec9587f3ae50b3fb021a0cbb35b1</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function($scope, $location, spUtil) {
+  // --- STATE ---
+  $scope.page     = parseInt($location.search().page, 10) || 1;
+  $scope.pageSize = parseInt($location.search().pageSize, 10) || 10; // fixed size
+  $scope.sortDir  = ($location.search().dir === 'desc') ? 'desc' : 'asc';
+  $scope.total    = 0;
+
+  // --- EXISTING ---
+  $scope.selectCustomer = function(customer) {
+    $scope.selectedCustomer = customer;
+    $location.search('table', 'CustomerProfile');
+    $location.search('number', customer.number);
+    syncUrl();
+  };
+  $scope.getRiskStyle = function(risk) {
+    switch ((risk || '').toLowerCase()) {
+      case 'high': return { color: 'red', 'font-weight': 'bold' };
+      case 'medium': return { color: 'orange', 'font-weight': 'bold' };
+      case 'low': return { color: 'green', 'font-weight': 'bold' };
+      default: return {};
+    }
+  };
+
+  // --- HELPERS ---
+  function totalPages() {
+    return Math.max(1, Math.ceil($scope.total / $scope.pageSize));
+  }
+  function syncUrl() {
+    $location.search('page', $scope.page);
+    $location.search('pageSize', $scope.pageSize);
+    $location.search('dir', $scope.sortDir);
+  }
+  function load() {
+    spUtil.update($scope, {
+      page: $scope.page,
+      pageSize: $scope.pageSize,
+      sortDir: $scope.sortDir
+    }).then(function(resp) {
+      $scope.total = (resp &amp;&amp; resp.data &amp;&amp; resp.data.total) || 0;
+      var tp = totalPages();
+      if ($scope.page &gt; tp) $scope.page = tp;
+      syncUrl();
+    });
+  }
+
+  // --- SORT ---
+  $scope.setSortByNumber = function() {
+    $scope.sortDir = ($scope.sortDir === 'desc') ? 'asc' : 'desc';
+    $scope.page = 1;
+    load();
+  };
+  $scope.getSortIcon = function() {
+    return $scope.sortDir === 'desc' ? '▼' : '▲';
+  };
+
+  // --- FIXED: PREVIOUS / NEXT with event protection ---
+  $scope.prevPage = function($event) {
+    if ($event) { $event.preventDefault(); $event.stopPropagation(); }
+    if ($scope.page &gt; 1) {
+      $scope.page--;
+      load();
+    }
+  };
+
+  $scope.nextPage = function($event) {
+    if ($event) { $event.preventDefault(); $event.stopPropagation(); }
+    var tp = totalPages();
+    if ($scope.page &lt; tp) {
+      $scope.page++;
+      load();
+    }
+  };
+
+  // Initial load
+  load();
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.pager-link { display:inline-block; padding:2px 4px; text-decoration:none; cursor:pointer; }
+.pager-link:hover { text-decoration:underline; }
+.pager-link-disabled { cursor:default; }
+&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;custom_data_table_from_url&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;Custom Data Table from Url&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+  // ---- CONFIG ----
+  var table = 'x_cpszo_spoke_customer_profile'; // your table
+  var nameField   = 'name';
+  var numberField = 'number';
+  var riskField   = 'risk_band';
+
+  var defaultPageSize = 10;
+  var maxPageSize = 100;
+
+  // ---- INPUTS FROM CLIENT ----
+  input = input || {};
+  var page     = parseInt(input.page, 10) || 1;
+  var pageSize = Math.min(Math.max(parseInt(input.pageSize, 10) || defaultPageSize, 1), maxPageSize);
+  var sortDir  = (input.sortDir === 'desc') ? 'desc' : 'asc'; // sort by Number only
+
+  // ---- OUTPUT SKELETON ----
+  data.meta = {
+    page: page,
+    pageSize: pageSize,
+    sortDir: sortDir,
+    table: table,
+    fields: { name: nameField, number: numberField, risk: riskField }
+  };
+  data.customers = [];
+  data.total = 0;
+  data.error = null;
+
+  // ---- VALIDATE TABLE ----
+  try {
+    var grCheck = new GlideRecord(table);
+    if (!grCheck.isValid()) {
+      data.error = 'Invalid table: ' + table;
+      return;
+    }
+  } catch (e) {
+    data.error = 'Unable to access table: ' + table + ' (' + e.message + ')';
+    return;
+  }
+
+  // ---- COUNT (all records) ----
+  try {
+    var ga = new GlideAggregate(table);
+    ga.addAggregate('COUNT');
+    ga.query();
+    if (ga.next()) {
+      data.total = parseInt(ga.getAggregate('COUNT'), 10) || 0;
+    }
+  } catch (errCount) {
+    data.error = 'Count error: ' + errCount.message;
+    return;
+  }
+
+  if (data.total === 0) {
+    data.customers = [];
+    return;
+  }
+
+  // ---- PAGE WINDOW ----
+  var offset = (page - 1) * pageSize;
+
+  // ---- DATA QUERY (ACL-aware) ----
+  try {
+    var gr = new GlideRecordSecure(table);
+
+    // Server-side sort by Number (lexicographic)
+    if (sortDir === 'desc') gr.orderByDesc(numberField); else gr.orderBy(numberField);
+
+    gr.query();
+
+    // Manually skip offset rows (compatible across releases)
+    var i = 0, returned = 0;
+    while (gr.next()) {
+      if (i++ &lt; offset) continue;
+
+      data.customers.push({
+        sys_id: gr.getUniqueValue(),
+        name: gr.getDisplayValue(nameField),
+        number: gr.getDisplayValue(numberField),
+        risk_bond: gr.getDisplayValue(riskField)
+      });
+
+      if (++returned &gt;= pageSize) break;
+    }
+  } catch (errData) {
+    data.error = 'Data fetch error: ' + errData.message;
+  }
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;brijesh.banerjee&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-09-04 07:23:16&lt;/sys_created_on&gt;&lt;sys_id&gt;410fec9587f3ae50b3fb021a0cbb35b1&lt;/sys_id&gt;&lt;sys_mod_count&gt;52&lt;/sys_mod_count&gt;&lt;sys_name&gt;Custom Data Table from Url&lt;/sys_name&gt;&lt;sys_package display_value="Spoke" source="x_cpszo_spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_410fec9587f3ae50b3fb021a0cbb35b1&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;brijesh.banerjee&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-09-04 08:52:21&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;!-- Optional title --&gt;
+&lt;h4 style="margin: 6px 0;"&gt;Customers&lt;/h4&gt;
+
+&lt;table class="table table-bordered table-hover"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th style="cursor:pointer;" ng-click="setSortByNumber()"&gt;
+        Number
+        &lt;span style="font-size: 11px; margin-left: 4px;"&gt;{{ getSortIcon() }}&lt;/span&gt;
+      &lt;/th&gt;
+      &lt;th&gt;Risk Bond&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr ng-repeat="customer in data.customers" ng-click="selectCustomer(customer)"&gt;
+      &lt;td&gt;{{customer.name}}&lt;/td&gt;
+      &lt;td&gt;{{customer.number}}&lt;/td&gt;
+      &lt;td ng-style="getRiskStyle(customer.risk_bond)"&gt;{{customer.risk_bond}}&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr ng-if="(!data.customers || data.customers.length === 0)"&gt;
+      &lt;td colspan="3" class="text-center text-muted"&gt;No records found&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;!-- Inline icon-style pager: ‹ Previous | Next › --&gt;
+&lt;div class="row" style="margin-top: 8px;"&gt;
+  &lt;div class="col-sm-12 text-right" ng-if="total &gt; 0"&gt;
+    &lt;!-- Previous (disabled on first page) --&gt;
+    &lt;span ng-if="page &lt;= 1" class="text-muted pager-link-disabled"&gt;‹ Previous&lt;/span&gt;
+    &lt;a ng-if="page &gt; 1"
+       class="pager-link"
+       role="button"
+       tabindex="0"
+       ng-click="prevPage($event)"
+       ng-keypress="$event.keyCode===13 || $event.keyCode===32 ? prevPage($event) : null"
+       aria-label="Previous page"
+       title="Previous page"&gt;‹ Previous&lt;/a&gt;
+
+    &lt;span class="pager-sep"&gt;|&lt;/span&gt;
+
+    &lt;!-- Next (disabled on last page) --&gt;
+    &lt;a ng-if="page &lt; Math.max(1, Math.ceil(total / pageSize))"
+       class="pager-link"
+       role="button"
+       tabindex="0"
+       ng-click="nextPage($event)"
+       ng-keypress="$event.keyCode===13 || $event.keyCode===32 ? nextPage($event) : null"
+       aria-label="Next page"
+       title="Next page"&gt;Next ›&lt;/a&gt;
+    &lt;span ng-if="page &gt;= Math.max(1, Math.ceil(total / pageSize))"
+          class="text-muted pager-link-disabled"&gt;Next ›&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-1575322930</payload_hash>
+        <record_name>Custom Data Table from Url</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 08:52:21</sys_created_on>
+        <sys_id>0663cd1187b7ae50b3fb021a0cbb359b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19913ed48930000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 08:52:21</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>4a63cd11cbb7ae509b28ba92610c069a</update_guid>
+        <update_guid_history>4a63cd11cbb7ae509b28ba92610c069a:-1575322930,73430d11c8b7ae50ec78fa6d0afb5e63:1314082243,099281ddc977ae503239179b3a0bf83f:1363374357,67628d9d7c77ae5068b0c0e73c3673ce:-377414518,1532899dbb77ae500ada27ef88e66cec:1363374357,ce5181d9f177ae5053a1c1f4250482c9:991109410,0160c5596477ae50e294c389017fdd5a:-70981085,db7ff0594077ae50183d2ef2e2bca348:1084966211,c87fb0199677ae501183062aa32c27a1:-1524874917,06ce78d54b77ae50d7000efd4d39d7fd:1084966211,3abe3c953e77ae5017f777bab1ea74c9:180355829,a24e74954077ae5033133af1ccf81ffe:-1651144351,630eb0550077ae502e3714a3e7ae9c8c:-359205009,716dfc15d477ae507028099bdf3d6c72:-1513809838,a03df8155777ae501e1e908dd90836c5:2134298413,8bfc74159877ae505fcd9a8bccab2168:1724000560,7d5b70511f77ae508e434c4c99898a5d:990777777,ea4bb4119a77ae50518e71614db22a36:1371209966,d1fafcdda037ae508beb425ac980989f:-311510706,01aaf8dd8c37ae502acc61c1b2ec119b:-1460242785,907a34ddbd37ae50a1b7d16adc9764e7:-824974425,a1c9b85d0a37ae50c98a48cbc28126d2:1426353924,5789b85d6a37ae501c5be9e17c15f53a:-1778228086,7f797c1dd537ae50e0a99befd17ed95f:-1606577607,aa69f81d2737ae505c9701ce1d841ed0:-1778228086,81197c1da637ae50ab46f2fb349d3001:307942231,aa09341d5637ae50a9c653f1ac0cce2c:1420572065,c2c878d92f37ae50eead3c27a5ee9be0:1973812610,d2087c990637ae508f984ba730f28e0a:-113423229,c49678953e37ae50b8b71e82a2abb85d:1426353924,a88674552a37ae505ef971b9a2bef348:-1580552198,890674558037ae50da9680964a820f80:-154835055,e0e57815d737ae50ad7e3e696132796f:-1281308215,a4d5fc15fa37ae504f9b97de90e599ac:296753363,7a75b4157c37ae5079442b8e99ab44ed:683709512,9ae4f4d16d37ae50a64cd5b16e26897d:-1246964537,48e4f4d12637ae507b2beeb220242577:-1825189187,d5247851dc37ae5033aa6046de501cb2:661146323,84c374516d37ae50a1a433c130d6cf67:28357188,c553b89ddcf3ae50484d0f0bbff7ce19:1168043884,1e233411f537ae506dc53db85a252b1c:-1076698211,f132345dc4f3ae50355b65c9643c4094:184700651,3de1705d0ef3ae50ff9c712bfa5515d3:-253154996,f091f41d4cf3ae50c42c1e1bfd1364de:1523313736,d8617cd940f3ae5029aa229879038c63:-1949204985,b031b8d921f3ae503514d71abe85a3f1:-499317862,87c07099a4f3ae50631548b92b2fcd17:334157756,59803459a0f3ae50322bcf95baca51a7:1150073404,d230f45929f3ae50338f895a8d0fa51b:-1296129261,5d103c19eff3ae507baa11294062d2ed:1943955613,11bfecd5a0f3ae50eca6ef0998a16dfb:1152154349,d96fecd562f3ae50b0a2a7c07306d1ea:1850091178,cd0fec956ff3ae5093802c72cbd495b2:753832637</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 08:53:24</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>2f648ea274c14bc28d41b8011f4d0f19</sys_id>
+        <sys_metadata>410fec9587f3ae50b3fb021a0cbb35b1</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Custom Data Table from Url</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sp_widget_410fec9587f3ae50b3fb021a0cbb35b1</sys_update_name>
+        <sys_update_version display_value="sp_widget_410fec9587f3ae50b3fb021a0cbb35b1">0663cd1187b7ae50b3fb021a0cbb359b</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 08:53:24</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

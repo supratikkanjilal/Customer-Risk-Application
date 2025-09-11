@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_section caption="x_cpszo_spoke_customer_profile" section_id="2ccb26ac8737265002fdeac73cbb353f" sys_domain="global" table="x_cpszo_spoke_customer_profile" version="3" view="customer_related_list">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>12M.x_cpszo_spoke_customer_profile.x_cpszo_spoke_notification_preview.number</element>
+            <position>0</position>
+            <sys_created_by>brijesh.banerjee</sys_created_by>
+            <sys_created_on>2025-09-02 09:13:21</sys_created_on>
+            <sys_id>4a05b2ec8777265002fdeac73cbb35a1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_cpszo_spoke_customer_profile" display_value="x_cpszo_spoke_customer_profile" name="x_cpszo_spoke_customer_profile" sys_domain="global" view="697ba66c8737265002fdeac73cbb35de">2ccb26ac8737265002fdeac73cbb353f</sys_ui_section>
+            <sys_updated_by>brijesh.banerjee</sys_updated_by>
+            <sys_updated_on>2025-09-02 09:13:21</sys_updated_on>
+            <sys_user/>
+            <type>list</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>12M.x_cpszo_spoke_customer_profile.x_cpszo_spoke_offer_tracker.number</element>
+            <position>1</position>
+            <sys_created_by>brijesh.banerjee</sys_created_by>
+            <sys_created_on>2025-09-02 09:13:21</sys_created_on>
+            <sys_id>4205b2ec8777265002fdeac73cbb35a2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_cpszo_spoke_customer_profile" display_value="x_cpszo_spoke_customer_profile" name="x_cpszo_spoke_customer_profile" sys_domain="global" view="697ba66c8737265002fdeac73cbb35de">2ccb26ac8737265002fdeac73cbb353f</sys_ui_section>
+            <sys_updated_by>brijesh.banerjee</sys_updated_by>
+            <sys_updated_on>2025-09-02 09:13:21</sys_updated_on>
+            <sys_user/>
+            <type>list</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>12M.x_cpszo_spoke_customer_profile.x_cpszo_spoke_reminder_log.number</element>
+            <position>2</position>
+            <sys_created_by>brijesh.banerjee</sys_created_by>
+            <sys_created_on>2025-09-02 09:13:21</sys_created_on>
+            <sys_id>4a05b2ec8777265002fdeac73cbb35a2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_cpszo_spoke_customer_profile" display_value="x_cpszo_spoke_customer_profile" name="x_cpszo_spoke_customer_profile" sys_domain="global" view="697ba66c8737265002fdeac73cbb35de">2ccb26ac8737265002fdeac73cbb353f</sys_ui_section>
+            <sys_updated_by>brijesh.banerjee</sys_updated_by>
+            <sys_updated_on>2025-09-02 09:13:21</sys_updated_on>
+            <sys_user/>
+            <type>list</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>12M.x_cpszo_spoke_customer_profile.x_cpszo_spoke_integration_log.number</element>
+            <position>3</position>
+            <sys_created_by>brijesh.banerjee</sys_created_by>
+            <sys_created_on>2025-09-02 09:13:21</sys_created_on>
+            <sys_id>4205b2ec8777265002fdeac73cbb35a3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="x_cpszo_spoke_customer_profile" display_value="x_cpszo_spoke_customer_profile" name="x_cpszo_spoke_customer_profile" sys_domain="global" view="697ba66c8737265002fdeac73cbb35de">2ccb26ac8737265002fdeac73cbb353f</sys_ui_section>
+            <sys_updated_by>brijesh.banerjee</sys_updated_by>
+            <sys_updated_on>2025-09-02 09:13:21</sys_updated_on>
+            <sys_user/>
+            <type>list</type>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption>x_cpszo_spoke_customer_profile</caption>
+            <header>false</header>
+            <name>x_cpszo_spoke_customer_profile</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>brijesh.banerjee</sys_created_by>
+            <sys_created_on>2025-09-02 08:32:49</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>2ccb26ac8737265002fdeac73cbb353f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_cpszo_spoke_customer_profile</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+            <sys_update_name>sys_ui_section_2ccb26ac8737265002fdeac73cbb353f</sys_update_name>
+            <sys_updated_by>brijesh.banerjee</sys_updated_by>
+            <sys_updated_on>2025-09-02 08:32:49</sys_updated_on>
+            <sys_user/>
+            <title>false</title>
+            <view display_value="Customer_related_list" name="customer_related_list">697ba66c8737265002fdeac73cbb35de</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

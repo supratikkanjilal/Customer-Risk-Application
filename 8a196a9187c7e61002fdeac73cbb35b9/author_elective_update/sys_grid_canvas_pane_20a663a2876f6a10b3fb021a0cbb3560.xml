@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_grid_canvas_pane">
+    <sys_grid_canvas_pane action="DELETE">
+        <grid_canvas display_value="New Tab 1">26622b5487af6ad0b3fb021a0cbb3547</grid_canvas>
+        <height>10</height>
+        <portal_widget display_value="Created 2025-08-27 00:42:13">a4a663a2876f6a10b3fb021a0cbb355d</portal_widget>
+        <posx>0</posx>
+        <posy>0</posy>
+        <sys_class_name>sys_grid_canvas_pane</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-27 07:42:13</sys_created_on>
+        <sys_id>20a663a2876f6a10b3fb021a0cbb3560</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>26622b5487af6ad0b3fb021a0cbb3547</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_grid_canvas_pane_20a663a2876f6a10b3fb021a0cbb3560</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-27 07:42:13</sys_updated_on>
+        <width>12</width>
+    </sys_grid_canvas_pane>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_grid_canvas_pane_20a663a2876f6a10b3fb021a0cbb3560</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_grid_canvas_pane"><sys_grid_canvas_pane action="INSERT_OR_UPDATE"><grid_canvas display_value="New Tab 1">26622b5487af6ad0b3fb021a0cbb3547</grid_canvas><height>10</height><portal_widget display_value="Created 2025-08-27 00:42:13">a4a663a2876f6a10b3fb021a0cbb355d</portal_widget><posx>0</posx><posy>0</posy><sys_class_name>sys_grid_canvas_pane</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-08-27 07:42:13</sys_created_on><sys_id>20a663a2876f6a10b3fb021a0cbb3560</sys_id><sys_mod_count>0</sys_mod_count><sys_name>26622b5487af6ad0b3fb021a0cbb3547</sys_name><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sys_grid_canvas_pane_20a663a2876f6a10b3fb021a0cbb3560</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-08-27 07:42:13</sys_updated_on><width>12</width></sys_grid_canvas_pane></record_update>]]></payload>
+        <payload_hash>-440021625</payload_hash>
+        <record_name>26622b5487af6ad0b3fb021a0cbb3547</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-27 07:42:13</sys_created_on>
+        <sys_id>28a663a2876f6a10b3fb021a0cbb3562</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>198ea7a32d20000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-27 07:42:13</sys_updated_on>
+        <type>Grid Canvas Pane</type>
+        <update_guid>e8a663a2246f6a103b7958ef1f5f3161</update_guid>
+        <update_guid_history>e8a663a2246f6a103b7958ef1f5f3161:-440021625</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-27 07:59:50</sys_created_on>
+        <sys_db_object display_value="" name="sys_grid_canvas_pane">sys_grid_canvas_pane</sys_db_object>
+        <sys_id>d9944890ba5b4b6393355baf96a57c81</sys_id>
+        <sys_metadata>20a663a2876f6a10b3fb021a0cbb3560</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>26622b5487af6ad0b3fb021a0cbb3547</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_grid_canvas_pane_20a663a2876f6a10b3fb021a0cbb3560</sys_update_name>
+        <sys_update_version display_value="sys_grid_canvas_pane_20a663a2876f6a10b3fb021a0cbb3560">28a663a2876f6a10b3fb021a0cbb3562</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-27 07:59:50</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module">
+    <sys_app_module action="DELETE">
+        <active>true</active>
+        <application display_value="System Import Sets">import_sets</application>
+        <assessment/>
+        <device_type/>
+        <filter/>
+        <hint/>
+        <homepage/>
+        <image/>
+        <link_type>LIST</link_type>
+        <map_page/>
+        <mobile_title>Reminder log sample2</mobile_title>
+        <mobile_view_name>Mobile</mobile_view_name>
+        <name>x_cpszo_spoke_reminder_log_sample2</name>
+        <order>1100</order>
+        <override_menu_roles>false</override_menu_roles>
+        <query/>
+        <report/>
+        <require_confirmation>true</require_confirmation>
+        <roles/>
+        <sys_class_name>sys_app_module</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-07-31 10:23:33</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>fca88d468707ea10b3fb021a0cbb35a1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Reminder log sample2</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_app_module_fca88d468707ea10b3fb021a0cbb35a1</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-07-31 10:23:33</sys_updated_on>
+        <timeline_page/>
+        <title>Reminder log sample2</title>
+        <uncancelable>false</uncancelable>
+        <view_name/>
+        <window_name/>
+    </sys_app_module>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_app_module_fca88d468707ea10b3fb021a0cbb35a1</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module"><sys_app_module action="INSERT_OR_UPDATE"><active>true</active><application display_value="System Import Sets">import_sets</application><assessment/><device_type/><filter/><hint/><homepage/><image/><link_type>LIST</link_type><map_page/><mobile_title>Reminder log sample2</mobile_title><mobile_view_name>Mobile</mobile_view_name><name>x_cpszo_spoke_reminder_log_sample2</name><order>1100</order><override_menu_roles>false</override_menu_roles><query/><report/><require_confirmation>true</require_confirmation><roles/><sys_class_name>sys_app_module</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-07-31 10:23:33</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>fca88d468707ea10b3fb021a0cbb35a1</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Reminder log sample2</sys_name><sys_overrides/><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sys_app_module_fca88d468707ea10b3fb021a0cbb35a1</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-07-31 10:23:33</sys_updated_on><timeline_page/><title>Reminder log sample2</title><uncancelable>false</uncancelable><view_name/><window_name/></sys_app_module></record_update>]]></payload>
+        <payload_hash>1635472420</payload_hash>
+        <record_name>Reminder log sample2</record_name>
+        <reverted_from/>
+        <source>92196a9187c7e61002fdeac73cbb35bc</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-07-31 10:23:33</sys_created_on>
+        <sys_id>3ca88d468707ea10b3fb021a0cbb35a4</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1986002345b0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-07-31 10:23:33</sys_updated_on>
+        <type>Module</type>
+        <update_guid>bca88d466a07ea10469697d43f257aa3</update_guid>
+        <update_guid_history>bca88d466a07ea10469697d43f257aa3:1635472420</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Reminder log sample2">8109767e87f3ea90b3fb021a0cbb357e</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-09 09:17:06</sys_created_on>
+        <sys_db_object display_value="" name="sys_app_module">sys_app_module</sys_db_object>
+        <sys_id>4a23c2b01eb14d389a853536a6913f90</sys_id>
+        <sys_metadata>fca88d468707ea10b3fb021a0cbb35a1</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Reminder log sample2</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_app_module_fca88d468707ea10b3fb021a0cbb35a1</sys_update_name>
+        <sys_update_version display_value="sys_app_module_fca88d468707ea10b3fb021a0cbb35a1">3ca88d468707ea10b3fb021a0cbb35a4</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-09 09:17:06</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="pa_m2m_dashboard_tabs">
+    <pa_m2m_dashboard_tabs action="DELETE">
+        <dashboard display_value="Borrower 360 Dashboard">1fd90a13872bea1002fdeac73cbb352e</dashboard>
+        <home>false</home>
+        <homepage/>
+        <order>1</order>
+        <sys_class_name>pa_m2m_dashboard_tabs</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-29 08:53:12</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>841a4e13872bea1002fdeac73cbb35b9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1fd90a13872bea1002fdeac73cbb352e</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>pa_m2m_dashboard_tabs_841a4e13872bea1002fdeac73cbb35b9</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-29 08:53:12</sys_updated_on>
+        <tab display_value="New Tab 1">370a4e13872bea1002fdeac73cbb35a3</tab>
+    </pa_m2m_dashboard_tabs>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>pa_m2m_dashboard_tabs_841a4e13872bea1002fdeac73cbb35b9</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="pa_m2m_dashboard_tabs"><pa_m2m_dashboard_tabs action="INSERT_OR_UPDATE"><dashboard display_value="Borrower 360 Dashboard">1fd90a13872bea1002fdeac73cbb352e</dashboard><home>false</home><homepage/><order>1</order><sys_class_name>pa_m2m_dashboard_tabs</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-08-29 08:53:12</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>841a4e13872bea1002fdeac73cbb35b9</sys_id><sys_mod_count>0</sys_mod_count><sys_name>1fd90a13872bea1002fdeac73cbb352e</sys_name><sys_overrides/><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>pa_m2m_dashboard_tabs_841a4e13872bea1002fdeac73cbb35b9</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-08-29 08:53:12</sys_updated_on><tab display_value="New Tab 1">370a4e13872bea1002fdeac73cbb35a3</tab></pa_m2m_dashboard_tabs></record_update>]]></payload>
+        <payload_hash>-1365177347</payload_hash>
+        <record_name>1fd90a13872bea1002fdeac73cbb352e</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-29 08:53:12</sys_created_on>
+        <sys_id>401a4e13872bea1002fdeac73cbb35bc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>198f507e5b80000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-29 08:53:12</sys_updated_on>
+        <type>Dashboard Tab</type>
+        <update_guid>041a4e13272bea10ec0c9dac36a374bb</update_guid>
+        <update_guid_history>041a4e13272bea10ec0c9dac36a374bb:-1365177347</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-29 09:12:19</sys_created_on>
+        <sys_db_object display_value="" name="pa_m2m_dashboard_tabs">pa_m2m_dashboard_tabs</sys_db_object>
+        <sys_id>46fe6297137e4f609ab9ae72ad104400</sys_id>
+        <sys_metadata>841a4e13872bea1002fdeac73cbb35b9</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1fd90a13872bea1002fdeac73cbb352e</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent display_value="">1fd90a13872bea1002fdeac73cbb352e</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>pa_m2m_dashboard_tabs_841a4e13872bea1002fdeac73cbb35b9</sys_update_name>
+        <sys_update_version display_value="pa_m2m_dashboard_tabs_841a4e13872bea1002fdeac73cbb35b9">401a4e13872bea1002fdeac73cbb35bc</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-29 09:12:19</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, spUtil, $location) {
+  var customerId = $location.search().customerId;
+  $scope.data.customerId = customerId;
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>related_list</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Related List</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    //var customerId = options.customerId || ''; // Use options instead of input
+		var customerId = data.customerId || '';
+    data.offers = [];
+    data.reminders = [];
+    data.notifications = [];
+    data.integrations = [];
+
+    if (!customerId) {
+        data.error = "Customer ID not provided.";
+        return;
+    }
+
+    // Offers
+    var offerGR = new GlideRecord('u_offer_tracker');
+    offerGR.addQuery('u_customer_id', customerId);
+    offerGR.query();
+    while (offerGR.next()) {
+        data.offers.push({
+            name: offerGR.getValue('u_offer_name'),
+            status: offerGR.getValue('u_status'),
+            sys_id: offerGR.getValue('sys_id')
+        });
+    }
+
+    // Reminders
+    var reminderGR = new GlideRecord('u_reminder_log');
+    reminderGR.addQuery('u_customer_id', customerId);
+    reminderGR.query();
+    while (reminderGR.next()) {
+        data.reminders.push({
+            text: reminderGR.getValue('u_reminder_text'),
+            date: reminderGR.getValue('u_reminder_date'),
+            sys_id: reminderGR.getValue('sys_id')
+        });
+    }
+
+    // Notifications
+    var notificationGR = new GlideRecord('u_notification_preview');
+    notificationGR.addQuery('u_customer_id', customerId);
+    notificationGR.query();
+    while (notificationGR.next()) {
+        data.notifications.push({
+            message: notificationGR.getValue('u_message'),
+            type: notificationGR.getValue('u_type'),
+            sys_id: notificationGR.getValue('sys_id')
+        });
+    }
+
+    // Integrations
+    var integrationGR = new GlideRecord('u_integration_log');
+    integrationGR.addQuery('u_customer_id', customerId);
+    integrationGR.query();
+    while (integrationGR.next()) {
+        data.integrations.push({
+            event_type: integrationGR.getValue('u_event_type'),
+            timestamp: integrationGR.getValue('u_timestamp'),
+            sys_id: integrationGR.getValue('sys_id')
+        });
+    }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 16:25:59</sys_created_on>
+        <sys_id>b97e879c87f7e650b3fb021a0cbb3589</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>Related List</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sp_widget_b97e879c87f7e650b3fb021a0cbb3589</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 16:28:42</sys_updated_on>
+        <template><![CDATA[<div>
+  <h2>Offers</h2>
+  <ul>
+    <li ng-repeat="offer in data.offers">
+      {{offer.name}} - {{offer.status}}
+    </li>
+  </ul>
+
+  <h2>Reminders</h2>
+  <ul>
+    <li ng-repeat="reminder in data.reminders">
+      {{reminder.text}} ({{reminder.date}})
+    </li>
+  </ul>
+
+  <h2>Notifications</h2>
+  <ul>
+    <li ng-repeat="notification in data.notifications">
+      {{notification.message}} - {{notification.type}}
+    </li>
+  </ul>
+
+  <h2>Integrations</h2>
+  <ul>
+    <li ng-repeat="integration in data.integrations">
+      {{integration.event_type}} at {{integration.timestamp}}
+    </li>
+  </ul>
+</div>]]></template>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sp_widget_b97e879c87f7e650b3fb021a0cbb3589</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function($scope, spUtil, $location) {
+  var customerId = $location.search().customerId;
+  $scope.data.customerId = customerId;
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css/&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;related_list&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;Related List&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+    //var customerId = options.customerId || ''; // Use options instead of input
+		var customerId = data.customerId || '';
+    data.offers = [];
+    data.reminders = [];
+    data.notifications = [];
+    data.integrations = [];
+
+    if (!customerId) {
+        data.error = "Customer ID not provided.";
+        return;
+    }
+
+    // Offers
+    var offerGR = new GlideRecord('u_offer_tracker');
+    offerGR.addQuery('u_customer_id', customerId);
+    offerGR.query();
+    while (offerGR.next()) {
+        data.offers.push({
+            name: offerGR.getValue('u_offer_name'),
+            status: offerGR.getValue('u_status'),
+            sys_id: offerGR.getValue('sys_id')
+        });
+    }
+
+    // Reminders
+    var reminderGR = new GlideRecord('u_reminder_log');
+    reminderGR.addQuery('u_customer_id', customerId);
+    reminderGR.query();
+    while (reminderGR.next()) {
+        data.reminders.push({
+            text: reminderGR.getValue('u_reminder_text'),
+            date: reminderGR.getValue('u_reminder_date'),
+            sys_id: reminderGR.getValue('sys_id')
+        });
+    }
+
+    // Notifications
+    var notificationGR = new GlideRecord('u_notification_preview');
+    notificationGR.addQuery('u_customer_id', customerId);
+    notificationGR.query();
+    while (notificationGR.next()) {
+        data.notifications.push({
+            message: notificationGR.getValue('u_message'),
+            type: notificationGR.getValue('u_type'),
+            sys_id: notificationGR.getValue('sys_id')
+        });
+    }
+
+    // Integrations
+    var integrationGR = new GlideRecord('u_integration_log');
+    integrationGR.addQuery('u_customer_id', customerId);
+    integrationGR.query();
+    while (integrationGR.next()) {
+        data.integrations.push({
+            event_type: integrationGR.getValue('u_event_type'),
+            timestamp: integrationGR.getValue('u_timestamp'),
+            sys_id: integrationGR.getValue('sys_id')
+        });
+    }
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;brijesh.banerjee&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-09-01 16:25:59&lt;/sys_created_on&gt;&lt;sys_id&gt;b97e879c87f7e650b3fb021a0cbb3589&lt;/sys_id&gt;&lt;sys_mod_count&gt;4&lt;/sys_mod_count&gt;&lt;sys_name&gt;Related List&lt;/sys_name&gt;&lt;sys_package display_value="Spoke" source="x_cpszo_spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_b97e879c87f7e650b3fb021a0cbb3589&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;brijesh.banerjee&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-09-01 16:28:42&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div&gt;
+  &lt;h2&gt;Offers&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li ng-repeat="offer in data.offers"&gt;
+      {{offer.name}} - {{offer.status}}
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;h2&gt;Reminders&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li ng-repeat="reminder in data.reminders"&gt;
+      {{reminder.text}} ({{reminder.date}})
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;h2&gt;Notifications&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li ng-repeat="notification in data.notifications"&gt;
+      {{notification.message}} - {{notification.type}}
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;h2&gt;Integrations&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li ng-repeat="integration in data.integrations"&gt;
+      {{integration.event_type}} at {{integration.timestamp}}
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>362768203</payload_hash>
+        <record_name>Related List</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 16:28:42</sys_created_on>
+        <sys_id>211f4fdc87f7e650b3fb021a0cbb35fb</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>199061c01280000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 16:28:42</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>651f4fdc3ff7e650ceeb272a27c259fa</update_guid>
+        <update_guid_history>651f4fdc3ff7e650ceeb272a27c259fa:362768203,a60f4fdcdff7e650dcf0c6a14c923eba:-644333160,eaae43dc27f7e6503abed037294bb2c7:425507376,8f9e03dc46f7e650f0868d8a3f0aa1c1:-242069813,f57e0f9c99f7e650849011f09a8cda9e:-1123900547</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Related List">a0746cea87332a90b3fb021a0cbb35f5</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-08 03:49:29</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>1d3c34bb07b740f089b16bca70f814a4</sys_id>
+        <sys_metadata>b97e879c87f7e650b3fb021a0cbb3589</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Related List</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sp_widget_b97e879c87f7e650b3fb021a0cbb3589</sys_update_name>
+        <sys_update_version display_value="sp_widget_b97e879c87f7e650b3fb021a0cbb3589">211f4fdc87f7e650b3fb021a0cbb35fb</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-08 03:49:29</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

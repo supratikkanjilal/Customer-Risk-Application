@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_table">
+    <sp_instance_table action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <display_field/>
+        <field_list>name,number,risk_band</field_list>
+        <filter/>
+        <glyph/>
+        <id/>
+        <maximum_entries>5</maximum_entries>
+        <order>1</order>
+        <order_by/>
+        <order_direction>asc</order_direction>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">12b4b1d8873fa650b3fb021a0cbb357d</sp_column>
+        <sp_page/>
+        <sp_widget display_value="Data Table with URL Filter">5d8f9dc2936832003706dfa5e57ffb06</sp_widget>
+        <sys_class_name>sp_instance_table</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-29 12:01:58</sys_created_on>
+        <sys_id>4d45bad387a7ee10b3fb021a0cbb352f</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sp_instance_table_4d45bad387a7ee10b3fb021a0cbb352f</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 09:54:00</sys_updated_on>
+        <table>x_cpszo_spoke_customer_profile</table>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance_table>
+    <sys_translated_text action="DELETE" query="documentkey=4d45bad387a7ee10b3fb021a0cbb352f"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sp_instance_table_4d45bad387a7ee10b3fb021a0cbb352f</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_table"><sp_instance_table action="INSERT_OR_UPDATE"><active>true</active><class_name/><color>default</color><css/><display_field/><field_list>name,number,risk_band</field_list><filter/><glyph/><id/><maximum_entries>5</maximum_entries><order>1</order><order_by/><order_direction>asc</order_direction><roles/><short_description/><size>md</size><sp_column display_value="1">12b4b1d8873fa650b3fb021a0cbb357d</sp_column><sp_page/><sp_widget display_value="Data Table with URL Filter">5d8f9dc2936832003706dfa5e57ffb06</sp_widget><sys_class_name>sp_instance_table</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-08-29 12:01:58</sys_created_on><sys_id>4d45bad387a7ee10b3fb021a0cbb352f</sys_id><sys_mod_count>7</sys_mod_count><sys_name/><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sp_instance_table_4d45bad387a7ee10b3fb021a0cbb352f</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-09-01 09:54:00</sys_updated_on><table>x_cpszo_spoke_customer_profile</table><title/><url/><widget_parameters/></sp_instance_table><sys_translated_text action="delete_multiple" query="documentkey=4d45bad387a7ee10b3fb021a0cbb352f"/></record_update>]]></payload>
+        <payload_hash>1570245229</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 09:54:00</sys_created_on>
+        <sys_id>b7b4b1d8873fa650b3fb021a0cbb35aa</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19904b2a52e0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 09:54:00</sys_updated_on>
+        <type>Instance with Table</type>
+        <update_guid>fbb4b1d8443fa6506f2ff265b0eb96a9</update_guid>
+        <update_guid_history>fbb4b1d8443fa6506f2ff265b0eb96a9:1570245229,46efe098e8fb6250e8a878be7327fa83:833006240,45ef649813fb6250b7498b9ec3067bc5:-2125323521,04dfe09850fb6250115a724b03b6732c:-534013298,55e572578fa7ee10c61ecf51e9538515:833006240,91d5be17d0a7ee10f9af94a0de59c57c:-2125323521,62957617c6a7ee10712382403bf710c1:833006240,0545bad3cfa7ee100d264edbff867431:1986342614</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">f406395c873fa650b3fb021a0cbb3592</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 09:59:31</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance_table">sp_instance_table</sys_db_object>
+        <sys_id>07b2de29416e492d8f30ad402c9537e9</sys_id>
+        <sys_metadata>4d45bad387a7ee10b3fb021a0cbb352f</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sp_instance_table_4d45bad387a7ee10b3fb021a0cbb352f</sys_update_name>
+        <sys_update_version display_value="sp_instance_table_4d45bad387a7ee10b3fb021a0cbb352f">b7b4b1d8873fa650b3fb021a0cbb35aa</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 09:59:31</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

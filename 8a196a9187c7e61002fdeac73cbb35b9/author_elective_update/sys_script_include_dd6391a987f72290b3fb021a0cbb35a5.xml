@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="DELETE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_cpszo_spoke.RelatedListData</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>RelatedListData</name>
+        <script><![CDATA[var RelatedListData = Class.create();
+RelatedListData.prototype = {
+    initialize: function() {},
+
+    getRelatedData: function(number) {
+        var result = {
+            offers: [],
+            reminders: [],
+            notifications: [],
+            integrationLogs: []
+        };
+
+        // Helper function to query a table
+        function queryTable(tableName, numberField) {
+            var gr = new GlideRecord(tableName);
+            gr.addQuery(numberField, number);
+            gr.query();
+            var records = [];
+            while (gr.next()) {
+                records.push(gr.getDisplayValue()); // or use gr.getValues() for full data
+            }
+            return records;
+        }
+
+        result.offers = queryTable('x_cpszo_spoke_offer_tracker', 'number');
+        result.reminders = queryTable('x_cpszo_spoke_reminder_log', 'number');
+        result.notifications = queryTable('x_cpszo_spoke_notification_preview', 'number');
+        result.integrationLogs = queryTable('x_cpszo_spoke_integration_log', 'number');
+
+        return result;
+    },
+
+    type: 'RelatedListData'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-05 04:42:39</sys_created_on>
+        <sys_id>dd6391a987f72290b3fb021a0cbb35a5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>RelatedListData</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_script_include_dd6391a987f72290b3fb021a0cbb35a5</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-05 04:42:39</sys_updated_on>
+    </sys_script_include>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_script_include_dd6391a987f72290b3fb021a0cbb35a5</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;x_cpszo_spoke.RelatedListData&lt;/api_name&gt;&lt;caller_access/&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;description/&gt;&lt;name&gt;RelatedListData&lt;/name&gt;&lt;script&gt;&lt;![CDATA[var RelatedListData = Class.create();
+RelatedListData.prototype = {
+    initialize: function() {},
+
+    getRelatedData: function(number) {
+        var result = {
+            offers: [],
+            reminders: [],
+            notifications: [],
+            integrationLogs: []
+        };
+
+        // Helper function to query a table
+        function queryTable(tableName, numberField) {
+            var gr = new GlideRecord(tableName);
+            gr.addQuery(numberField, number);
+            gr.query();
+            var records = [];
+            while (gr.next()) {
+                records.push(gr.getDisplayValue()); // or use gr.getValues() for full data
+            }
+            return records;
+        }
+
+        result.offers = queryTable('x_cpszo_spoke_offer_tracker', 'number');
+        result.reminders = queryTable('x_cpszo_spoke_reminder_log', 'number');
+        result.notifications = queryTable('x_cpszo_spoke_notification_preview', 'number');
+        result.integrationLogs = queryTable('x_cpszo_spoke_integration_log', 'number');
+
+        return result;
+    },
+
+    type: 'RelatedListData'
+};]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;brijesh.banerjee&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-09-05 04:42:39&lt;/sys_created_on&gt;&lt;sys_id&gt;dd6391a987f72290b3fb021a0cbb35a5&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;RelatedListData&lt;/sys_name&gt;&lt;sys_package display_value="Spoke" source="x_cpszo_spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_package&gt;&lt;sys_policy&gt;read&lt;/sys_policy&gt;&lt;sys_scope display_value="Spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_dd6391a987f72290b3fb021a0cbb35a5&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;brijesh.banerjee&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-09-05 04:42:39&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-130761812</payload_hash>
+        <record_name>RelatedListData</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-05 04:42:39</sys_created_on>
+        <sys_id>8ed315e987f72290b3fb021a0cbb35bd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>199182f07250000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-05 04:42:39</sys_updated_on>
+        <type>Script Include</type>
+        <update_guid>02d315e907f722902c978f6a97c859bd</update_guid>
+        <update_guid_history>02d315e907f722902c978f6a97c859bd:-130761812</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-05 05:11:06</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_include">sys_script_include</sys_db_object>
+        <sys_id>1ba343c412864bba979151ee325a1bc4</sys_id>
+        <sys_metadata>dd6391a987f72290b3fb021a0cbb35a5</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>RelatedListData</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_script_include_dd6391a987f72290b3fb021a0cbb35a5</sys_update_name>
+        <sys_update_version display_value="sys_script_include_dd6391a987f72290b3fb021a0cbb35a5">8ed315e987f72290b3fb021a0cbb35bd</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-05 05:11:06</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ux_page_property">
+    <sys_ux_page_property action="DELETE">
+        <choices/>
+        <description/>
+        <name>globalSearchDataConfigId</name>
+        <page display_value="Credit Ops Workspace">0a1e5d498767aed0b3fb021a0cbb350b</page>
+        <required_translations/>
+        <route/>
+        <suffix/>
+        <sys_class_name>sys_ux_page_property</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-27 04:35:54</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>global</sys_domain_path>
+        <sys_id>13fb3eaa87e76a10b3fb021a0cbb3572</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>globalSearchDataConfigId</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_ux_page_property_13fb3eaa87e76a10b3fb021a0cbb3572</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-27 04:35:54</sys_updated_on>
+        <type>string</type>
+        <unique_name>x_cpszo_spoke.0a1e5d498767aed0b3fb021a0cbb350b.root.globalSearchDataConfigId</unique_name>
+        <value>4961e3e7871033000929717936cb0ba7</value>
+    </sys_ux_page_property>
+    <sys_translated_text action="DELETE" query="documentkey=13fb3eaa87e76a10b3fb021a0cbb3572"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_ux_page_property_13fb3eaa87e76a10b3fb021a0cbb3572</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ux_page_property"><sys_ux_page_property action="INSERT_OR_UPDATE"><choices/><description/><name>globalSearchDataConfigId</name><page display_value="Credit Ops Workspace">0a1e5d498767aed0b3fb021a0cbb350b</page><required_translations/><route/><suffix/><sys_class_name>sys_ux_page_property</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-08-27 04:35:54</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>global</sys_domain_path><sys_id>13fb3eaa87e76a10b3fb021a0cbb3572</sys_id><sys_mod_count>0</sys_mod_count><sys_name>globalSearchDataConfigId</sys_name><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sys_ux_page_property_13fb3eaa87e76a10b3fb021a0cbb3572</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-08-27 04:35:54</sys_updated_on><type>string</type><unique_name>x_cpszo_spoke.0a1e5d498767aed0b3fb021a0cbb350b.root.globalSearchDataConfigId</unique_name><value>4961e3e7871033000929717936cb0ba7</value></sys_ux_page_property><sys_translated_text action="delete_multiple" query="documentkey=13fb3eaa87e76a10b3fb021a0cbb3572"/></record_update>]]></payload>
+        <payload_hash>-629220294</payload_hash>
+        <record_name>globalSearchDataConfigId</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-27 04:35:54</sys_created_on>
+        <sys_id>97fb3eaa87e76a10b3fb021a0cbb3574</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>198e9cf9d9f0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-27 04:35:54</sys_updated_on>
+        <type>UX Page Property</type>
+        <update_guid>5bfb3eaabbe76a1094f6e305b7697f73</update_guid>
+        <update_guid_history>5bfb3eaabbe76a1094f6e305b7697f73:-629220294</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-28 06:48:57</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_page_property">sys_ux_page_property</sys_db_object>
+        <sys_id>2a1dc5fc31e348b0a021c0ca7bdb5704</sys_id>
+        <sys_metadata>13fb3eaa87e76a10b3fb021a0cbb3572</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>globalSearchDataConfigId</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_ux_page_property_13fb3eaa87e76a10b3fb021a0cbb3572</sys_update_name>
+        <sys_update_version display_value="sys_ux_page_property_13fb3eaa87e76a10b3fb021a0cbb3572">97fb3eaa87e76a10b3fb021a0cbb3574</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-28 06:48:57</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

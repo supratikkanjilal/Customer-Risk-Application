@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_portal">
+    <sp_portal action="DELETE">
+        <css_variables/>
+        <dark_theme/>
+        <default>false</default>
+        <enable_ais>false</enable_ais>
+        <enable_certificate_based_authentication>false</enable_certificate_based_authentication>
+        <enable_favorites>false</enable_favorites>
+        <hide_portal_name>false</hide_portal_name>
+        <homepage display_value="borrower_360">012466538727ee10b3fb021a0cbb3531</homepage>
+        <icon/>
+        <kb_knowledge_base/>
+        <kb_knowledge_page/>
+        <login_page/>
+        <logo/>
+        <notfound_page/>
+        <quick_start_config/>
+        <rtl_enabled>false</rtl_enabled>
+        <sc_catalog/>
+        <sc_catalog_page/>
+        <sc_category_page/>
+        <search_application display_value="Service Portal Default Search Application">00731b9d5b231010d9a5ce1a8581c7dd</search_application>
+        <search_results_configuration display_value="Service Portal Search">80eb579d53671010968addeeff7b1215</search_results_configuration>
+        <sp_chat_queue/>
+        <sp_rectangle_menu/>
+        <sys_class_name>sp_portal</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-29 09:15:34</sys_created_on>
+        <sys_id>a5de8a5b872bea1002fdeac73cbb35bd</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Credit Ops Portal</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sp_portal_a5de8a5b872bea1002fdeac73cbb35bd</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-29 10:47:59</sys_updated_on>
+        <theme display_value="Stock">79315153cb33310000f8d856634c9c4b</theme>
+        <title>Credit Ops Portal</title>
+        <ts_index_group/>
+        <url_suffix>credit_ops</url_suffix>
+        <user_registration_config/>
+    </sp_portal>
+    <sys_translated_text action="DELETE" query="documentkey=a5de8a5b872bea1002fdeac73cbb35bd"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sp_portal_a5de8a5b872bea1002fdeac73cbb35bd</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_portal"><sp_portal action="INSERT_OR_UPDATE"><css_variables/><dark_theme/><default>false</default><enable_ais>false</enable_ais><enable_certificate_based_authentication>false</enable_certificate_based_authentication><enable_favorites>false</enable_favorites><hide_portal_name>false</hide_portal_name><homepage display_value="borrower_360">012466538727ee10b3fb021a0cbb3531</homepage><icon/><kb_knowledge_base/><kb_knowledge_page/><login_page/><logo/><notfound_page/><quick_start_config/><rtl_enabled>false</rtl_enabled><sc_catalog/><sc_catalog_page/><sc_category_page/><search_application display_value="Service Portal Default Search Application">00731b9d5b231010d9a5ce1a8581c7dd</search_application><search_results_configuration display_value="Service Portal Search">80eb579d53671010968addeeff7b1215</search_results_configuration><sp_chat_queue/><sp_rectangle_menu/><sys_class_name>sp_portal</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-08-29 09:15:34</sys_created_on><sys_id>a5de8a5b872bea1002fdeac73cbb35bd</sys_id><sys_mod_count>2</sys_mod_count><sys_name>Credit Ops Portal</sys_name><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sp_portal_a5de8a5b872bea1002fdeac73cbb35bd</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-08-29 10:47:59</sys_updated_on><theme display_value="Stock">79315153cb33310000f8d856634c9c4b</theme><title>Credit Ops Portal</title><ts_index_group/><url_suffix>credit_ops</url_suffix><user_registration_config/></sp_portal><sys_translated_text action="delete_multiple" query="documentkey=a5de8a5b872bea1002fdeac73cbb35bd"/></record_update>]]></payload>
+        <payload_hash>199277466</payload_hash>
+        <record_name>Credit Ops Portal</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-29 10:47:59</sys_created_on>
+        <sys_id>1154ea538727ee10b3fb021a0cbb3529</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>198f570fd970000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-29 10:47:59</sys_updated_on>
+        <type>Service Portal</type>
+        <update_guid>d154ea539f27ee10de6074657a4fe228</update_guid>
+        <update_guid_history>d154ea539f27ee10de6074657a4fe228:199277466,9160a25b1be3ee1002126fc37689e476:-1287037977,ff2f4a9bf32bea1078c64b01d5d27827:-1916558872</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Credit Ops Portal">f1bb78c887772650b3fb021a0cbb3564</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-08-31 11:06:21</sys_created_on>
+        <sys_db_object display_value="" name="sp_portal">sp_portal</sys_db_object>
+        <sys_id>7497c559fe8f46189af349e005bc45a4</sys_id>
+        <sys_metadata>a5de8a5b872bea1002fdeac73cbb35bd</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Credit Ops Portal</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sp_portal_a5de8a5b872bea1002fdeac73cbb35bd</sys_update_name>
+        <sys_update_version display_value="sp_portal_a5de8a5b872bea1002fdeac73cbb35bd">1154ea538727ee10b3fb021a0cbb3529</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-08-31 11:06:21</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

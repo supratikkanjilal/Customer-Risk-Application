@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_related sys_domain="global" table="x_cpszo_spoke_customer_profile" version="2" view="customer_related_list">
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Customer Profile - Customer_related_list" name="x_cpszo_spoke_customer_profile" related_list="NULL" sys_domain="global" view="697ba66c8737265002fdeac73cbb35de">a20de6208777265002fdeac73cbb35a4</list_id>
+            <order_by/>
+            <position>0</position>
+            <related_list>x_cpszo_spoke_offer_tracker.number</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>brijesh.banerjee</sys_created_by>
+            <sys_created_on>2025-09-02 08:38:25</sys_created_on>
+            <sys_id>220de6208777265002fdeac73cbb35a5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>brijesh.banerjee</sys_updated_by>
+            <sys_updated_on>2025-09-02 08:38:25</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Customer Profile - Customer_related_list" name="x_cpszo_spoke_customer_profile" related_list="NULL" sys_domain="global" view="697ba66c8737265002fdeac73cbb35de">a20de6208777265002fdeac73cbb35a4</list_id>
+            <order_by/>
+            <position>1</position>
+            <related_list>x_cpszo_spoke_reminder_log.number</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>brijesh.banerjee</sys_created_by>
+            <sys_created_on>2025-09-02 08:38:25</sys_created_on>
+            <sys_id>260de6208777265002fdeac73cbb35a5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>brijesh.banerjee</sys_updated_by>
+            <sys_updated_on>2025-09-02 08:38:25</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Customer Profile - Customer_related_list" name="x_cpszo_spoke_customer_profile" related_list="NULL" sys_domain="global" view="697ba66c8737265002fdeac73cbb35de">a20de6208777265002fdeac73cbb35a4</list_id>
+            <order_by/>
+            <position>2</position>
+            <related_list>x_cpszo_spoke_notification_preview.number</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>brijesh.banerjee</sys_created_by>
+            <sys_created_on>2025-09-02 08:38:25</sys_created_on>
+            <sys_id>2a0de6208777265002fdeac73cbb35a5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>brijesh.banerjee</sys_updated_by>
+            <sys_updated_on>2025-09-02 08:38:25</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list action="INSERT_OR_UPDATE">
+            <calculated_name>Customer Profile - Customer_related_list</calculated_name>
+            <filter/>
+            <name>x_cpszo_spoke_customer_profile</name>
+            <order_by/>
+            <position/>
+            <related_list/>
+            <sys_class_name>sys_ui_related_list</sys_class_name>
+            <sys_created_by>brijesh.banerjee</sys_created_by>
+            <sys_created_on>2025-09-02 08:38:25</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>a20de6208777265002fdeac73cbb35a4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Customer Profile - Customer_related_list</sys_name>
+            <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+            <sys_update_name>sys_ui_related_x_cpszo_spoke_customer_profile_customer_related_list</sys_update_name>
+            <sys_updated_by>brijesh.banerjee</sys_updated_by>
+            <sys_updated_on>2025-09-02 08:38:25</sys_updated_on>
+            <sys_user/>
+            <view display_value="Customer_related_list" name="customer_related_list">697ba66c8737265002fdeac73cbb35de</view>
+            <view_name/>
+        </sys_ui_related_list>
+    </sys_ui_related>
+</record_update>

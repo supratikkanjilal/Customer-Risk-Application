@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container">
+    <sp_container action="DELETE">
+        <background_color/>
+        <background_image/>
+        <background_style>default</background_style>
+        <bootstrap_alt>false</bootstrap_alt>
+        <class_name/>
+        <container_class_name/>
+        <name>Borrower 360 - Container 3</name>
+        <order>3</order>
+        <semantic_tag/>
+        <sp_page display_value="borrower_360">012466538727ee10b3fb021a0cbb3531</sp_page>
+        <subheader>false</subheader>
+        <sys_class_name>sp_container</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 06:50:03</sys_created_on>
+        <sys_id>d26720dd8773ae50b3fb021a0cbb3530</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>Borrower 360 - Container 3</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sp_container_d26720dd8773ae50b3fb021a0cbb3530</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 06:51:05</sys_updated_on>
+        <title/>
+        <width>container</width>
+    </sp_container>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sp_container_d26720dd8773ae50b3fb021a0cbb3530</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container"><sp_container action="INSERT_OR_UPDATE"><background_color/><background_image/><background_style>default</background_style><bootstrap_alt>false</bootstrap_alt><class_name/><container_class_name/><name>Borrower 360 - Container 3</name><order>3</order><semantic_tag/><sp_page display_value="borrower_360">012466538727ee10b3fb021a0cbb3531</sp_page><subheader>false</subheader><sys_class_name>sp_container</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-09-04 06:50:03</sys_created_on><sys_id>d26720dd8773ae50b3fb021a0cbb3530</sys_id><sys_mod_count>4</sys_mod_count><sys_name>Borrower 360 - Container 3</sys_name><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sp_container_d26720dd8773ae50b3fb021a0cbb3530</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-09-04 06:51:05</sys_updated_on><title/><width>container</width></sp_container></record_update>]]></payload>
+        <payload_hash>1520133217</payload_hash>
+        <record_name>Borrower 360 - Container 3</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 06:51:05</sys_created_on>
+        <sys_id>e5a72cdd8773ae50b3fb021a0cbb35e7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>199137e40740000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 06:51:05</sys_updated_on>
+        <type>Container</type>
+        <update_guid>2da72cdd8f73ae50bfeea5ed9d8b5ee6</update_guid>
+        <update_guid_history>2da72cdd8f73ae50bfeea5ed9d8b5ee6:1520133217,f38768dd1b73ae5047b1597b8f8177b0:-1194465854,1e8728dd1673ae5023c5b63c6705839c:385902371,3d7724dd2873ae5002277106fbacccdd:-1194465854,d26720ddac73ae5032acd57fea4c0b32:1520133217</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Borrower 360 - Container 3">b7a76cdd8773ae50b3fb021a0cbb354f</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 06:51:14</sys_created_on>
+        <sys_db_object display_value="" name="sp_container">sp_container</sys_db_object>
+        <sys_id>028bd533546540988255dff1bdd0d144</sys_id>
+        <sys_metadata>d26720dd8773ae50b3fb021a0cbb3530</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Borrower 360 - Container 3</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sp_container_d26720dd8773ae50b3fb021a0cbb3530</sys_update_name>
+        <sys_update_version display_value="sp_container_d26720dd8773ae50b3fb021a0cbb3530">e5a72cdd8773ae50b3fb021a0cbb35e7</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 06:51:14</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

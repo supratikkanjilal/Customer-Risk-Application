@@ -1,0 +1,1239 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($scope, $location, $timeout) {
+  'use strict';
+
+  // --- Helpers ---------------------------------------------------------------
+
+  // Read sys_id from URL (support a couple of fallbacks)
+  function getSysIdFromUrl() {
+    var q = $location.search() || {};
+    return q.sys_id || q.id || q.record || null;
+  }
+
+  // Update the server with the selected sys_id
+  function refresh(sys_id) {
+    if (!sys_id) return;
+    $scope.data.loading = true;
+    $scope.server.update({ sys_id: sys_id })
+      .finally(function () {
+        $scope.data.loading = false;
+      });
+  }
+
+  // Avoid redundant calls
+  var lastSysId = null;
+  function maybeRefresh(sys_id) {
+    if (sys_id && sys_id !== lastSysId) {
+      lastSysId = sys_id;
+      refresh(sys_id);
+    }
+  }
+
+  // Normalize various row-click payloads into a sys_id
+  function sysIdFromPayload(payload) {
+    if (!payload) return null;
+    // Common patterns seen in OOB widgets:
+    // payload.sys_id, payload.row_id, payload.row.sys_id, payload.record.sys_id, payload.item.sys_id
+    return payload.sys_id
+      || payload.row_id
+      || (payload.row && payload.row.sys_id)
+      || (payload.record && payload.record.sys_id)
+      || (payload.item && payload.item.sys_id)
+      || null;
+  }
+
+  function handleRowSelect(payload) {
+    var id = sysIdFromPayload(payload);
+    if (!id) return;
+    // Keep URL in sync so sharing/back-forward works
+    if (($location.search() || {}).sys_id !== id)
+      $location.search('sys_id', id);
+    maybeRefresh(id);
+  }
+
+  // --- Init ------------------------------------------------------------------
+
+  // Initial from URL (works in page view or direct load)
+  $timeout(function () {
+    maybeRefresh(getSysIdFromUrl());
+  }, 0);
+
+  // Listen to top data table row clicks.
+  // OOB "Data Table from URL" commonly emits 'sp.list.click'. Some clones emit alternatives.
+  $scope.$on('sp.list.click', function (evt, payload) { handleRowSelect(payload); });
+  $scope.$on('data_table.row.click', function (evt, payload) { handleRowSelect(payload); });
+  $scope.$on('table.row.click', function (evt, payload) { handleRowSelect(payload); });
+
+  // If user navigates back/forward or deep-link changes the URL, re-run
+  $scope.$watch(function () { return ($location.search() || {}).sys_id; },
+    function (nv, ov) {
+      if (nv !== ov) maybeRefresh(nv);
+    });
+
+  // Optional: listen to a custom broadcast from another widget
+  $scope.$on('customer.selected', function (evt, payload) {
+    var id = sysIdFromPayload(payload);
+    if (id) {
+      $location.search('sys_id', id);
+      maybeRefresh(id);
+    }
+  });
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>customer_activity_related_list</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Customer Activity Related List</name>
+        <option_schema>[]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[/*(function() {
+  data.loading = true;
+  data.customer = null;
+  data.error = null;
+  data.offers = [];
+  data.reminders = [];
+  data.notifications = [];
+  data.integrations = [];
+
+
+  try {
+    // Priority: input.sys_id (from client update) > URL ?sys_id > option
+    var sysId = (input && input.sys_id) ||
+                $sp.getParameter('sys_id') ||
+                (options && options.sys_id);
+
+    var gr = new GlideRecord('x_cpszo_spoke_offer_tracker');
+    if (sysId) {
+      if (gr.get(sysId)) {
+        data.offer = {
+          acceptance_date: gr.getDisplayValue('acceptance_date') ||gr.getDisplayValue('acceptance_date'),
+          offer_status: gr.getDisplayValue('offer_status') ||gr.getValue('offer_status'),
+          installment_amount: gr.getDisplayValue('installment_amount') || gr.getValue('installment_amount'),
+					delinquency_status: gr.getDisplayValue('delinquency_status') || gr.getValue('delinquency_status')
+        };
+      } else {
+        data.error = 'Record not found for sys_id: ' + sysId;
+      }
+    } else {
+      // Fallback: latest record (adjust if you want per-user)
+      gr.orderByDesc('sys_updated_on');
+      gr.setLimit(1);
+      gr.query();
+      if (gr.next()) {
+        data.customer = {
+          last_payment_date_display: gr.getDisplayValue('last_payment_date'),
+          last_payment_date: gr.getValue('last_payment_date'),
+          credit_behaviour: gr.getDisplayValue('credit_behaviour') || gr.getValue('credit_behaviour')
+        };
+      }
+    }
+		var gr = new GlideRecord('x_cpszo_spoke_customer_profile');
+    if (sysId) {
+      if (gr.get(sysId)) {
+        data.customer = {
+          last_payment_date_display: gr.getDisplayValue('last_payment_date'),
+          last_payment_date: gr.getValue('last_payment_date'),
+          credit_behaviour: gr.getDisplayValue('credit_behaviour') || gr.getValue('credit_behaviour')
+        };
+      } else {
+        data.error = 'Record not found for sys_id: ' + sysId;
+      }
+    } else {
+      // Fallback: latest record (adjust if you want per-user)
+      gr.orderByDesc('sys_updated_on');
+      gr.setLimit(1);
+      gr.query();
+      if (gr.next()) {
+        data.customer = {
+          last_payment_date_display: gr.getDisplayValue('last_payment_date'),
+          last_payment_date: gr.getValue('last_payment_date'),
+          credit_behaviour: gr.getDisplayValue('credit_behaviour') || gr.getValue('credit_behaviour')
+        };
+      }
+    }
+		var gr = new GlideRecord('x_cpszo_spoke_customer_profile');
+    if (sysId) {
+      if (gr.get(sysId)) {
+        data.customer = {
+          last_payment_date_display: gr.getDisplayValue('last_payment_date'),
+          last_payment_date: gr.getValue('last_payment_date'),
+          credit_behaviour: gr.getDisplayValue('credit_behaviour') || gr.getValue('credit_behaviour')
+        };
+      } else {
+        data.error = 'Record not found for sys_id: ' + sysId;
+      }
+    } else {
+      // Fallback: latest record (adjust if you want per-user)
+      gr.orderByDesc('sys_updated_on');
+      gr.setLimit(1);
+      gr.query();
+      if (gr.next()) {
+        data.customer = {
+          last_payment_date_display: gr.getDisplayValue('last_payment_date'),
+          last_payment_date: gr.getValue('last_payment_date'),
+          credit_behaviour: gr.getDisplayValue('credit_behaviour') || gr.getValue('credit_behaviour')
+        };
+      }
+    }
+		var gr = new GlideRecord('x_cpszo_spoke_customer_profile');
+    if (sysId) {
+      if (gr.get(sysId)) {
+        data.customer = {
+          last_payment_date_display: gr.getDisplayValue('last_payment_date'),
+          last_payment_date: gr.getValue('last_payment_date'),
+          credit_behaviour: gr.getDisplayValue('credit_behaviour') || gr.getValue('credit_behaviour')
+        };
+      } else {
+        data.error = 'Record not found for sys_id: ' + sysId;
+      }
+    } else {
+      // Fallback: latest record (adjust if you want per-user)
+      gr.orderByDesc('sys_updated_on');
+      gr.setLimit(1);
+      gr.query();
+      if (gr.next()) {
+        data.customer = {
+          last_payment_date_display: gr.getDisplayValue('last_payment_date'),
+          last_payment_date: gr.getValue('last_payment_date'),
+          credit_behaviour: gr.getDisplayValue('credit_behaviour') || gr.getValue('credit_behaviour')
+        };
+      }
+    }
+  } catch (e) {
+    data.error = (e && e.message) ? e.message : (e + '');
+  } 
+	
+	finally {
+    data.loading = false;
+  }
+})();*/
+
+/*
+(function () {
+  'use strict';
+ 
+  data.loading = true;
+  data.errors = [];
+ 
+  // --- CONFIG: edit to match your environment --------------------------
+  var CONFIG = {
+    customerTable: options.customer_table || 'x_cpszo_spoke_customer_profile',
+    customerNumberField: options.customer_number_field || 'number',
+ 
+    // In each related table: the field that points to the customer.
+    // Prefer a reference field to Customer Profile by sys_id.
+    refFieldBySysId: options.customer_ref_field || 'customer', // e.g. 'customer' or 'u_customer'
+    // If your tables relate by profile "number" (string) instead, set this:
+    refFieldByNumber: options.customer_number_ref_field || '',  // e.g. 'customer_number'
+ 
+    offers: {
+      table:  options.offers_table  || 'x_cpszo_spoke_offer_tracker',
+      fields: (options.offers_fields || 'number,status,acceptance_date,installment_amount').split(','),
+      order:  options.offers_order  || 'sys_updated_on',
+      limit:  parseInt(options.offers_limit || 10, 10)
+    },
+    reminders: {
+      table:  options.reminders_table  || 'x_cpszo_spoke_reminder_log',
+      fields: (options.reminders_fields || 'status,remind_at,channel').split(','),
+      order:  options.reminders_order  || 'remind_at',
+      limit:  parseInt(options.reminders_limit || 10, 10)
+    },
+    notifications: {
+      table:  options.notifications_table  || 'x_cpszo_spoke_notification_preview',
+      fields: (options.notifications_fields || 'message,channel,sent_at,status').split(','),
+      order:  options.notifications_order  || 'sent_at',
+      limit:  parseInt(options.notifications_limit || 10, 10)
+    },
+    integrations: {
+      table:  options.integrations_table  || 'x_cpszo_spoke_integration_log',
+      fields: (options.integrations_fields || 'integration,status,timestamp,payload').split(','),
+      order:  options.integrations_order  || 'timestamp',
+      limit:  parseInt(options.integrations_limit || 10, 10)
+    }
+  };
+  // ---------------------------------------------------------------------
+ 
+  var sysId = (input && input.sys_id) || $sp.getParameter('sys_id') || '';
+  data.sys_id = sysId;
+ 
+  // If you need the customer's Number for "by-number" joins, fetch it once.
+  var customerNumber = '';
+  if (sysId && CONFIG.refFieldByNumber) {
+    var cgr = new GlideRecordSecure(CONFIG.customerTable);
+    if (cgr.get(sysId))
+      customerNumber = cgr.getValue(CONFIG.customerNumberField);
+  }
+ 
+  function listFor(cfg) {
+    var rows = [];
+    try {
+      var gr = new GlideRecordSecure(cfg.table);
+      if (!gr.isValid()) {
+        data.errors.push('Invalid table: ' + cfg.table);
+        return rows;
+      }
+ 
+      if (sysId && CONFIG.refFieldBySysId && gr.isValidField(CONFIG.refFieldBySysId)) {
+        gr.addQuery(CONFIG.refFieldBySysId, sysId);
+      } else if (customerNumber && CONFIG.refFieldByNumber && gr.isValidField(CONFIG.refFieldByNumber)) {
+        gr.addQuery(CONFIG.refFieldByNumber, customerNumber);
+      } else {
+        // nothing to filter by – return empty
+        return rows;
+      }
+ 
+      if (cfg.order) gr.orderByDesc(cfg.order);
+      if (cfg.limit) gr.setLimit(cfg.limit);
+ 
+      gr.query();
+      while (gr.next()) {
+        var row = { sys_id: gr.getUniqueValue() };
+        for (var i = 0; i < cfg.fields.length; i++) {
+          var f = cfg.fields[i];
+          // Send both display and value if you need raw values later
+          row[f] = gr.getDisplayValue(f);
+          row[f + '__value'] = gr.getValue(f);
+        }
+        rows.push(row);
+      }
+    } catch (e) {
+      data.errors.push('Query failed for ' + cfg.table + ': ' + e.message);
+    }
+    return rows;
+  }
+ 
+  // Run the four lists
+  data.offers       = listFor(CONFIG.offers);
+  data.reminders    = listFor(CONFIG.reminders);
+  data.notifications= listFor(CONFIG.notifications);
+  data.integrations = listFor(CONFIG.integrations);
+ 
+  data.loading = false;
+})();*/
+
+
+
+
+(function () {
+  'use strict';
+
+  data.loading = true;
+  data.errors = [];
+
+  // ======== CONFIG – EDIT THESE TO MATCH YOUR INSTANCE =========
+  // RECOMMENDED: use joinMode: 'sys_id' and set joinFieldSysId to the reference field
+  // on each related table that points to the Customer Profile record.
+  var CONFIG = {
+    customer: {
+      table: 'x_cpszo_spoke_customer_profile', // Customer Profile table
+      numberField: 'number'                    // API name of the Number field on Customer Profile
+    },
+
+    // Choose how related tables link back to the customer:
+    // 'sys_id' => reference field (e.g., 'customer_profile')
+    // 'number' => a string field that stores the customer's number (less common)
+    joinMode: 'sys_id', // 'sys_id' or 'number'
+
+    offers: {
+      table: 'x_cpszo_spoke_offer_tracker',
+      // If joinMode === 'sys_id', set to the reference field name below:
+      joinFieldSysId: 'customer_profile', // <-- set this to the actual reference field
+      // If joinMode === 'number', set to the field that stores the customer number:
+      joinFieldNumber: 'number',
+      fields: ['number', 'status', 'acceptance_date', 'installment_amount'],
+      order: 'sys_updated_on',
+      limit: 10
+    },
+    reminders: {
+      table: 'x_cpszo_spoke_reminder_log',
+      joinFieldSysId: 'customer_profile', // <-- set actual reference field
+      joinFieldNumber: 'number',
+      fields: ['status', 'remind_at', 'channel'],
+      order: 'remind_at',
+      limit: 10
+    },
+    notifications: {
+      table: 'x_cpszo_spoke_notification_preview',
+      joinFieldSysId: 'customer_profile', // <-- set actual reference field
+      joinFieldNumber: 'number',
+      fields: ['message', 'channel', 'sent_at', 'status'],
+      order: 'sent_at',
+      limit: 10
+    },
+    integrations: {
+      table: 'x_cpszo_spoke_integration_log',
+      joinFieldSysId: 'customer_profile', // <-- set actual reference field
+      joinFieldNumber: 'number',
+      fields: ['integration', 'status', 'timestamp', 'payload'],
+      order: 'timestamp',
+      limit: 10
+    }
+  };
+  // =============================================================
+
+  // --- Resolve selected record from input or URL -----------------------------
+  var selectedSysId = (input && input.sys_id) || $sp.getParameter('sys_id') || '';
+  var selectedNumber = (input && input.number) || $sp.getParameter('number') || '';
+
+  // If we only got a sys_id, derive the number (helps when joinMode === 'number')
+  function loadCustomerBySysId(sysId) {
+    if (!sysId) return null;
+    var c = new GlideRecordSecure(CONFIG.customer.table);
+    if (!c.isValid()) {
+      data.errors.push('Invalid customer table: ' + CONFIG.customer.table);
+      return null;
+    }
+    if (c.get(sysId)) return c;
+    return null;
+  }
+
+  function getLatestCustomer() {
+    var c = new GlideRecordSecure(CONFIG.customer.table);
+    if (!c.isValid()) {
+      data.errors.push('Invalid customer table: ' + CONFIG.customer.table);
+      return null;
+    }
+    c.orderByDesc('sys_updated_on');
+    c.setLimit(1);
+    c.query();
+    return c.next() ? c : null;
+  }
+
+  // If neither sys_id nor number present, pick the latest customer
+  if (!selectedSysId && !selectedNumber) {
+    var latest = getLatestCustomer();
+    if (latest) {
+      selectedSysId = latest.getUniqueValue();
+      selectedNumber = latest.getValue(CONFIG.customer.numberField);
+    }
+  } else if (selectedSysId && !selectedNumber) {
+    var rec = loadCustomerBySysId(selectedSysId);
+    if (rec) selectedNumber = rec.getValue(CONFIG.customer.numberField);
+  }
+
+  data.sys_id = selectedSysId || '';
+  data.number = selectedNumber || '';
+
+  // --- Fetch related lists ---------------------------------------------------
+  function fetchList(def) {
+    var out = [];
+    try {
+      var gr = new GlideRecordSecure(def.table);
+      if (!gr.isValid()) {
+        data.errors.push('Invalid table: ' + def.table);
+        return out;
+      }
+
+      // Build the filter
+      var filtered = false;
+
+      if (CONFIG.joinMode === 'sys_id' && selectedSysId && def.joinFieldSysId) {
+        if (!gr.isValidField(def.joinFieldSysId)) {
+          data.errors.push('Invalid join field on ' + def.table + ': ' + def.joinFieldSysId);
+          return out;
+        }
+        gr.addQuery(def.joinFieldSysId, selectedSysId);
+        filtered = true;
+
+      } else if (CONFIG.joinMode === 'number' && selectedNumber && def.joinFieldNumber) {
+        if (!gr.isValidField(def.joinFieldNumber)) {
+          data.errors.push('Invalid join field on ' + def.table + ': ' + def.joinFieldNumber);
+          return out;
+        }
+        gr.addQuery(def.joinFieldNumber, selectedNumber);
+        filtered = true;
+      }
+
+      if (!filtered) return out;
+
+      if (def.order) gr.orderByDesc(def.order);
+      if (def.limit) gr.setLimit(def.limit);
+
+      gr.query();
+      while (gr.next()) {
+        var row = { sys_id: gr.getUniqueValue() };
+        // Only read fields that exist
+        for (var i = 0; i < (def.fields || []).length; i++) {
+          var f = def.fields[i];
+          if (!gr.isValidField(f)) continue;
+          row[f] = gr.getDisplayValue(f);
+          row[f + '__value'] = gr.getValue(f);
+        }
+        out.push(row);
+      }
+    } catch (e) {
+      data.errors.push('Query failed for ' + def.table + ': ' + (e && e.message ? e.message : e + ''));
+    }
+    return out;
+  }
+
+  data.offers        = fetchList(CONFIG.offers);
+  data.reminders     = fetchList(CONFIG.reminders);
+  data.notifications = fetchList(CONFIG.notifications);
+  data.integrations  = fetchList(CONFIG.integrations);
+
+  data.loading = false;
+})();
+ 
+
+ ]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-02 09:25:52</sys_created_on>
+        <sys_id>29e7fee087b7265002fdeac73cbb35f7</sys_id>
+        <sys_mod_count>31</sys_mod_count>
+        <sys_name>Customer Activity Related List</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sp_widget_29e7fee087b7265002fdeac73cbb35f7</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 04:12:28</sys_updated_on>
+        <template><![CDATA[<div class="carl">
+  <div class="text-muted" ng-if="data.loading">Loading…</div>
+ 
+  <div class="alert alert-danger" ng-if="data.errors && data.errors.length">
+    <div ng-repeat="e in data.errors track by $index">{{e}}</div>
+  </div>
+ 
+  <div class="row" ng-if="!data.loading">
+    <!-- OFFERS -->
+    <div class="col-md-6 col-lg-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">Offers</div>
+        <table class="table table-condensed" ng-if="data.offers.length">
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>Status</th>
+              <th>Acceptance Date</th>
+              <th>Installment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="r in data.offers">
+              <td>{{r.number}}</td>
+              <td>{{r.status}}</td>
+              <td>{{r.acceptance_date}}</td>
+              <td>{{r.installment_amount}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="panel-body text-muted" ng-if="!data.offers.length">No offers.</div>
+      </div>
+    </div>
+ 
+    <!-- REMINDERS -->
+    <div class="col-md-6 col-lg-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">Reminders</div>
+        <table class="table table-condensed" ng-if="data.reminders.length">
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Reminder Date</th>
+              <th>Channel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="r in data.reminders">
+              <td>{{r.status}}</td>
+              <td>{{r.remind_at}}</td>
+              <td>{{r.channel}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="panel-body text-muted" ng-if="!data.reminders.length">No reminders.</div>
+      </div>
+    </div>
+ 
+    <!-- NOTIFICATIONS -->
+    <div class="col-md-6 col-lg-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">Notifications</div>
+        <table class="table table-condensed" ng-if="data.notifications.length">
+          <thead>
+            <tr>
+              <th>Message</th>
+              <th>Channel</th>
+              <th>Sent At</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="r in data.notifications">
+              <td>{{r.message}}</td>
+              <td>{{r.channel}}</td>
+              <td>{{r.sent_at}}</td>
+              <td>{{r.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="panel-body text-muted" ng-if="!data.notifications.length">No notifications.</div>
+      </div>
+    </div>
+ 
+    <!-- INTEGRATIONS -->
+    <div class="col-md-6 col-lg-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">Integrations</div>
+        <table class="table table-condensed" ng-if="data.integrations.length">
+          <thead>
+            <tr>
+              <th>Integration</th>
+              <th>Status</th>
+              <th>Timestamp</th>
+              <th>Payload</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="r in data.integrations">
+              <td>{{r.integration}}</td>
+              <td>{{r.status}}</td>
+              <td>{{r.timestamp}}</td>
+              <td>{{r.payload}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="panel-body text-muted" ng-if="!data.integrations.length">No integration rows.</div>
+      </div>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sp_widget_29e7fee087b7265002fdeac73cbb35f7</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function ($scope, $location, $timeout) {
+  'use strict';
+
+  // --- Helpers ---------------------------------------------------------------
+
+  // Read sys_id from URL (support a couple of fallbacks)
+  function getSysIdFromUrl() {
+    var q = $location.search() || {};
+    return q.sys_id || q.id || q.record || null;
+  }
+
+  // Update the server with the selected sys_id
+  function refresh(sys_id) {
+    if (!sys_id) return;
+    $scope.data.loading = true;
+    $scope.server.update({ sys_id: sys_id })
+      .finally(function () {
+        $scope.data.loading = false;
+      });
+  }
+
+  // Avoid redundant calls
+  var lastSysId = null;
+  function maybeRefresh(sys_id) {
+    if (sys_id &amp;&amp; sys_id !== lastSysId) {
+      lastSysId = sys_id;
+      refresh(sys_id);
+    }
+  }
+
+  // Normalize various row-click payloads into a sys_id
+  function sysIdFromPayload(payload) {
+    if (!payload) return null;
+    // Common patterns seen in OOB widgets:
+    // payload.sys_id, payload.row_id, payload.row.sys_id, payload.record.sys_id, payload.item.sys_id
+    return payload.sys_id
+      || payload.row_id
+      || (payload.row &amp;&amp; payload.row.sys_id)
+      || (payload.record &amp;&amp; payload.record.sys_id)
+      || (payload.item &amp;&amp; payload.item.sys_id)
+      || null;
+  }
+
+  function handleRowSelect(payload) {
+    var id = sysIdFromPayload(payload);
+    if (!id) return;
+    // Keep URL in sync so sharing/back-forward works
+    if (($location.search() || {}).sys_id !== id)
+      $location.search('sys_id', id);
+    maybeRefresh(id);
+  }
+
+  // --- Init ------------------------------------------------------------------
+
+  // Initial from URL (works in page view or direct load)
+  $timeout(function () {
+    maybeRefresh(getSysIdFromUrl());
+  }, 0);
+
+  // Listen to top data table row clicks.
+  // OOB "Data Table from URL" commonly emits 'sp.list.click'. Some clones emit alternatives.
+  $scope.$on('sp.list.click', function (evt, payload) { handleRowSelect(payload); });
+  $scope.$on('data_table.row.click', function (evt, payload) { handleRowSelect(payload); });
+  $scope.$on('table.row.click', function (evt, payload) { handleRowSelect(payload); });
+
+  // If user navigates back/forward or deep-link changes the URL, re-run
+  $scope.$watch(function () { return ($location.search() || {}).sys_id; },
+    function (nv, ov) {
+      if (nv !== ov) maybeRefresh(nv);
+    });
+
+  // Optional: listen to a custom broadcast from another widget
+  $scope.$on('customer.selected', function (evt, payload) {
+    var id = sysIdFromPayload(payload);
+    if (id) {
+      $location.search('sys_id', id);
+      maybeRefresh(id);
+    }
+  });
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css/&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;customer_activity_related_list&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;Customer Activity Related List&lt;/name&gt;&lt;option_schema&gt;[]&lt;/option_schema&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[/*(function() {
+  data.loading = true;
+  data.customer = null;
+  data.error = null;
+  data.offers = [];
+  data.reminders = [];
+  data.notifications = [];
+  data.integrations = [];
+
+
+  try {
+    // Priority: input.sys_id (from client update) &gt; URL ?sys_id &gt; option
+    var sysId = (input &amp;&amp; input.sys_id) ||
+                $sp.getParameter('sys_id') ||
+                (options &amp;&amp; options.sys_id);
+
+    var gr = new GlideRecord('x_cpszo_spoke_offer_tracker');
+    if (sysId) {
+      if (gr.get(sysId)) {
+        data.offer = {
+          acceptance_date: gr.getDisplayValue('acceptance_date') ||gr.getDisplayValue('acceptance_date'),
+          offer_status: gr.getDisplayValue('offer_status') ||gr.getValue('offer_status'),
+          installment_amount: gr.getDisplayValue('installment_amount') || gr.getValue('installment_amount'),
+					delinquency_status: gr.getDisplayValue('delinquency_status') || gr.getValue('delinquency_status')
+        };
+      } else {
+        data.error = 'Record not found for sys_id: ' + sysId;
+      }
+    } else {
+      // Fallback: latest record (adjust if you want per-user)
+      gr.orderByDesc('sys_updated_on');
+      gr.setLimit(1);
+      gr.query();
+      if (gr.next()) {
+        data.customer = {
+          last_payment_date_display: gr.getDisplayValue('last_payment_date'),
+          last_payment_date: gr.getValue('last_payment_date'),
+          credit_behaviour: gr.getDisplayValue('credit_behaviour') || gr.getValue('credit_behaviour')
+        };
+      }
+    }
+		var gr = new GlideRecord('x_cpszo_spoke_customer_profile');
+    if (sysId) {
+      if (gr.get(sysId)) {
+        data.customer = {
+          last_payment_date_display: gr.getDisplayValue('last_payment_date'),
+          last_payment_date: gr.getValue('last_payment_date'),
+          credit_behaviour: gr.getDisplayValue('credit_behaviour') || gr.getValue('credit_behaviour')
+        };
+      } else {
+        data.error = 'Record not found for sys_id: ' + sysId;
+      }
+    } else {
+      // Fallback: latest record (adjust if you want per-user)
+      gr.orderByDesc('sys_updated_on');
+      gr.setLimit(1);
+      gr.query();
+      if (gr.next()) {
+        data.customer = {
+          last_payment_date_display: gr.getDisplayValue('last_payment_date'),
+          last_payment_date: gr.getValue('last_payment_date'),
+          credit_behaviour: gr.getDisplayValue('credit_behaviour') || gr.getValue('credit_behaviour')
+        };
+      }
+    }
+		var gr = new GlideRecord('x_cpszo_spoke_customer_profile');
+    if (sysId) {
+      if (gr.get(sysId)) {
+        data.customer = {
+          last_payment_date_display: gr.getDisplayValue('last_payment_date'),
+          last_payment_date: gr.getValue('last_payment_date'),
+          credit_behaviour: gr.getDisplayValue('credit_behaviour') || gr.getValue('credit_behaviour')
+        };
+      } else {
+        data.error = 'Record not found for sys_id: ' + sysId;
+      }
+    } else {
+      // Fallback: latest record (adjust if you want per-user)
+      gr.orderByDesc('sys_updated_on');
+      gr.setLimit(1);
+      gr.query();
+      if (gr.next()) {
+        data.customer = {
+          last_payment_date_display: gr.getDisplayValue('last_payment_date'),
+          last_payment_date: gr.getValue('last_payment_date'),
+          credit_behaviour: gr.getDisplayValue('credit_behaviour') || gr.getValue('credit_behaviour')
+        };
+      }
+    }
+		var gr = new GlideRecord('x_cpszo_spoke_customer_profile');
+    if (sysId) {
+      if (gr.get(sysId)) {
+        data.customer = {
+          last_payment_date_display: gr.getDisplayValue('last_payment_date'),
+          last_payment_date: gr.getValue('last_payment_date'),
+          credit_behaviour: gr.getDisplayValue('credit_behaviour') || gr.getValue('credit_behaviour')
+        };
+      } else {
+        data.error = 'Record not found for sys_id: ' + sysId;
+      }
+    } else {
+      // Fallback: latest record (adjust if you want per-user)
+      gr.orderByDesc('sys_updated_on');
+      gr.setLimit(1);
+      gr.query();
+      if (gr.next()) {
+        data.customer = {
+          last_payment_date_display: gr.getDisplayValue('last_payment_date'),
+          last_payment_date: gr.getValue('last_payment_date'),
+          credit_behaviour: gr.getDisplayValue('credit_behaviour') || gr.getValue('credit_behaviour')
+        };
+      }
+    }
+  } catch (e) {
+    data.error = (e &amp;&amp; e.message) ? e.message : (e + '');
+  } 
+	
+	finally {
+    data.loading = false;
+  }
+})();*/
+
+/*
+(function () {
+  'use strict';
+ 
+  data.loading = true;
+  data.errors = [];
+ 
+  // --- CONFIG: edit to match your environment --------------------------
+  var CONFIG = {
+    customerTable: options.customer_table || 'x_cpszo_spoke_customer_profile',
+    customerNumberField: options.customer_number_field || 'number',
+ 
+    // In each related table: the field that points to the customer.
+    // Prefer a reference field to Customer Profile by sys_id.
+    refFieldBySysId: options.customer_ref_field || 'customer', // e.g. 'customer' or 'u_customer'
+    // If your tables relate by profile "number" (string) instead, set this:
+    refFieldByNumber: options.customer_number_ref_field || '',  // e.g. 'customer_number'
+ 
+    offers: {
+      table:  options.offers_table  || 'x_cpszo_spoke_offer_tracker',
+      fields: (options.offers_fields || 'number,status,acceptance_date,installment_amount').split(','),
+      order:  options.offers_order  || 'sys_updated_on',
+      limit:  parseInt(options.offers_limit || 10, 10)
+    },
+    reminders: {
+      table:  options.reminders_table  || 'x_cpszo_spoke_reminder_log',
+      fields: (options.reminders_fields || 'status,remind_at,channel').split(','),
+      order:  options.reminders_order  || 'remind_at',
+      limit:  parseInt(options.reminders_limit || 10, 10)
+    },
+    notifications: {
+      table:  options.notifications_table  || 'x_cpszo_spoke_notification_preview',
+      fields: (options.notifications_fields || 'message,channel,sent_at,status').split(','),
+      order:  options.notifications_order  || 'sent_at',
+      limit:  parseInt(options.notifications_limit || 10, 10)
+    },
+    integrations: {
+      table:  options.integrations_table  || 'x_cpszo_spoke_integration_log',
+      fields: (options.integrations_fields || 'integration,status,timestamp,payload').split(','),
+      order:  options.integrations_order  || 'timestamp',
+      limit:  parseInt(options.integrations_limit || 10, 10)
+    }
+  };
+  // ---------------------------------------------------------------------
+ 
+  var sysId = (input &amp;&amp; input.sys_id) || $sp.getParameter('sys_id') || '';
+  data.sys_id = sysId;
+ 
+  // If you need the customer's Number for "by-number" joins, fetch it once.
+  var customerNumber = '';
+  if (sysId &amp;&amp; CONFIG.refFieldByNumber) {
+    var cgr = new GlideRecordSecure(CONFIG.customerTable);
+    if (cgr.get(sysId))
+      customerNumber = cgr.getValue(CONFIG.customerNumberField);
+  }
+ 
+  function listFor(cfg) {
+    var rows = [];
+    try {
+      var gr = new GlideRecordSecure(cfg.table);
+      if (!gr.isValid()) {
+        data.errors.push('Invalid table: ' + cfg.table);
+        return rows;
+      }
+ 
+      if (sysId &amp;&amp; CONFIG.refFieldBySysId &amp;&amp; gr.isValidField(CONFIG.refFieldBySysId)) {
+        gr.addQuery(CONFIG.refFieldBySysId, sysId);
+      } else if (customerNumber &amp;&amp; CONFIG.refFieldByNumber &amp;&amp; gr.isValidField(CONFIG.refFieldByNumber)) {
+        gr.addQuery(CONFIG.refFieldByNumber, customerNumber);
+      } else {
+        // nothing to filter by – return empty
+        return rows;
+      }
+ 
+      if (cfg.order) gr.orderByDesc(cfg.order);
+      if (cfg.limit) gr.setLimit(cfg.limit);
+ 
+      gr.query();
+      while (gr.next()) {
+        var row = { sys_id: gr.getUniqueValue() };
+        for (var i = 0; i &lt; cfg.fields.length; i++) {
+          var f = cfg.fields[i];
+          // Send both display and value if you need raw values later
+          row[f] = gr.getDisplayValue(f);
+          row[f + '__value'] = gr.getValue(f);
+        }
+        rows.push(row);
+      }
+    } catch (e) {
+      data.errors.push('Query failed for ' + cfg.table + ': ' + e.message);
+    }
+    return rows;
+  }
+ 
+  // Run the four lists
+  data.offers       = listFor(CONFIG.offers);
+  data.reminders    = listFor(CONFIG.reminders);
+  data.notifications= listFor(CONFIG.notifications);
+  data.integrations = listFor(CONFIG.integrations);
+ 
+  data.loading = false;
+})();*/
+
+
+
+
+(function () {
+  'use strict';
+
+  data.loading = true;
+  data.errors = [];
+
+  // ======== CONFIG – EDIT THESE TO MATCH YOUR INSTANCE =========
+  // RECOMMENDED: use joinMode: 'sys_id' and set joinFieldSysId to the reference field
+  // on each related table that points to the Customer Profile record.
+  var CONFIG = {
+    customer: {
+      table: 'x_cpszo_spoke_customer_profile', // Customer Profile table
+      numberField: 'number'                    // API name of the Number field on Customer Profile
+    },
+
+    // Choose how related tables link back to the customer:
+    // 'sys_id' =&gt; reference field (e.g., 'customer_profile')
+    // 'number' =&gt; a string field that stores the customer's number (less common)
+    joinMode: 'sys_id', // 'sys_id' or 'number'
+
+    offers: {
+      table: 'x_cpszo_spoke_offer_tracker',
+      // If joinMode === 'sys_id', set to the reference field name below:
+      joinFieldSysId: 'customer_profile', // &lt;-- set this to the actual reference field
+      // If joinMode === 'number', set to the field that stores the customer number:
+      joinFieldNumber: 'number',
+      fields: ['number', 'status', 'acceptance_date', 'installment_amount'],
+      order: 'sys_updated_on',
+      limit: 10
+    },
+    reminders: {
+      table: 'x_cpszo_spoke_reminder_log',
+      joinFieldSysId: 'customer_profile', // &lt;-- set actual reference field
+      joinFieldNumber: 'number',
+      fields: ['status', 'remind_at', 'channel'],
+      order: 'remind_at',
+      limit: 10
+    },
+    notifications: {
+      table: 'x_cpszo_spoke_notification_preview',
+      joinFieldSysId: 'customer_profile', // &lt;-- set actual reference field
+      joinFieldNumber: 'number',
+      fields: ['message', 'channel', 'sent_at', 'status'],
+      order: 'sent_at',
+      limit: 10
+    },
+    integrations: {
+      table: 'x_cpszo_spoke_integration_log',
+      joinFieldSysId: 'customer_profile', // &lt;-- set actual reference field
+      joinFieldNumber: 'number',
+      fields: ['integration', 'status', 'timestamp', 'payload'],
+      order: 'timestamp',
+      limit: 10
+    }
+  };
+  // =============================================================
+
+  // --- Resolve selected record from input or URL -----------------------------
+  var selectedSysId = (input &amp;&amp; input.sys_id) || $sp.getParameter('sys_id') || '';
+  var selectedNumber = (input &amp;&amp; input.number) || $sp.getParameter('number') || '';
+
+  // If we only got a sys_id, derive the number (helps when joinMode === 'number')
+  function loadCustomerBySysId(sysId) {
+    if (!sysId) return null;
+    var c = new GlideRecordSecure(CONFIG.customer.table);
+    if (!c.isValid()) {
+      data.errors.push('Invalid customer table: ' + CONFIG.customer.table);
+      return null;
+    }
+    if (c.get(sysId)) return c;
+    return null;
+  }
+
+  function getLatestCustomer() {
+    var c = new GlideRecordSecure(CONFIG.customer.table);
+    if (!c.isValid()) {
+      data.errors.push('Invalid customer table: ' + CONFIG.customer.table);
+      return null;
+    }
+    c.orderByDesc('sys_updated_on');
+    c.setLimit(1);
+    c.query();
+    return c.next() ? c : null;
+  }
+
+  // If neither sys_id nor number present, pick the latest customer
+  if (!selectedSysId &amp;&amp; !selectedNumber) {
+    var latest = getLatestCustomer();
+    if (latest) {
+      selectedSysId = latest.getUniqueValue();
+      selectedNumber = latest.getValue(CONFIG.customer.numberField);
+    }
+  } else if (selectedSysId &amp;&amp; !selectedNumber) {
+    var rec = loadCustomerBySysId(selectedSysId);
+    if (rec) selectedNumber = rec.getValue(CONFIG.customer.numberField);
+  }
+
+  data.sys_id = selectedSysId || '';
+  data.number = selectedNumber || '';
+
+  // --- Fetch related lists ---------------------------------------------------
+  function fetchList(def) {
+    var out = [];
+    try {
+      var gr = new GlideRecordSecure(def.table);
+      if (!gr.isValid()) {
+        data.errors.push('Invalid table: ' + def.table);
+        return out;
+      }
+
+      // Build the filter
+      var filtered = false;
+
+      if (CONFIG.joinMode === 'sys_id' &amp;&amp; selectedSysId &amp;&amp; def.joinFieldSysId) {
+        if (!gr.isValidField(def.joinFieldSysId)) {
+          data.errors.push('Invalid join field on ' + def.table + ': ' + def.joinFieldSysId);
+          return out;
+        }
+        gr.addQuery(def.joinFieldSysId, selectedSysId);
+        filtered = true;
+
+      } else if (CONFIG.joinMode === 'number' &amp;&amp; selectedNumber &amp;&amp; def.joinFieldNumber) {
+        if (!gr.isValidField(def.joinFieldNumber)) {
+          data.errors.push('Invalid join field on ' + def.table + ': ' + def.joinFieldNumber);
+          return out;
+        }
+        gr.addQuery(def.joinFieldNumber, selectedNumber);
+        filtered = true;
+      }
+
+      if (!filtered) return out;
+
+      if (def.order) gr.orderByDesc(def.order);
+      if (def.limit) gr.setLimit(def.limit);
+
+      gr.query();
+      while (gr.next()) {
+        var row = { sys_id: gr.getUniqueValue() };
+        // Only read fields that exist
+        for (var i = 0; i &lt; (def.fields || []).length; i++) {
+          var f = def.fields[i];
+          if (!gr.isValidField(f)) continue;
+          row[f] = gr.getDisplayValue(f);
+          row[f + '__value'] = gr.getValue(f);
+        }
+        out.push(row);
+      }
+    } catch (e) {
+      data.errors.push('Query failed for ' + def.table + ': ' + (e &amp;&amp; e.message ? e.message : e + ''));
+    }
+    return out;
+  }
+
+  data.offers        = fetchList(CONFIG.offers);
+  data.reminders     = fetchList(CONFIG.reminders);
+  data.notifications = fetchList(CONFIG.notifications);
+  data.integrations  = fetchList(CONFIG.integrations);
+
+  data.loading = false;
+})();
+ 
+
+ ]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;brijesh.banerjee&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-09-02 09:25:52&lt;/sys_created_on&gt;&lt;sys_id&gt;29e7fee087b7265002fdeac73cbb35f7&lt;/sys_id&gt;&lt;sys_mod_count&gt;31&lt;/sys_mod_count&gt;&lt;sys_name&gt;Customer Activity Related List&lt;/sys_name&gt;&lt;sys_package display_value="Spoke" source="x_cpszo_spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_29e7fee087b7265002fdeac73cbb35f7&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;brijesh.banerjee&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-09-04 04:12:28&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="carl"&gt;
+  &lt;div class="text-muted" ng-if="data.loading"&gt;Loading…&lt;/div&gt;
+ 
+  &lt;div class="alert alert-danger" ng-if="data.errors &amp;&amp; data.errors.length"&gt;
+    &lt;div ng-repeat="e in data.errors track by $index"&gt;{{e}}&lt;/div&gt;
+  &lt;/div&gt;
+ 
+  &lt;div class="row" ng-if="!data.loading"&gt;
+    &lt;!-- OFFERS --&gt;
+    &lt;div class="col-md-6 col-lg-3"&gt;
+      &lt;div class="panel panel-default"&gt;
+        &lt;div class="panel-heading"&gt;Offers&lt;/div&gt;
+        &lt;table class="table table-condensed" ng-if="data.offers.length"&gt;
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th&gt;Number&lt;/th&gt;
+              &lt;th&gt;Status&lt;/th&gt;
+              &lt;th&gt;Acceptance Date&lt;/th&gt;
+              &lt;th&gt;Installment&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            &lt;tr ng-repeat="r in data.offers"&gt;
+              &lt;td&gt;{{r.number}}&lt;/td&gt;
+              &lt;td&gt;{{r.status}}&lt;/td&gt;
+              &lt;td&gt;{{r.acceptance_date}}&lt;/td&gt;
+              &lt;td&gt;{{r.installment_amount}}&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+        &lt;div class="panel-body text-muted" ng-if="!data.offers.length"&gt;No offers.&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+ 
+    &lt;!-- REMINDERS --&gt;
+    &lt;div class="col-md-6 col-lg-3"&gt;
+      &lt;div class="panel panel-default"&gt;
+        &lt;div class="panel-heading"&gt;Reminders&lt;/div&gt;
+        &lt;table class="table table-condensed" ng-if="data.reminders.length"&gt;
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th&gt;Status&lt;/th&gt;
+              &lt;th&gt;Reminder Date&lt;/th&gt;
+              &lt;th&gt;Channel&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            &lt;tr ng-repeat="r in data.reminders"&gt;
+              &lt;td&gt;{{r.status}}&lt;/td&gt;
+              &lt;td&gt;{{r.remind_at}}&lt;/td&gt;
+              &lt;td&gt;{{r.channel}}&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+        &lt;div class="panel-body text-muted" ng-if="!data.reminders.length"&gt;No reminders.&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+ 
+    &lt;!-- NOTIFICATIONS --&gt;
+    &lt;div class="col-md-6 col-lg-3"&gt;
+      &lt;div class="panel panel-default"&gt;
+        &lt;div class="panel-heading"&gt;Notifications&lt;/div&gt;
+        &lt;table class="table table-condensed" ng-if="data.notifications.length"&gt;
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th&gt;Message&lt;/th&gt;
+              &lt;th&gt;Channel&lt;/th&gt;
+              &lt;th&gt;Sent At&lt;/th&gt;
+              &lt;th&gt;Status&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            &lt;tr ng-repeat="r in data.notifications"&gt;
+              &lt;td&gt;{{r.message}}&lt;/td&gt;
+              &lt;td&gt;{{r.channel}}&lt;/td&gt;
+              &lt;td&gt;{{r.sent_at}}&lt;/td&gt;
+              &lt;td&gt;{{r.status}}&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+        &lt;div class="panel-body text-muted" ng-if="!data.notifications.length"&gt;No notifications.&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+ 
+    &lt;!-- INTEGRATIONS --&gt;
+    &lt;div class="col-md-6 col-lg-3"&gt;
+      &lt;div class="panel panel-default"&gt;
+        &lt;div class="panel-heading"&gt;Integrations&lt;/div&gt;
+        &lt;table class="table table-condensed" ng-if="data.integrations.length"&gt;
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th&gt;Integration&lt;/th&gt;
+              &lt;th&gt;Status&lt;/th&gt;
+              &lt;th&gt;Timestamp&lt;/th&gt;
+              &lt;th&gt;Payload&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            &lt;tr ng-repeat="r in data.integrations"&gt;
+              &lt;td&gt;{{r.integration}}&lt;/td&gt;
+              &lt;td&gt;{{r.status}}&lt;/td&gt;
+              &lt;td&gt;{{r.timestamp}}&lt;/td&gt;
+              &lt;td&gt;{{r.payload}}&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+        &lt;div class="panel-body text-muted" ng-if="!data.integrations.length"&gt;No integration rows.&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>182474275</payload_hash>
+        <record_name>Customer Activity Related List</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 04:12:28</sys_created_on>
+        <sys_id>8653ccd1877f6e50b3fb021a0cbb35f3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19912ed08690000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 04:12:28</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>ca53ccd1567f6e5008a8ab5b1d752df2</update_guid>
+        <update_guid_history>ca53ccd1567f6e5008a8ab5b1d752df2:182474275,794380d1cd7f6e502aea7ffc3962f6e7:1042867496,808188ddab3f6e50750dfd4fc3a4e327:-178310028,ae7093b414f7ea50869c313641dc4df4:703563634,5a40db3481f7ea50bcfffb00a7ec82e5:-1107369642,36af8ff01df7ea50d7576d7bf1a08bad:-2011500981,be2b07f824b7ea50cc504f6ebff23b73:270783871,df7b4c3464ff26504984c261af973e45:905922305,d8fa8cf062ff26507475f6d0622a1eef:-952475982,2c1a44304aff26500847b4a5e8e3abfa:-2070694091,46f744bc65bf265013ab2fce1e256da2:2046824321,72640438f5bf26502dc74b9f76b7b7c8:863514130,a644c8f4d8bf2650b2cc28773055e7c3:-2002657655,fc40d7ac123b2650e066d72680638df3:2046824321,9a9bc7647d3b2650c51198a1bc94b419:221682010,bfd9cfe0d03b2650e86211059c419885:-1865692762,ea5907e0503b26508f27f0001196a99f:1358751075,c64907e0563b2650e77f365aaa775409:-1238505130,631947a0eb3b2650a04bc6dbb9f327e9:-1689878492,32e8c760b43b2650706c9840de0f3019:1358751075,a6a88b60f13b2650f3a6f1b8c6a38aae:1927295388,28584760ec3b265072234a8a9cb71454:-1020790243,6738c3601a3b2650d23b3aba4428e748:-858892088,35578fac26f7265092850ebc5ae398fc:-2093046598,d0e64fac32f7265095b7a2c8acc71566:997796054,c606cb2cd0f726505f11c52daa6725e3:-318907305,ce25cfe8c4f7265011a044b3e18b4d0a:1586529759,0cf34768b0f72650e984822593647548:-935028950,69834fe481f7265069e6256114bc7456:1329452535,31034fe453f726501c75cabe46d01d84:353077023,b6f18ba400f72650af54f4da23d53cab:-1026838770,69e7fee0b9b72650d4128ec013b5eff9:1743989420</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 04:13:34</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>8703b027ffb4418bb1b22129f048f919</sys_id>
+        <sys_metadata>29e7fee087b7265002fdeac73cbb35f7</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Customer Activity Related List</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sp_widget_29e7fee087b7265002fdeac73cbb35f7</sys_update_name>
+        <sys_update_version display_value="sp_widget_29e7fee087b7265002fdeac73cbb35f7">8653ccd1877f6e50b3fb021a0cbb35f3</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 04:13:34</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

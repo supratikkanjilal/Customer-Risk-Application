@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="DELETE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description/>
+        <field/>
+        <global>true</global>
+        <isolate_script>true</isolate_script>
+        <messages/>
+        <name>pre-fill the form</name>
+        <order>1000</order>
+        <script><![CDATA[function onLoad() {
+  // Only for brand-new records
+  if (!g_form.isNewRecord()) return;
+
+  // --- CONFIG: Replace these with your actual field API names ---
+  var FIELD_BORROWER_NUMBER = 'u_customer_number';  // string field
+  var FIELD_PROFILE_REF     = 'u_customer_profile'; // reference field to CustomerProfile
+
+  // --- Helpers ---
+  function getParam(name) {
+    try { return g_form.getParameter(name) || ''; } catch (e) { return ''; }
+  }
+  function coalesce() {
+    for (var i = 0; i < arguments.length; i++) {
+      var v = arguments[i];
+      if (typeof v === 'string' && v !== '' && v !== 'null' && v !== 'undefined') return v;
+    }
+    return '';
+  }
+
+  // --- Gather incoming values from URL ---
+  // Prefer sysparm_default_value_*, but also accept your widget's raw params
+  var borrowerNumber = coalesce(
+    getParam('sysparm_default_value_' + FIELD_BORROWER_NUMBER), // recommended
+    getParam('number'),                                         // from your source page URL
+    getParam('borrower_number')                                 // optional alt param
+  );
+
+  var profileSysId = coalesce(
+    getParam('sysparm_default_value_' + FIELD_PROFILE_REF),     // recommended
+    getParam('source_sys_id'),                                  // recommended custom param
+    getParam('customer_profile'),                               // optional alt param
+    getParam('profile_sys_id')                                  // optional alt param
+  );
+
+  // --- Set values if present and not already set ---
+  if (borrowerNumber && !g_form.getValue(FIELD_BORROWER_NUMBER)) {
+    g_form.setValue(FIELD_BORROWER_NUMBER, borrowerNumber);
+  }
+  if (profileSysId && !g_form.getValue(FIELD_PROFILE_REF)) {
+    // For a reference field, passing the sys_id is correct
+    g_form.setValue(FIELD_PROFILE_REF, profileSysId);
+  }
+
+  // --- Optional: re-apply once after other onLoad scripts/UI Policies ---
+  // Helps if a policy clears the field on load.
+  setTimeout(function () {
+    if (borrowerNumber && !g_form.getValue(FIELD_BORROWER_NUMBER)) {
+      g_form.setValue(FIELD_BORROWER_NUMBER, borrowerNumber);
+    }
+    if (profileSysId && !g_form.getValue(FIELD_PROFILE_REF)) {
+      g_form.setValue(FIELD_PROFILE_REF, profileSysId);
+    }
+  }, 0);
+
+  // --- Optional: debug messages (remove after testing) ---
+  // if (borrowerNumber) g_form.addInfoMessage('Set ' + FIELD_BORROWER_NUMBER + ' = ' + borrowerNumber);
+  // if (profileSysId)   g_form.addInfoMessage('Set ' + FIELD_PROFILE_REF     + ' (sys_id) = ' + profileSysId);
+}
+]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-08 04:22:30</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>08cb60ea87732a90b3fb021a0cbb359f</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_name>pre-fill the form</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_script_client_08cb60ea87732a90b3fb021a0cbb359f</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-08 06:42:16</sys_updated_on>
+        <table>x_cpszo_spoke_offer_tracker</table>
+        <type>onLoad</type>
+        <ui_type>1</ui_type>
+        <view/>
+    </sys_script_client>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_script_client_08cb60ea87732a90b3fb021a0cbb359f</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script_client"&gt;&lt;sys_script_client action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;applies_extended&gt;false&lt;/applies_extended&gt;&lt;condition/&gt;&lt;description/&gt;&lt;field/&gt;&lt;global&gt;true&lt;/global&gt;&lt;isolate_script&gt;true&lt;/isolate_script&gt;&lt;messages/&gt;&lt;name&gt;pre-fill the form&lt;/name&gt;&lt;order&gt;1000&lt;/order&gt;&lt;script&gt;&lt;![CDATA[function onLoad() {
+  // Only for brand-new records
+  if (!g_form.isNewRecord()) return;
+
+  // --- CONFIG: Replace these with your actual field API names ---
+  var FIELD_BORROWER_NUMBER = 'u_customer_number';  // string field
+  var FIELD_PROFILE_REF     = 'u_customer_profile'; // reference field to CustomerProfile
+
+  // --- Helpers ---
+  function getParam(name) {
+    try { return g_form.getParameter(name) || ''; } catch (e) { return ''; }
+  }
+  function coalesce() {
+    for (var i = 0; i &lt; arguments.length; i++) {
+      var v = arguments[i];
+      if (typeof v === 'string' &amp;&amp; v !== '' &amp;&amp; v !== 'null' &amp;&amp; v !== 'undefined') return v;
+    }
+    return '';
+  }
+
+  // --- Gather incoming values from URL ---
+  // Prefer sysparm_default_value_*, but also accept your widget's raw params
+  var borrowerNumber = coalesce(
+    getParam('sysparm_default_value_' + FIELD_BORROWER_NUMBER), // recommended
+    getParam('number'),                                         // from your source page URL
+    getParam('borrower_number')                                 // optional alt param
+  );
+
+  var profileSysId = coalesce(
+    getParam('sysparm_default_value_' + FIELD_PROFILE_REF),     // recommended
+    getParam('source_sys_id'),                                  // recommended custom param
+    getParam('customer_profile'),                               // optional alt param
+    getParam('profile_sys_id')                                  // optional alt param
+  );
+
+  // --- Set values if present and not already set ---
+  if (borrowerNumber &amp;&amp; !g_form.getValue(FIELD_BORROWER_NUMBER)) {
+    g_form.setValue(FIELD_BORROWER_NUMBER, borrowerNumber);
+  }
+  if (profileSysId &amp;&amp; !g_form.getValue(FIELD_PROFILE_REF)) {
+    // For a reference field, passing the sys_id is correct
+    g_form.setValue(FIELD_PROFILE_REF, profileSysId);
+  }
+
+  // --- Optional: re-apply once after other onLoad scripts/UI Policies ---
+  // Helps if a policy clears the field on load.
+  setTimeout(function () {
+    if (borrowerNumber &amp;&amp; !g_form.getValue(FIELD_BORROWER_NUMBER)) {
+      g_form.setValue(FIELD_BORROWER_NUMBER, borrowerNumber);
+    }
+    if (profileSysId &amp;&amp; !g_form.getValue(FIELD_PROFILE_REF)) {
+      g_form.setValue(FIELD_PROFILE_REF, profileSysId);
+    }
+  }, 0);
+
+  // --- Optional: debug messages (remove after testing) ---
+  // if (borrowerNumber) g_form.addInfoMessage('Set ' + FIELD_BORROWER_NUMBER + ' = ' + borrowerNumber);
+  // if (profileSysId)   g_form.addInfoMessage('Set ' + FIELD_PROFILE_REF     + ' (sys_id) = ' + profileSysId);
+}
+]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_client&lt;/sys_class_name&gt;&lt;sys_created_by&gt;brijesh.banerjee&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-09-08 04:22:30&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;08cb60ea87732a90b3fb021a0cbb359f&lt;/sys_id&gt;&lt;sys_mod_count&gt;10&lt;/sys_mod_count&gt;&lt;sys_name&gt;pre-fill the form&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="Spoke" source="x_cpszo_spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_client_08cb60ea87732a90b3fb021a0cbb359f&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;brijesh.banerjee&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-09-08 06:42:16&lt;/sys_updated_on&gt;&lt;table&gt;x_cpszo_spoke_offer_tracker&lt;/table&gt;&lt;type&gt;onLoad&lt;/type&gt;&lt;ui_type&gt;1&lt;/ui_type&gt;&lt;view/&gt;&lt;/sys_script_client&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-548673010</payload_hash>
+        <record_name>pre-fill the form</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-08 06:42:16</sys_created_on>
+        <sys_id>a7fb8d6287b72a90b3fb021a0cbb354c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>199280f9eea0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-08 06:42:16</sys_updated_on>
+        <type>Client Script</type>
+        <update_guid>ebfb8d6292b72a90c810b3ee75d9ee4b</update_guid>
+        <update_guid_history>ebfb8d6292b72a90c810b3ee75d9ee4b:-548673010,81eb896286b72a90c2d4984aad88b6f3:-717253139,cd4a45ae37772a904d5db0bbb3bf0e05:1021047327,1539cdeac7772a90e68b50c606dff1f2:618872287,47d58166ed772a9007ef0c2f308ec737:1511675800,9175cde2cd772a906f01138cebdca673:1259306646,0fa3852247772a901550f8df584cb04f:-994451396,8d020d2e37372a905b5f7af60eeac13c:-748015720,c3ac74a23d372a90f882712d581f849f:1726985191,4ddce06e47732a90c146b73d9c77f8b2:-2011221142,c40c68ea02732a90f82e8b2430f8880c:-1408768491</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-08 06:46:30</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_client">sys_script_client</sys_db_object>
+        <sys_id>1f06e65ecb5b4fddbbd4f1c7b0162fb9</sys_id>
+        <sys_metadata>08cb60ea87732a90b3fb021a0cbb359f</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>pre-fill the form</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent display_value="Offer Tracker">fe4a8ba1874b6a1002fdeac73cbb3534</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_script_client_08cb60ea87732a90b3fb021a0cbb359f</sys_update_name>
+        <sys_update_version display_value="sys_script_client_08cb60ea87732a90b3fb021a0cbb359f">a7fb8d6287b72a90b3fb021a0cbb354c</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-08 06:46:30</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

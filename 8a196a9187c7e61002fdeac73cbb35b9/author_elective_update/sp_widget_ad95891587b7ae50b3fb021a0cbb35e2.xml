@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script/>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>custome_data_table_url</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Custome Data Table url</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script/>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 09:01:53</sys_created_on>
+        <sys_id>ad95891587b7ae50b3fb021a0cbb35e2</sys_id>
+        <sys_mod_count>16</sys_mod_count>
+        <sys_name>Custome Data Table url</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sp_widget_ad95891587b7ae50b3fb021a0cbb35e2</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 11:40:29</sys_updated_on>
+        <template/>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sp_widget_ad95891587b7ae50b3fb021a0cbb35e2</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script/&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css/&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;custome_data_table_url&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;Custome Data Table url&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script/&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;brijesh.banerjee&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-09-04 09:01:53&lt;/sys_created_on&gt;&lt;sys_id&gt;ad95891587b7ae50b3fb021a0cbb35e2&lt;/sys_id&gt;&lt;sys_mod_count&gt;16&lt;/sys_mod_count&gt;&lt;sys_name&gt;Custome Data Table url&lt;/sys_name&gt;&lt;sys_package display_value="Spoke" source="x_cpszo_spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Spoke"&gt;8a196a9187c7e61002fdeac73cbb35b9&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_ad95891587b7ae50b3fb021a0cbb35e2&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;brijesh.banerjee&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-09-04 11:40:29&lt;/sys_updated_on&gt;&lt;template/&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-665833327</payload_hash>
+        <record_name>Custome Data Table url</record_name>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-04 11:40:29</sys_created_on>
+        <sys_id>b8e9695187fbae50b3fb021a0cbb3571</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1991487355b0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-04 11:40:29</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>7ce969511ffbae50b5bea7d5a81f5a70</update_guid>
+        <update_guid_history>7ce969511ffbae50b5bea7d5a81f5a70:-665833327,5daf0599ecf7ae50cda85849a415b59d:1784380250,858e89d5ddf7ae508ddf12be1c6abfd9:1947915815,953e85d594f7ae504b521b3b6ff6fac0:1623196539,e11d055592f7ae50d49d01d0981fb3bb:1061372049,348b85513cf7ae5074552dcd7aa42ec3:-2121072829,86b8011d0cb7ae50eac4f3efe7905a27:199561713,1d878959bbb7ae502a84d3a756b0943d:-1462147889,3457895948b7ae50c94379f9506f6612:-1689353255,46474159cdb7ae50aaa246832925ac35:-2086985078,72f68d19d9b7ae50e42cd4b7fe6ab5b5:-1689353255,68f6491913b7ae50213f0d4784d01172:-1258225136,8ed64919c6b7ae50876d13603007b85a:-1616719985,1fc68d957fb7ae504f257412bbb81787:-937402540,d9f5c9952ab7ae50cbe75b01eee15072:-766873702,e9d5499580b7ae5044934dc91bda7dae:-28497777,61958915b9b7ae50e670a061d04750e5:-1731819073</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Custome Data Table url">9c746cea87332a90b3fb021a0cbb35ea</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-08 03:49:29</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>2285562e765047889b42ac2e2418d691</sys_id>
+        <sys_metadata>ad95891587b7ae50b3fb021a0cbb35e2</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Custome Data Table url</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sp_widget_ad95891587b7ae50b3fb021a0cbb35e2</sys_update_name>
+        <sys_update_version display_value="sp_widget_ad95891587b7ae50b3fb021a0cbb35e2">b8e9695187fbae50b3fb021a0cbb3571</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-08 03:49:29</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

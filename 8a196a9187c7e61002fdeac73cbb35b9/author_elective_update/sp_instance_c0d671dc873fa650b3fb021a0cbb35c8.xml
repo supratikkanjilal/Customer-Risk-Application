@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">12b4b1d8873fa650b3fb021a0cbb357d</sp_column>
+        <sp_widget display_value="Data table with Filter">67a072d59361220064f572edb67ffb85</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 10:03:01</sys_created_on>
+        <sys_id>c0d671dc873fa650b3fb021a0cbb35c8</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sp_instance_c0d671dc873fa650b3fb021a0cbb35c8</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 10:03:24</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="DELETE" query="documentkey=c0d671dc873fa650b3fb021a0cbb35c8"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sp_instance_c0d671dc873fa650b3fb021a0cbb35c8</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance"><sp_instance action="INSERT_OR_UPDATE"><active>true</active><class_name/><color>default</color><css/><glyph/><id/><order>1</order><roles/><short_description/><size>md</size><sp_column display_value="1">12b4b1d8873fa650b3fb021a0cbb357d</sp_column><sp_widget display_value="Data table with Filter">67a072d59361220064f572edb67ffb85</sp_widget><sys_class_name>sp_instance</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-09-01 10:03:01</sys_created_on><sys_id>c0d671dc873fa650b3fb021a0cbb35c8</sys_id><sys_mod_count>1</sys_mod_count><sys_name/><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sp_instance_c0d671dc873fa650b3fb021a0cbb35c8</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-09-01 10:03:24</sys_updated_on><title/><url/><widget_parameters/></sp_instance><sys_translated_text action="delete_multiple" query="documentkey=c0d671dc873fa650b3fb021a0cbb35c8"/></record_update>]]></payload>
+        <payload_hash>1963464878</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>9a0c392b878ba650b3fb021a0cbb3575</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 10:03:24</sys_created_on>
+        <sys_id>6de679dc873fa650b3fb021a0cbb354b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19904bb3f090000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 10:03:24</sys_updated_on>
+        <type>Instance</type>
+        <update_guid>a1e679dc4a3fa65000fd8a6de8cd6c4b</update_guid>
+        <update_guid_history>a1e679dc4a3fa65000fd8a6de8cd6c4b:1963464878,c4d6b5dc4c3fa650043e308a286d2ca5:836088333</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">9be6b9dc873fa650b3fb021a0cbb3558</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-01 10:03:32</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance">sp_instance</sys_db_object>
+        <sys_id>2ae2faa3290b45ef90bf464e2c682c41</sys_id>
+        <sys_metadata>c0d671dc873fa650b3fb021a0cbb35c8</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sp_instance_c0d671dc873fa650b3fb021a0cbb35c8</sys_update_name>
+        <sys_update_version display_value="sp_instance_c0d671dc873fa650b3fb021a0cbb35c8">6de679dc873fa650b3fb021a0cbb354b</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-01 10:03:32</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

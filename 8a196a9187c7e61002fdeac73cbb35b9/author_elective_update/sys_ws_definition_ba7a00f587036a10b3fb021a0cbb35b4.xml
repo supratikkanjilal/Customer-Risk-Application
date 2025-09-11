@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_definition">
+    <sys_ws_definition action="DELETE">
+        <active>true</active>
+        <base_uri>/api/x_cpszo_spoke/simulate_crm_eligibility</base_uri>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_version>No active default version</default_version>
+        <doc_link/>
+        <enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl>
+        <is_versioned>false</is_versioned>
+        <name>SimulateCRMEligibility</name>
+        <namespace>x_cpszo_spoke</namespace>
+        <produces>application/json,application/xml,text/xml</produces>
+        <produces_customized>false</produces_customized>
+        <service_id>simulate_crm_eligibility</service_id>
+        <short_description/>
+        <sys_class_name>sys_ws_definition</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-07-30 11:14:10</sys_created_on>
+        <sys_id>ba7a00f587036a10b3fb021a0cbb35b4</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>SimulateCRMEligibility</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_update_name>sys_ws_definition_ba7a00f587036a10b3fb021a0cbb35b4</sys_update_name>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-07-30 11:14:10</sys_updated_on>
+    </sys_ws_definition>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</application>
+        <file_path/>
+        <instance_id>2baf7f71db9a0d1007072f17d496195c</instance_id>
+        <instance_name>capgeminipolskaspzoodemo11</instance_name>
+        <name>sys_ws_definition_ba7a00f587036a10b3fb021a0cbb35b4</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_definition"><sys_ws_definition action="INSERT_OR_UPDATE"><active>true</active><base_uri>/api/x_cpszo_spoke/simulate_crm_eligibility</base_uri><consumes>application/json,application/xml,text/xml</consumes><consumes_customized>false</consumes_customized><default_version>No active default version</default_version><doc_link/><enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl><is_versioned>false</is_versioned><name>SimulateCRMEligibility</name><namespace>x_cpszo_spoke</namespace><produces>application/json,application/xml,text/xml</produces><produces_customized>false</produces_customized><service_id>simulate_crm_eligibility</service_id><short_description/><sys_class_name>sys_ws_definition</sys_class_name><sys_created_by>brijesh.banerjee</sys_created_by><sys_created_on>2025-07-30 11:14:10</sys_created_on><sys_id>ba7a00f587036a10b3fb021a0cbb35b4</sys_id><sys_mod_count>0</sys_mod_count><sys_name>SimulateCRMEligibility</sys_name><sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package><sys_policy/><sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope><sys_update_name>sys_ws_definition_ba7a00f587036a10b3fb021a0cbb35b4</sys_update_name><sys_updated_by>brijesh.banerjee</sys_updated_by><sys_updated_on>2025-07-30 11:14:10</sys_updated_on></sys_ws_definition></record_update>]]></payload>
+        <payload_hash>867897012</payload_hash>
+        <record_name>SimulateCRMEligibility</record_name>
+        <reverted_from/>
+        <source>92196a9187c7e61002fdeac73cbb35bc</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-07-30 11:14:10</sys_created_on>
+        <sys_id>e0aa04f587036a10b3fb021a0cbb35be</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1985b0a2f3c0000001</sys_recorded_at>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-07-30 11:14:10</sys_updated_on>
+        <type>Scripted REST API</type>
+        <update_guid>a4aa04f510036a108998e9483e440abd</update_guid>
+        <update_guid_history>a4aa04f510036a108998e9483e440abd:867897012</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>brijesh.banerjee</sys_created_by>
+        <sys_created_on>2025-09-09 09:13:15</sys_created_on>
+        <sys_db_object display_value="" name="sys_ws_definition">sys_ws_definition</sys_db_object>
+        <sys_id>8ee26aef974b409593f9477324eba841</sys_id>
+        <sys_metadata>ba7a00f587036a10b3fb021a0cbb35b4</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>SimulateCRMEligibility</sys_name>
+        <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
+        <sys_scope_delete display_value="">244a12c00e714612af9745888ca7e024</sys_scope_delete>
+        <sys_update_name>sys_ws_definition_ba7a00f587036a10b3fb021a0cbb35b4</sys_update_name>
+        <sys_update_version display_value="sys_ws_definition_ba7a00f587036a10b3fb021a0cbb35b4">e0aa04f587036a10b3fb021a0cbb35be</sys_update_version>
+        <sys_updated_by>brijesh.banerjee</sys_updated_by>
+        <sys_updated_on>2025-09-09 09:13:15</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
