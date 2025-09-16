@@ -67,7 +67,7 @@
         <period>7d</period>
         <pivot_breakdown/>
         <pivot_elements_filter/>
-        <related_dashboards>0</related_dashboards>
+        <related_dashboards>1</related_dashboards>
         <score_font_size>responsive</score_font_size>
         <scorecard_options>all</scorecard_options>
         <show_bar>false</show_bar>
@@ -96,7 +96,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>3d00c8f28763e61002fdeac73cbb3549</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>Reminder Sent Today</sys_name>
         <sys_overrides/>
         <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
@@ -104,7 +104,7 @@
         <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
         <sys_update_name>pa_widgets_3d00c8f28763e61002fdeac73cbb3549</sys_update_name>
         <sys_updated_by>brijesh.banerjee</sys_updated_by>
-        <sys_updated_on>2025-08-27 09:34:52</sys_updated_on>
+        <sys_updated_on>2025-09-15 14:03:56</sys_updated_on>
         <tag/>
         <template>template2</template>
         <treemap_max_color display_value="Green">65b302aea9fe3dba00a530d65ecc2106</treemap_max_color>

@@ -16,6 +16,7 @@
         </element>
         <element label="Acceptance Date" max_length="40" name="acceptance_date" type="glide_date_time"/>
         <element label="Installment Amount" max_length="20" name="installment_amount" type="currency"/>
+        <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
         <element display="true" label="Number" max_length="32" name="number" reference="x_cpszo_spoke_customer_profile" reference_qual="answer = '';&#13;&#10;if (current &amp;&amp; current.number)&#13;&#10;  answer = 'number=' + current.number;&#13;&#10;" reference_qual_condition="answer = '';&#13;&#10;if (current &amp;&amp; current.number)&#13;&#10;  answer = 'number=' + current.number;" type="reference" use_dynamic_default="true"/>
         <element choice="1" label="Delinquency Status" max_length="40" name="delinquency_status" type="choice">
             <choice>
@@ -26,6 +27,9 @@
         </element>
         <index name="index">
             <element name="number"/>
+        </index>
+        <index name="index2">
+            <element name="sys_class_name"/>
         </index>
     </element>
 </database>

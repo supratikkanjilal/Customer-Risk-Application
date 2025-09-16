@@ -20,7 +20,7 @@
         <column_target>false</column_target>
         <column_trend>true</column_trend>
         <compare_main_label/>
-        <compare_number_of_periods>2</compare_number_of_periods>
+        <compare_number_of_periods/>
         <compare_period>year</compare_period>
         <cube_facts_table>x_cpszo_spoke_customer_profile</cube_facts_table>
         <cutoff>1</cutoff>
@@ -53,11 +53,11 @@
         <indicator display_value="High Risk Count">984bc79487eb6ad0b3fb021a0cbb35f5</indicator>
         <is_compare_chart>false</is_compare_chart>
         <lastscore_compare>previous_score</lastscore_compare>
-        <lastscore_periods_back>1</lastscore_periods_back>
+        <lastscore_periods_back/>
         <limit>50</limit>
         <lookup_name/>
         <manual_elements>false</manual_elements>
-        <max_color display_value="Green">65b302aea9fe3dba00a530d65ecc2106</max_color>
+        <max_color/>
         <multiple_elements_view/>
         <name>High Risk Count Trend</name>
         <no_bulk_migration>false</no_bulk_migration>
@@ -83,7 +83,7 @@
         <show_on_click_link_label>true</show_on_click_link_label>
         <show_range_selector>false</show_range_selector>
         <show_target>false</show_target>
-        <show_top_x>10</show_top_x>
+        <show_top_x/>
         <show_total>false</show_total>
         <show_trend>true</show_trend>
         <show_visualization_selector>true</show_visualization_selector>
@@ -96,7 +96,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>b702f109872baed0b3fb021a0cbb3570</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>High Risk Count Trend</sys_name>
         <sys_overrides/>
         <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
@@ -104,7 +104,7 @@
         <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
         <sys_update_name>pa_widgets_b702f109872baed0b3fb021a0cbb3570</sys_update_name>
         <sys_updated_by>brijesh.banerjee</sys_updated_by>
-        <sys_updated_on>2025-08-27 10:02:29</sys_updated_on>
+        <sys_updated_on>2025-09-11 12:19:37</sys_updated_on>
         <tag/>
         <template>template1</template>
         <treemap_max_color display_value="Green">65b302aea9fe3dba00a530d65ecc2106</treemap_max_color>

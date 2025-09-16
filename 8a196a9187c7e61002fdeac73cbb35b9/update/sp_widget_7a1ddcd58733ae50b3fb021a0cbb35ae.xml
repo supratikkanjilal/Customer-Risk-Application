@@ -5,28 +5,12 @@
   var c = this;
 
   c.createOffer = function() {
-    var params = new URLSearchParams(window.location.search);
-    var borrowerNumber = params.get('number');   // e.g., CUST0001005
-    var sourceSysId    = params.get('sys_id');   // e.g., 05645fd4872b2ed002fdeac73cbb3525
-
-    // Target: platform form for a new record in x_cpszo_spoke_offer_tracker
-    var url = '/x_cpszo_spoke_offer_tracker.do?sys_id=-1';
-
-    // Prefill the reference field to CustomerProfile using sys_id
-    // Replace 'u_customer_profile' with the actual reference field name in your Offer Tracker table
-    if (sourceSysId) {
-      url += '&sysparm_default_value_u_customer_profile=' + encodeURIComponent(sourceSysId);
-    }
-
-    // Optional: pass borrowerNumber as a string field if needed for display or logic
-    // Replace 'u_customer_number' with actual string field name if it exists
-    if (borrowerNumber) {
-      url += '&sysparm_default_value_u_customer_number=' + encodeURIComponent(borrowerNumber);
-    }
-
-    // Open in a new tab
-    window.open(url, '_blank');
+    window.open('/x_cpszo_spoke_offer_tracker.do?sys_id=-1', '_blank');
   };
+	if (window.opener) {
+  window.opener.location.href = '/credit_ops'; // Redirect original tab
+  window.close(); // Close current tab
+}
 
   c.createReminder = function() {
     window.open('/x_cpszo_spoke_reminder_log_list.do', '_blank');
@@ -98,16 +82,16 @@
         <sys_created_by>brijesh.banerjee</sys_created_by>
         <sys_created_on>2025-09-04 06:05:01</sys_created_on>
         <sys_id>7a1ddcd58733ae50b3fb021a0cbb35ae</sys_id>
-        <sys_mod_count>79</sys_mod_count>
+        <sys_mod_count>86</sys_mod_count>
         <sys_name>borrower action button</sys_name>
         <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
         <sys_policy/>
         <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
         <sys_update_name>sp_widget_7a1ddcd58733ae50b3fb021a0cbb35ae</sys_update_name>
         <sys_updated_by>brijesh.banerjee</sys_updated_by>
-        <sys_updated_on>2025-09-09 08:34:42</sys_updated_on>
+        <sys_updated_on>2025-09-12 10:39:35</sys_updated_on>
         <template><![CDATA[<div class="panel panel-default p-3">
-  <button class="btn btn-primary m-1" ng-click="c.createOffer()">Create Offer</button>
+  <button class="btn btn-primary m-1" ng-click="c.createOffer()">Accept Offer</button>
   <button class="btn btn-warning m-1" ng-click="c.createReminder()">Create Reminder</button>
 </div>
 ]]></template>

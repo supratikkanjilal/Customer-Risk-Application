@@ -50,7 +50,7 @@
         <include_target>false</include_target>
         <include_thresholds>false</include_thresholds>
         <include_trend>false</include_trend>
-        <indicator display_value="Risk Band Distribution">59a589b487a72ed0b3fb021a0cbb3532</indicator>
+        <indicator display_value="Risk Band Distribution (High, Medium, Low)">6500078587007ed0b3fb021a0cbb3548</indicator>
         <is_compare_chart>false</is_compare_chart>
         <lastscore_compare>previous_score</lastscore_compare>
         <lastscore_periods_back/>
@@ -59,7 +59,7 @@
         <manual_elements>false</manual_elements>
         <max_color/>
         <multiple_elements_view/>
-        <name>Risk Band Distribution Do-nut</name>
+        <name>Risk Band Distribution</name>
         <no_bulk_migration>false</no_bulk_migration>
         <number_of_records>5</number_of_records>
         <overlap_data_labels>false</overlap_data_labels>
@@ -67,7 +67,7 @@
         <period>7d</period>
         <pivot_breakdown/>
         <pivot_elements_filter/>
-        <related_dashboards>0</related_dashboards>
+        <related_dashboards>1</related_dashboards>
         <score_font_size>responsive</score_font_size>
         <scorecard_options>all</scorecard_options>
         <show_bar>false</show_bar>
@@ -87,24 +87,24 @@
         <show_total>false</show_total>
         <show_trend>true</show_trend>
         <show_visualization_selector>true</show_visualization_selector>
-        <sort_direction>desc</sort_direction>
+        <sort_direction>asc</sort_direction>
         <sort_on>value</sort_on>
         <subtitle/>
         <sys_class_name>pa_widgets</sys_class_name>
         <sys_created_by>brijesh.banerjee</sys_created_by>
-        <sys_created_on>2025-08-27 09:54:04</sys_created_on>
+        <sys_created_on>2025-09-16 09:34:03</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>ae74043e8763e61002fdeac73cbb3548</sys_id>
-        <sys_mod_count>3</sys_mod_count>
-        <sys_name>Risk Band Distribution Do-nut</sys_name>
+        <sys_id>f9004bc587007ed0b3fb021a0cbb35cc</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Risk Band Distribution</sys_name>
         <sys_overrides/>
         <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
         <sys_policy/>
         <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
-        <sys_update_name>pa_widgets_ae74043e8763e61002fdeac73cbb3548</sys_update_name>
+        <sys_update_name>pa_widgets_f9004bc587007ed0b3fb021a0cbb35cc</sys_update_name>
         <sys_updated_by>brijesh.banerjee</sys_updated_by>
-        <sys_updated_on>2025-09-16 09:34:47</sys_updated_on>
+        <sys_updated_on>2025-09-16 09:37:45</sys_updated_on>
         <tag/>
         <template>template1</template>
         <treemap_max_color display_value="Green">65b302aea9fe3dba00a530d65ecc2106</treemap_max_color>
@@ -119,5 +119,5 @@
         <yaxis_title/>
         <yaxis_to/>
     </pa_widgets>
-    <sys_translated_text action="delete_multiple" query="documentkey=ae74043e8763e61002fdeac73cbb3548"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=f9004bc587007ed0b3fb021a0cbb35cc"/>
 </record_update>
