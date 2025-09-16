@@ -20,7 +20,7 @@
         <column_target>false</column_target>
         <column_trend>true</column_trend>
         <compare_main_label/>
-        <compare_number_of_periods>2</compare_number_of_periods>
+        <compare_number_of_periods/>
         <compare_period>year</compare_period>
         <cube_facts_table>x_cpszo_spoke_customer_profile</cube_facts_table>
         <cutoff>1</cutoff>
@@ -53,13 +53,13 @@
         <indicator display_value="High Risk Count">984bc79487eb6ad0b3fb021a0cbb35f5</indicator>
         <is_compare_chart>false</is_compare_chart>
         <lastscore_compare>previous_score</lastscore_compare>
-        <lastscore_periods_back>1</lastscore_periods_back>
+        <lastscore_periods_back/>
         <limit>50</limit>
         <lookup_name/>
         <manual_elements>false</manual_elements>
-        <max_color display_value="Green">65b302aea9fe3dba00a530d65ecc2106</max_color>
+        <max_color/>
         <multiple_elements_view/>
-        <name>High Risk Today</name>
+        <name>High Risk Customer</name>
         <no_bulk_migration>false</no_bulk_migration>
         <number_of_records>5</number_of_records>
         <overlap_data_labels>false</overlap_data_labels>
@@ -83,12 +83,12 @@
         <show_on_click_link_label>true</show_on_click_link_label>
         <show_range_selector>false</show_range_selector>
         <show_target>false</show_target>
-        <show_top_x>10</show_top_x>
+        <show_top_x/>
         <show_total>false</show_total>
         <show_trend>true</show_trend>
         <show_visualization_selector>true</show_visualization_selector>
         <sort_direction>asc</sort_direction>
-        <sort_on>default</sort_on>
+        <sort_on>value</sort_on>
         <subtitle/>
         <sys_class_name>pa_widgets</sys_class_name>
         <sys_created_by>brijesh.banerjee</sys_created_by>
@@ -96,15 +96,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>ba4f3fa28763e61002fdeac73cbb35e7</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_name>High Risk Today</sys_name>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>High Risk Customer</sys_name>
         <sys_overrides/>
         <sys_package display_value="Spoke" source="x_cpszo_spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_package>
         <sys_policy/>
         <sys_scope display_value="Spoke">8a196a9187c7e61002fdeac73cbb35b9</sys_scope>
         <sys_update_name>pa_widgets_ba4f3fa28763e61002fdeac73cbb35e7</sys_update_name>
         <sys_updated_by>brijesh.banerjee</sys_updated_by>
-        <sys_updated_on>2025-08-27 09:32:25</sys_updated_on>
+        <sys_updated_on>2025-09-15 14:14:49</sys_updated_on>
         <tag/>
         <template>template2</template>
         <treemap_max_color display_value="Green">65b302aea9fe3dba00a530d65ecc2106</treemap_max_color>
